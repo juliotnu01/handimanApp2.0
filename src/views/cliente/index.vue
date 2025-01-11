@@ -146,6 +146,35 @@
                     <div class="sticky top-0 left-0 bg-white z-10 px-2 flex justify-between">
                         <p class="font-bold">Servicios</p>
                     </div>
+
+                    <div class="flex space-x-4 mt-2">
+                        <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services" :key="service.id">
+                            <div class="w-40 h-46 bg-gray-400 flex items-center justify-center text-[10px] shrink-0">
+                                <img :src="service.image" alt="">
+                            </div>
+                            <div class="flex flex-col justify-between p-2">
+                                <div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Nuevo</span>
+                                        <span class="bg-green-200 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Oferta</span>
+                                        <span class="bg-red-200 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Popular</span>
+                                        <span class="bg-purple-200 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Categoría</span>
+                                    </div>
+                                    <p class="font-bold text-wrap mt-2">{{ service.title }}</p>
+                                    <p class="text-sm line-clamp-3">{{ service.description }}</p>
+                                </div>
+                                <div class="flex flex-col justify-between items-center">
+                                    <p class="text-lg font-bold text-gray-800 line-clamp-1">{{ service.price }}</p>
+                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                                        <svg width="20px" height="20px" viewBox="0 0 1024 1024">
+                                            <path fill="#fff" d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z"/>
+                                        </svg>
+                                        Agregar al carrito
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- fin servicios -->
             </ion-content>
@@ -446,6 +475,78 @@ const items = [
     },
 ];
 
+const services = [
+    {
+        id: 1,
+        title: 'Servicio 1',
+        description: 'Description 1',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 2,
+        title: 'Servicio 2',
+        description: 'Description 2',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 3,
+        title: 'Servicio 3',
+        description: 'Description 3',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 4,
+        title: 'Servicio 4',
+        description: 'Description 4',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 5,
+        title: 'Servicio 5',
+        description: 'Description 5',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 6,
+        title: 'Servicio 6',
+        description: 'Description 6',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 7,
+        title: 'Servicio 7',
+        description: 'Description 7',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 8,
+        title: 'Servicio 8',
+        description: 'Description 8',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 9,
+        title: 'Servicio 9',
+        description: 'Description 9',
+        price: '$999.999,99',
+        image: '#',
+    },
+    {
+        id: 10,
+        title: 'Servicio 10',
+        description: 'Description 10',
+        price: '$999.999,99',
+        image: '#',
+    },
+];
 
 const openMenuIzquierda = async () => {
     await menuController.open('menu-izquierda');
