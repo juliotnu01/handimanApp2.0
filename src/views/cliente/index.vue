@@ -35,10 +35,11 @@
                     </div>
                 </div>
                 <!-- fin menu superior -->
+                <!-- categorias -->
                 <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
                     <div class="sticky top-0 left-0 bg-white z-10 px-2 flex justify-between">
                         <p class="font-bold">Categorías</p>
-                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center " >
+                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
                             <g id="style=fill">
                                 <g id="filter-circle">
                                     <path id="vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd"
@@ -69,23 +70,84 @@
                             <img :src="item.image" alt="">
                         </div>
                     </div>
-                </div>       
+                </div>
+                <!-- fin categorias -->
+                <!-- productos -->
                 <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
                     <div class="sticky top-0 left-0 bg-white z-10 px-2 flex justify-between">
                         <p class="font-bold">Productos</p>
                     </div>
                     <div class="flex space-x-4 mt-2">
-                        <div class="bg-red-200 w-full break-words text-wrap  "   v-for="n in 10" :key="n" >
-                            <div class="w-64 h-64 bg-gray-200 flex items-center justify-center text-[10px] shrink-0">
+                        <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative" v-for="n in 10"
+                            :key="n">
+                            <div class="w-60 h-60 bg-gray-400 flex items-center justify-center text-[10px] shrink-0 ">
                                 <img src="https://via.placeholder.com/150" alt="">
                             </div>
+                            <div class="absolute top-2 right-2 flex flex-col gap-2">
+                                <button class=" px-2  rounded-lg flex items-center">
+                                    <svg width="40px" height="40px" viewBox="0 0 24 24" fill="#000">
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                </button>
+                                <button class=" px-2 rounded-lg flex items-center">
+                                    <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none">
+                                        <path
+                                            d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
+                                            stroke="#000" stroke-width="2" />
+                                        <path
+                                            d="M6.94975 7.05025C9.68342 4.31658 14.1156 4.31658 16.8492 7.05025L18.9706 9.17157C20.3039 10.5049 20.9706 11.1716 20.9706 12C20.9706 12.8284 20.3039 13.4951 18.9706 14.8284L16.8492 16.9497C14.1156 19.6834 9.68342 19.6834 6.94975 16.9497L4.82843 14.8284C3.49509 13.4951 2.82843 12.8284 2.82843 12C2.82843 11.1716 3.49509 10.5049 4.82843 9.17157L6.94975 7.05025Z"
+                                            stroke="#000" stroke-width="2" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-2 p-2">
+                                    <span
+                                        class="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Nuevo</span>
+                                    <span
+                                        class="bg-green-200 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Oferta</span>
+                                    <span
+                                        class="bg-red-200 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Popular</span>
+                                    <span
+                                        class="bg-purple-200 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Categoría</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center self-center px-1">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#000">
+                                    <path
+                                        d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                                </svg>
+                                <span class="ml-1 text-sm font-semibold">4.9 (1.2K+ reviews)</span>
+                            </div>
                             <div class="p-2">
-                                <p class="font-bold">Producto</p>
-                                <p class="text-sm">Descripción del producto</p>
+                                <p class="font-bold text-wrap">Producto </p>
+                                <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                    elit...</p>
+                            </div>
+                            <div class="px-2 flex justify-between gap-2 ">
+                                <p class="text-lg font-bold text-gray-800 line-clamp-1">$999.999,99</p>
+                                <p class="text-sm line-through text-gray-500 self-center line-clamp-1">$199.999,99</p>
+                            </div>
+                            <div class="flex justify-center items-center p-2">
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                                    <svg width="20px" height="20px" viewBox="0 0 1024 1024">
+                                        <path fill="#fff"
+                                            d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z" />
+                                    </svg>
+                                    Agregar al carrito
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>       
+                </div>
+                <!-- fin productos -->
+                <!-- servicios -->
+                <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2" >
+                    <div class="sticky top-0 left-0 bg-white z-10 px-2 flex justify-between">
+                        <p class="font-bold">Servicios</p>
+                    </div>
+                </div>
+                <!-- fin servicios -->
             </ion-content>
         </ion-page>
         <ion-menu menu-id="menu-derecha" content-id="main-content-cliente" side="end">
