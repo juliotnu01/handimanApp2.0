@@ -34,6 +34,27 @@
                         <span class="text-xl text-gray-700 font-bold" @click="openMenuDerecha">JN</span>
                     </div>
                 </div>
+                <div class="justify-end flex px-2 gap-2">
+                    <p class="text-[12px] text-wrap">
+                        Urb. la rotaria calle 89 av 110, #109-57, Maracaibo, Zulia
+                    </p>
+                    <svg width="15px" height="15px" viewBox="0 0 8.4666669 8.4666669" id="svg8" version="1.1"
+                        class="self-center">
+
+                        <defs id="defs2" />
+
+                        <g id="layer1" transform="translate(0,-288.53332)">
+
+                            <path
+                                d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z"
+                                id="path929"
+                                style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+                                transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)" />
+
+                        </g>
+
+                    </svg>
+                </div>
                 <!-- fin menu superior -->
                 <!-- categorias -->
                 <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
@@ -78,10 +99,10 @@
                         <p class="font-bold">Productos</p>
                     </div>
                     <div class="flex space-x-4 mt-2">
-                        <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative" v-for="n in 10"
-                            :key="n">
+                        <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative"
+                            v-for="n in 10" :key="n">
                             <div class="w-60 h-60 bg-gray-400 flex items-center justify-center text-[10px] shrink-0 ">
-                                <img src="https://via.placeholder.com/150" alt="">
+                                <img src="https://picsum.photos/200/300" alt="" class="w-full h-full object-cover">
                             </div>
                             <div class="absolute top-2 right-2 flex flex-col gap-2">
                                 <button class=" px-2  rounded-lg flex items-center">
@@ -89,14 +110,14 @@
                                         <circle cx="12" cy="12" r="10" />
                                     </svg>
                                 </button>
-                                <button class=" px-2 rounded-lg flex items-center">
-                                    <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none">
+                                <button class=" px-2 rounded-lg flex items-center" @click="setOpen(true)">
+                                    <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" class="">
                                         <path
                                             d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
-                                            stroke="#000" stroke-width="2" />
+                                            stroke="currentColor" stroke-width="2" />
                                         <path
                                             d="M6.94975 7.05025C9.68342 4.31658 14.1156 4.31658 16.8492 7.05025L18.9706 9.17157C20.3039 10.5049 20.9706 11.1716 20.9706 12C20.9706 12.8284 20.3039 13.4951 18.9706 14.8284L16.8492 16.9497C14.1156 19.6834 9.68342 19.6834 6.94975 16.9497L4.82843 14.8284C3.49509 13.4951 2.82843 12.8284 2.82843 12C2.82843 11.1716 3.49509 10.5049 4.82843 9.17157L6.94975 7.05025Z"
-                                            stroke="#000" stroke-width="2" stroke-linejoin="round" />
+                                            stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
                                     </svg>
                                 </button>
                             </div>
@@ -142,34 +163,72 @@
                 </div>
                 <!-- fin productos -->
                 <!-- servicios -->
-                <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2" >
+                <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
                     <div class="sticky top-0 left-0 bg-white z-10 px-2 flex justify-between">
                         <p class="font-bold">Servicios</p>
                     </div>
 
                     <div class="flex space-x-4 mt-2">
-                        <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services" :key="service.id">
+                        <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services"
+                            :key="service.id">
                             <div class="w-40 h-46 bg-gray-400 flex items-center justify-center text-[10px] shrink-0">
                                 <img :src="service.image" alt="">
                             </div>
-                            <div class="flex flex-col justify-between p-2">
+                            <div class="flex flex-col justify-between p-2  max-w-[60%]">
                                 <div>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Nuevo</span>
-                                        <span class="bg-green-200 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Oferta</span>
-                                        <span class="bg-red-200 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Popular</span>
-                                        <span class="bg-purple-200 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl">Categoría</span>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-wrap line-clamp-2 font-bold text-[18px]">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                        </p>
+                                        <div
+                                            class="bg-purple-200 shadow-sm text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                            1.8 km
+                                        </div>
                                     </div>
-                                    <p class="font-bold text-wrap mt-2">{{ service.title }}</p>
-                                    <p class="text-sm line-clamp-3">{{ service.description }}</p>
-                                </div>
-                                <div class="flex flex-col justify-between items-center">
-                                    <p class="text-lg font-bold text-gray-800 line-clamp-1">{{ service.price }}</p>
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                                        <svg width="20px" height="20px" viewBox="0 0 1024 1024">
-                                            <path fill="#fff" d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z"/>
+                                    <div class="flex items-start my-[5px] self-center text-[12px] ">
+                                        <svg width="15px" height="15px" viewBox="0 0 24 24" fill="#000">
+                                            <path
+                                                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                                         </svg>
-                                        Agregar al carrito
+                                        <span class="ml-1  font-semibold">4.9 (1.2K+ reviews)</span>
+                                    </div>
+                                    <p class="text-sm line-clamp-3 text-wrap"> Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Quas exercitationem fugit deserunt laudantium minima hic
+                                        quisquam, quis incidunt optio quo nesciunt repellendus sed. Laboriosam, facere!
+                                        Quibusdam recusandae minus delectus nemo.</p>
+                                    <div class="flex flex-wrap gap-2 my-1 ">
+                                        <span
+                                            class="bg-blue-200 text-blue-800 text-xs font-semibold mr-1 px-1.5 py-0.5 rounded-2xl">Nuevo</span>
+                                        <span
+                                            class="bg-green-200 text-green-800 text-xs font-semibold mr-1 px-1.5 py-0.5 rounded-2xl">Oferta</span>
+                                        <span
+                                            class="bg-red-200 text-red-800 text-xs font-semibold mr-1 px-1.5 py-0.5 rounded-2xl">Popular</span>
+                                        <span
+                                            class="bg-purple-200 text-purple-800 text-xs font-semibold mr-1 px-1.5 py-0.5 rounded-2xl">Categoría</span>
+                                    </div>
+                                </div>
+                                <div class="flex  justify-between items-center my-1">
+                                    <p class="text-sm font-bold text-gray-800 line-clamp-1">{{ service.price }}</p>
+                                    <p class=" text-[12px] line-through text-gray-500 self-center line-clamp-1">
+                                        $199.999,99</p>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                                        <svg fill="#fff" width="20px" height="20px" viewBox="0 0 96 96">
+
+                                            <title />
+
+                                            <g>
+
+                                                <path
+                                                    d="M43.7578,61.7578a5.9994,5.9994,0,1,0,8.4844,8.4844l18-18a5.9979,5.9979,0,0,0,0-8.4844l-18-18a5.9994,5.9994,0,0,0-8.4844,8.4844L51.5156,42H6A6,6,0,0,0,6,54H51.5156Z" />
+
+                                                <path
+                                                    d="M90,0H30a5.9966,5.9966,0,0,0-6,6V18a6,6,0,0,0,12,0V12H84V84H36V78a6,6,0,0,0-12,0V90a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V6A5.9966,5.9966,0,0,0,90,0Z" />
+
+                                            </g>
+
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -177,6 +236,50 @@
                     </div>
                 </div>
                 <!-- fin servicios -->
+
+                <!-- modal productos -->
+                <ion-modal :is-open="isOpen" class="   " :initial-breakpoint="0.95" :breakpoints="[0.95]">
+                    <ion-header class=" shadow-none ">
+                        <div>
+                            <button class=" m-4 border-[1px] border-solid  rounded-full w-10 h-10 text-center "
+                                @click="setOpen(false)">
+                                x
+                            </button>
+                        </div>
+                    </ion-header>
+                    <ion-content class="ion-padding  ">
+                        <div class="h-full w-full shadow-2xl rounded-2xl border-solid border-[1px]  ">
+                            <div class=" h-2/5 rounded-2xl flex flex-col gap-4">
+                                <Swiper class="h-full w-full rounded-t-2xl" :slides-per-view="1" :space-between="50"
+                                    :pagination="{ clickable: true }"
+                                    :navigation="{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }"
+                                    :modules="[Thumbs]" :thumbs="{ swiper: thumbsSwiper }">
+                                    <SwiperSlide v-for="n in 10" :key="n">
+                                        <div
+                                            class="w-full h-full bg-gray-400 flex items-center justify-center text-[10px] shrink-0">
+                                            <img src="https://picsum.photos/200/300" alt=""
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                    </SwiperSlide>
+                                </Swiper>
+                                <div>
+                                    <swiper :modules="[Thumbs]" watch-slides-progress @swiper="setThumbsSwiper"
+                                        slides-per-view="4" space-between="10">
+                                        <SwiperSlide v-for="n in 10" :key="n">
+                                            <div
+                                                class="w-20 h-20 bg-gray-400 flex items-center justify-center text-[10px] shrink-0">
+                                                <img src="https://picsum.photos/200/300" alt=""
+                                                    class="w-full h-full object-cover">
+                                            </div>
+                                        </SwiperSlide>
+                                    </swiper>
+                                </div>
+
+                            </div>
+                        </div>
+                    </ion-content>
+                </ion-modal>
+                <!-- fin modal productos -->
             </ion-content>
         </ion-page>
         <ion-menu menu-id="menu-derecha" content-id="main-content-cliente" side="end">
@@ -211,11 +314,18 @@ import {
     IonLabel,
     menuController,
     IonButton,
+    IonModal
     // IonTitle,
     // IonToolbar,
 } from '@ionic/vue';
-
+import { ref } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Thumbs } from 'swiper/modules';
+
+const thumbsSwiper = ref(null);
+const setThumbsSwiper = (swiper) => {
+    thumbsSwiper.value = swiper;
+};
 
 const items = [
     {
@@ -547,6 +657,25 @@ const services = [
         image: '#',
     },
 ];
+// Navigation configuration for Swiper
+const navigation = {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+};
+
+// Additional styling for thumbnails (optional)
+const thumbnailStyle = {
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover',
+    borderRadius: '5px',
+    marginBottom: '10px',
+};
+
+
+const isOpen = ref(false);
+
+const setOpen = (open) => (isOpen.value = open);
 
 const openMenuIzquierda = async () => {
     await menuController.open('menu-izquierda');
