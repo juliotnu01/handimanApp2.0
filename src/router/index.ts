@@ -5,7 +5,7 @@ import HomePage from "../views/HomePage.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/cliente",
+    redirect: "/cliente/homeionic",
   },
   {
     path: "/home",
@@ -16,6 +16,13 @@ const routes: Array<RouteRecordRaw> = [
     path: "/cliente",
     name: "cliente",
     component: () => import("../views/cliente/index.vue"),
+    children: [
+      {
+        path: "home",
+        name: "cliente-home",
+        component: () => import("../views/cliente/home/index.vue"),
+      }
+    ],
   },
 ];
 

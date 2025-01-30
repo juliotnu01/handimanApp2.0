@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import { createPinia } from 'pinia'
 
 import { IonicVue } from "@ionic/vue";
 
@@ -41,7 +42,10 @@ import 'swiper/css/thumbs';
 import "./theme/variables.css";
 
 const app = createApp(App).use(IonicVue).use(router);
+const pinia = createPinia();
 
 router.isReady().then(() => {
-  app.mount("#app");
+  app
+  .use(pinia)
+  .mount("#app");
 });
