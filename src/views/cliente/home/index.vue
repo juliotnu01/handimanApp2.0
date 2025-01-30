@@ -269,46 +269,24 @@ import {
     IonPage
 } from '@ionic/vue';
 import { ref } from 'vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Thumbs } from 'swiper/modules';
+import { storeToRefs } from 'pinia';
 
-const range = ref({ lower: 20, upper: 9999999 });
-const hasOffer = ref(false);
-const hasOfferReseña = ref(false);
-const searchQuery = ref('');
+import { useHomeStore } from '@/stores/cliente/homeStore';
 
-const services = Array.from({ length: 10 }, (_, i) => ({
-    title: `Item ${i + 1}`,
-    description: `Description ${i + 1}`,
-    image: `https://picsum.photos/200/300?random=${i + 1}`,
-    price: `$${Math.floor(Math.random() * 10000)}.${Math.floor(Math.random() * 100)}`,
-}));
+const homeStore = useHomeStore();
+const {
+    handleSearchInput,
+    setOpenFilter,
+    clearSearchQuery,
+    setOpen,
+} = homeStore;
+const {
+    services,
+    items,
+    searchQuery,
+} = storeToRefs(homeStore);
 
-const items = Array.from({ length: 10 }, (_, i) => ({
-    title: Array.from({ length: Math.floor(Math.random() * 1) + 1 }, () => Math.random().toString(36).substring(2, 7)).join(' '),
-    description: `Description ${i + 1}`,
-    image: `https://picsum.photos/200/300?random=${i + 1}`,
-}));
-
-// Modal and Swiper logic
-const isOpen = ref(false); // State for modal visibility
-const isOpenFilter = ref(false); // State for modal visibility
-const setOpen = (open) => (isOpen.value = open);
-const handleSearchInput = (event) => {
-    searchQuery.value = event.target.value; // Actualiza el valor de búsqueda
-};
 
 </script>
 
-<style scoped>
-ion-searchbar {
-    --background:   white;
-    --border-radius: 8px;
-    --border: 1px solid #e2e8f0;
-    --padding-start: 8px;
-    --padding-end: 8px;
-    --icon-color: #4b5563;
-    --placeholder-color: #9ca3af;
-    --color: #1f2937;
-}
-</style>
+<style scoped></style>

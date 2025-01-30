@@ -40,7 +40,6 @@
         </ion-header>
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
             <ion-content class="ion-padding">
-
                 <ion-list>
                     <ion-item>
                         <ion-label>Home</ion-label>
@@ -52,17 +51,16 @@
                         <ion-label>Logout</ion-label>
                     </ion-item>
                 </ion-list>
-
             </ion-content>
         </ion-menu>
         <ion-content class="scrollable" id="main-content-cliente">
             <ion-router-outlet />
             <!-- modal productos -->
-            <ion-modal :is-open="isOpen" :initial-breakpoint="1" :breakpoints="[1]" :backdropDismiss="false">
+            <ion-modal :is-open="isOpenComputed" :initial-breakpoint="1" :breakpoints="[1]" :backdropDismiss="false">
                 <ion-header class="shadow-none">
                     <div>
                         <button class="m-4 border-[1px] border-solid rounded-full w-10 h-10 text-center"
-                            @click="closeModal">
+                            @click="closeModal(false)">
                             x
                         </button>
                     </div>
@@ -222,7 +220,7 @@
             </ion-modal>
             <!-- fin modal productos -->
             <!-- modal filtros -->
-            <ion-modal :is-open="isOpenFilter" :initial-breakpoint="0.55" :breakpoints="[0.55]"
+            <ion-modal :is-open="isOpenFilterComputed" :initial-breakpoint="0.55" :breakpoints="[0.55]"
                 :backdropDismiss="false">
                 <ion-header class="shadow-none ion-padding mb-0 pb-0">
                     <div class="flex justify-between">
@@ -404,30 +402,49 @@ import {
     IonRefresher,
     IonFooter,
 } from '@ionic/vue';
-import { ref } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { computed } from 'vue';
 
 // stores 
 import { useClienteStore } from '@/stores/cliente/clienteStore';
+import { useHomeStore } from '@/stores/cliente/homeStore';
 import { storeToRefs } from 'pinia';
 const clienteStore = useClienteStore();
+const homeStore = useHomeStore();
 
+// cliente
 const { openMenuIzquierda,
     openMenuDerecha,
-    setOpen,
     setOpenFilter,
     pinFormatter,
-    closeModal,
-    closeModalFilter } = clienteStore;
+    handleUpperChange,
+    handleReviewChange,
+    handleLowerChange,
+    handleOfferChange } = clienteStore;
 const {
     direcciones,
     selectedDireccion,
     range,
     hasOffer,
     hasOfferReseña,
-    services,
-    items,
-    isOpen,
-    isOpenFilter,
+    hasReview,
 } = storeToRefs(clienteStore);
+
+
+// home
+const { closeModalFilter, closeModal } = homeStore;
+const { isOpenFilter, isOpen, services, items, } = storeToRefs(homeStore);
+
+const isOpenFilterComputed = computed({
+    get() { return isOpenFilter.value; },
+    set(value) { isOpenFilter.value = value; }
+});
+
+const isOpenComputed = computed({
+    get() { return isOpen.value; },
+    set(value) { isOpen.value = value; }
+});
+
+
+
 </script>

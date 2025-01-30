@@ -22,8 +22,9 @@ ion-input {
     /* Borde gris */
 }
 
+
 ion-searchbar {
-    --background: #f9fafb;
+    --background:   white;
     --border-radius: 8px;
     --border: 1px solid #e2e8f0;
     --padding-start: 8px;
