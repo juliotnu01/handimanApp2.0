@@ -2,34 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* cliente */
-/* Estilos adicionales para los inputs */
-ion-item {
-    --padding-start: 0;
-    --inner-padding-end: 0;
-    --background: transparent;
-    /* Fondo transparente */
-}
-
-ion-input {
-    --padding-start: 8px;
-    --padding-end: 8px;
-    --background: #f9fafb;
-    /* Fondo gris claro */
-    --border-radius: 8px;
-    /* Bordes redondeados */
-    --border: 1px solid #e2e8f0;
-    /* Borde gris */
-}
-
-
-ion-searchbar {
-    --background:   white;
-    --border-radius: 8px;
-    --border: 1px solid #e2e8f0;
-    --padding-start: 8px;
-    --padding-end: 8px;
-    --icon-color: #4b5563;
-    --placeholder-color: #9ca3af;
-    --color: #1f2937;
-}

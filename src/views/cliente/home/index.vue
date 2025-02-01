@@ -68,7 +68,9 @@
             <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
                 <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
                     <p class="font-bold">Categorías</p>
-                    <p class="font-bold text-sm self-center text-sky-600">Mas</p>
+                    <router-link :to="{ name: 'categorias-view' }" class="font-bold text-sm self-center text-sky-600 hover:underline">
+                        Más
+                    </router-link>
                 </div>
                 <div class="flex space-x-5 my-2">
                     <div v-for="(item, i) in items" :key="i"
@@ -266,7 +268,7 @@ import {
     IonModal,
     IonIcon,
     IonSearchbar,
-    IonPage
+    IonPage,
 } from '@ionic/vue';
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -289,4 +291,15 @@ const {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+ion-searchbar {
+    --background: white;
+    --border-radius: 8px;
+    --border: 1px solid #e2e8f0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --icon-color: #4b5563;
+    --placeholder-color: #9ca3af;
+    --color: #1f2937;
+}
+</style>

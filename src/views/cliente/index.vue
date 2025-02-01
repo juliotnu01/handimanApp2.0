@@ -4,15 +4,27 @@
 
             <!-- menu superior -->
             <div class="w-full h-20 p-4 flex justify-between items-center gap-2">
-                <button @click="openMenuIzquierda"
-                    class="bg-gray-200 w-12 h-10 min-w-12 rounded-lg text-center shadow-lg flex justify-center items-center dark:bg-gray-200">
-                    <svg width="25px" height="25px" viewBox="0 0 20 20" fill="none" class=" dark:text-black ">
-                        <path fill="currentColor" fill-rule="evenodd"
-                            d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z" />
-                    </svg>
-                </button>
-                <button class="flex items-center gap-4 p-2 bg-gray-100 rounded-lg shadow-sm  dark:bg-gray-100"
-                    @click="openMenuDerecha">
+                <div class="flex gap-2">
+                    <button @click="openMenuIzquierda"
+                        class="bg-gray-200 w-12 h-10 min-w-12 rounded-lg text-center shadow-lg flex justify-center items-center dark:bg-gray-200">
+                        <svg width="25px" height="25px" viewBox="0 0 20 20" fill="none" class=" dark:text-black ">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z" />
+                        </svg>
+                    </button>
+                    <div v-if="!isHomePage">
+                        <button @click="goToHome"
+                            class="bg-gray-200 w-12 h-10 min-w-12 rounded-lg text-center shadow-lg flex justify-center items-center dark:bg-gray-200">
+                            <svg fill="#000000" width="30px" height="30px" viewBox="-4.5 0 32 32">
+                                <path
+                                    d="M19.469 12.594l3.625 3.313c0.438 0.406 0.313 0.719-0.281 0.719h-2.719v8.656c0 0.594-0.5 1.125-1.094 1.125h-4.719v-6.063c0-0.594-0.531-1.125-1.125-1.125h-2.969c-0.594 0-1.125 0.531-1.125 1.125v6.063h-4.719c-0.594 0-1.125-0.531-1.125-1.125v-8.656h-2.688c-0.594 0-0.719-0.313-0.281-0.719l10.594-9.625c0.438-0.406 1.188-0.406 1.656 0l2.406 2.156v-1.719c0-0.594 0.531-1.125 1.125-1.125h2.344c0.594 0 1.094 0.531 1.094 1.125v5.875z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <button @click="openMenuDerecha"
+                    class="flex items-center gap-4 p-2 bg-gray-100 rounded-lg shadow-sm  dark:bg-gray-100">
                     <div class="flex flex-col">
                         <span class="text-lg font-semibold dark:text-black ">John Doe</span>
                     </div>
@@ -405,6 +417,18 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed } from 'vue';
 
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+
+const isHomePage = computed(() => route.path === '/cliente/home');
+
+const goToHome = () => {
+    router.push('/cliente/home');
+};
+
+
 // stores 
 import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
@@ -448,3 +472,24 @@ const isOpenComputed = computed({
 
 
 </script>
+<style scoped>
+/* cliente */
+/* Estilos adicionales para los inputs */
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --background: transparent;
+    /* Fondo transparente */
+}
+
+ion-input {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --background: #f9fafb;
+    /* Fondo gris claro */
+    --border-radius: 8px;
+    /* Bordes redondeados */
+    --border: 1px solid #e2e8f0;
+    /* Borde gris */
+}
+</style>

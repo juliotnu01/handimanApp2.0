@@ -1,16 +1,10 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
-import HomePage from "../views/HomePage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: "/cliente/home",
-  },
-  {
-    path: "/home",
-    name: "Home",
-    component: HomePage,
   },
   {
     path: "/cliente",
@@ -21,7 +15,12 @@ const routes: Array<RouteRecordRaw> = [
         path: "home",
         name: "cliente-home",
         component: () => import("../views/cliente/home/index.vue"),
-      }
+      },
+      {
+        path: "categorias",
+        name: "categorias-view",
+        component: () => import("../views/cliente/categorias/index.vue"),
+      },
     ],
   },
 ];
