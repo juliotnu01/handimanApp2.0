@@ -23,9 +23,9 @@
 <script setup>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import { storeToRefs } from 'pinia';
-import { useHomeStore } from '@/stores/cliente/homeStore';
-const homeStore = useHomeStore();
+import { useCategoriasStore } from '@/stores/cliente/categoriasStore';
+const categoriasStore = useCategoriasStore();
 const {
     items,
-} = storeToRefs(homeStore);
+} = storeToRefs(categoriasStore);
 </script>

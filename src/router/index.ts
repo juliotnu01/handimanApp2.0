@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "categorias-view",
         component: () => import("../views/cliente/categorias/index.vue"),
       },
+      {
+        path: "productos",
+        name: "productos-view",
+        component: () => import("../views/cliente/productos/index.vue"),
+      }
     ],
   },
 ];
