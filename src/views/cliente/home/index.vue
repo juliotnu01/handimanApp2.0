@@ -101,19 +101,22 @@
                     </router-link>
                 </div>
                 <div class="flex space-x-4 mt-2">
-                    <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative"
-                        v-for="(item, index) in items" :key="index">
+                    <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative" v-for="(item, index) in items" :key="index">
                         <div class="w-60 h-60 bg-gray-400 flex items-center justify-center text-[10px] shrink-0 ">
                             <img :src="item.image" alt="" class="w-full h-full object-cover">
                         </div>
                         <div class="absolute top-2 right-2 flex flex-col gap-2">
-                            <button class=" px-2  rounded-lg flex items-center">
+                            <!-- <button class=" px-2  rounded-lg flex items-center">
                                 <svg width="40px" height="40px" viewBox="0 0 24 24" fill="#000">
                                     <circle cx="12" cy="12" r="10" />
                                 </svg>
+                            </button> -->
+                            <button class="px-2 rounded-lg flex items-center" >
+                                <img :src="item.avatar" alt="Avatar" class="w-10 h-10 rounded-full">
                             </button>
+
                             <button class=" px-2 rounded-lg flex items-center" @click="setOpen(true)">
-                                <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" class="">
+                                <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" class="text-white">
                                     <path
                                         d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
                                         stroke="currentColor" stroke-width="2" />
@@ -141,11 +144,11 @@
                             <span class="ml-1 text-sm font-semibold">4.9 (1.2K+ reviews)</span>
                         </div>
                         <div class="p-2">
-                            <p class="font-bold text-wrap">Producto </p>
+                            <p class="font-bold text-wrap -mt-1">Producto </p>
                             <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet consectetur, adipisicing
                                 elit...</p>
                         </div>
-                        <div class="px-2 flex justify-between gap-2 ">
+                        <div class="px-2 flex justify-between gap-2 -mt-2 ">
                             <p class="text-lg font-bold text-gray-800 line-clamp-1">$999.999,99</p>
                             <p class="text-sm line-through text-red-500 self-center line-clamp-1">$199.999,99</p>
                         </div>
