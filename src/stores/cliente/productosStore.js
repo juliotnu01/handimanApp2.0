@@ -20,6 +20,8 @@ export const useProductosStore = defineStore('productos', {
             title: Array.from({ length: Math.floor(Math.random() * 1) + 1 }, () => Math.random().toString(36).substring(2, 7)).join(' '),
             description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem illo, reiciendis eaque similique eligendi sint necessitatibus asperiores ipsum perferendis aliquid consequatur tempore dolorum voluptate laudantium sit facilis facere adipisci sequi! ${i + 1}`,
             image: `https://picsum.photos/200/300?random=${i + 1}`,
+            price: parseFloat((Math.random() * 9000 + 10000).toFixed(2)),
+            oldPrice: parseFloat((Math.random() * 9000 + 10000).toFixed(2)),
         })),
     }),
     getters: {

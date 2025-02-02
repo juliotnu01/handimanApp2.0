@@ -110,8 +110,8 @@
                             <span class="ml-1 text-[10px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">123   Random St, City, Country</span>
                         </div>
                         <div class="flex items-center justify-between ">
-                            <p class="text-lg font-bold text-gray-800">{{ item.price }}</p>
-                            <p class="text-sm line-through text-red-500">{{ item.oldPrice }}</p>
+                            <p class="text-[12px] font-bold text-gray-800">$ {{ formatPrice(item.price) }}</p>
+                            <p class="text-[9px] line-through text-red-500">$ {{ formatPrice(item.oldPrice) }}</p>
                         </div>
                         <div class="flex justify-between my-2">
                             <button class="bg-green-500 text-white px-4 py-1 rounded-lg">
@@ -120,7 +120,7 @@
                                         d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z" />
                                 </svg>
                             </button>
-                            <button class="bg-gray-200 text-gray-800 px-4 py-1 rounded-lg">
+                            <button class="bg-gray-200 text-gray-800 px-4 py-1 rounded-lg" @click="setOpen(true)" >
                                 <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" class="">
                                     <path
                                         d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
@@ -172,7 +172,12 @@ const {
     items,
 } = storeToRefs(productosStore);
 
-
+const formatPrice = (price) => {
+    return price.toLocaleString('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+    }).replace('$', '');
+};
 </script>
 <style scoped>
 ion-searchbar {
