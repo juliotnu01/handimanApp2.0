@@ -99,9 +99,11 @@
                         class="font-bold text-sm self-center text-sky-600 hover:underline">
                         Ver mas
                     </router-link>
+
                 </div>
                 <div class="flex space-x-4 mt-2">
-                    <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative" v-for="(item, index) in items" :key="index">
+                    <div class="bg-gray-200 w-full max-w-60 break-words text-wrap rounded-xl relative"
+                        v-for="(item, index) in items" :key="index">
                         <div class="w-60 h-60 bg-gray-400 flex items-center justify-center text-[10px] shrink-0 ">
                             <img :src="item.image" alt="" class="w-full h-full object-cover">
                         </div>
@@ -111,7 +113,7 @@
                                     <circle cx="12" cy="12" r="10" />
                                 </svg>
                             </button> -->
-                            <button class="px-2 rounded-lg flex items-center" >
+                            <button class="px-2 rounded-lg flex items-center">
                                 <img :src="item.avatar" alt="Avatar" class="w-10 h-10 rounded-full">
                             </button>
 
@@ -145,8 +147,8 @@
                         </div>
                         <div class="p-2">
                             <p class="font-bold text-wrap -mt-1">Producto </p>
-                            <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet consectetur, adipisicing
-                                elit...</p>
+                            <p class="text-sm line-clamp-3 text-ellipsis break-words ">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                elit asdasda asdas</p>
                         </div>
                         <div class="px-2 flex justify-between gap-2 -mt-2 ">
                             <p class="text-lg font-bold text-gray-800 line-clamp-1">$999.999,99</p>
@@ -184,7 +186,10 @@
             <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2 ">
                 <div class=" top-0 left-0 bg-white  px-2 flex justify-between">
                     <p class="font-bold">Servicios</p>
-                    <p class="font-bold text-sm self-center text-sky-600 ">Ver mas</p>
+                    <router-link :to="{ name: 'servicios-view' }"
+                        class="font-bold text-sm self-center text-sky-600 hover:underline">
+                        Ver mas
+                    </router-link>
                 </div>
                 <div class="flex space-x-4 mt-2">
                     <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services"
@@ -311,5 +316,9 @@ ion-searchbar {
     --icon-color: #4b5563;
     --placeholder-color: #9ca3af;
     --color: #1f2937;
+}
+
+ion-content {
+    --padding-bottom: 70px;
 }
 </style>

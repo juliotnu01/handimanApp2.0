@@ -29,3 +29,8 @@ const {
     items,
 } = storeToRefs(categoriasStore);
 </script>
+<style scoped>
+ion-content {
+    --padding-bottom: 70px;
+}
+</style>

@@ -38,7 +38,7 @@
             <!-- fin menu superior -->
 
             <!-- direccion de envio -->
-            <ion-item class="w-[97%] h-fit self-center rounded-lg shadow-lg border-solid border-[1px] mx-auto  ">
+            <!-- <ion-item class="w-[97%] h-fit self-center rounded-lg shadow-lg border-solid border-[1px] mx-auto  ">
                 <ion-select justify="end" label="Dirección de Envio" class="text-xs text-purple-800 font-medium "
                     interface="popover" v-model="selectedDireccion">
                     <ion-select-option v-for="(direccion, d) in direcciones" :key="d" :value="direccion"
@@ -46,10 +46,11 @@
                         {{ direccion }}
                     </ion-select-option>
                 </ion-select>
-            </ion-item>
+            </ion-item> -->
             <!-- fin direccion de envio -->
 
         </ion-header>
+
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
             <ion-content class="ion-padding">
                 <ion-list>
@@ -65,7 +66,8 @@
                 </ion-list>
             </ion-content>
         </ion-menu>
-        <ion-content class="scrollable" id="main-content-cliente">
+
+        <ion-content class="scrollable  " id="main-content-cliente">
             <ion-router-outlet />
             <!-- modal productos -->
             <ion-modal :is-open="isOpenComputed" :initial-breakpoint="1" :breakpoints="[1]" :backdropDismiss="false">
@@ -309,6 +311,7 @@
             </ion-modal>
             <!-- fin modal filtros -->
         </ion-content>
+
         <ion-menu menu-id="menu-derecha" content-id="main-content-cliente" side="end">
             <ion-header>
             </ion-header>
@@ -326,68 +329,63 @@
                 </ion-list>
             </ion-content>
         </ion-menu>
-        <ion-footer>
-            <!-- menu inferior -->
-            <div
-                class="fixed w-11/12 h-[70px] bg-gray-700 bottom-3 left-1/2 transform -translate-x-1/2 rounded-tl-[2em] rounded-bl-[2em] rounded-tr-[2em] rounded-br-[2em] flex justify-around gap-2  ">
-                <button
-                    class="  w-16 h-16 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white  relative">
-                    <svg width="35px" height="35px" viewBox="0 0 1024 1024" class=" self-center   ">
-                        <path fill="currentColor"
-                            d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z" />
-                    </svg>
-                    <span
-                        class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                        1
-                    </span>
-                </button>
-                <button
-                    class="w-16 h-16 bg-gray-500 bg-opacity-75 rounded-full self-center  text-white flex justify-center">
-                    <svg width="35px" height="35px" viewBox="0 0 32 32" fill="none" class=" self-center ">
-                        <g clip-path="url(#clip0_901_1004)">
-                            <path
-                                d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_901_1004">
-                                <rect width="32" height="32" fill="white" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </button>
-                <button
-                    class="w-16 h-16 bg-gray-500 bg-opacity-75 rounded-full self-center text-white flex justify-center">
-                    <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" class=" self-center ">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M3.75 4.5L4.5 3.75H10.5L11.25 4.5V10.5L10.5 11.25H4.5L3.75 10.5V4.5ZM5.25 5.25V9.75H9.75V5.25H5.25ZM13.5 3.75L12.75 4.5V10.5L13.5 11.25H19.5L20.25 10.5V4.5L19.5 3.75H13.5ZM14.25 9.75V5.25H18.75V9.75H14.25ZM17.25 20.25H15.75V17.25H12.75V15.75H15.75V12.75H17.25V15.75H20.25V17.25H17.25V20.25ZM4.5 12.75L3.75 13.5V19.5L4.5 20.25H10.5L11.25 19.5V13.5L10.5 12.75H4.5ZM5.25 18.75V14.25H9.75V18.75H5.25Z"
-                            fill="currentColor" />
-                    </svg>
-                </button>
-                <button
-                    class="w-16 h-16 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white">
-                    <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" class=" self-center ">
-                        <path
-                            d="M8 6H16M8 10H16M8 14H11M6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <button
-                    class="w-16 h-16 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white relative">
-                    <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" class="self-center ">
-                        <path
-                            d="M12 5.5C14.7614 5.5 17 7.73858 17 10.5V12.7396C17 13.2294 17.1798 13.7022 17.5052 14.0683L18.7808 15.5035C19.6407 16.4708 18.954 18 17.6597 18H6.34025C5.04598 18 4.35927 16.4708 5.21913 15.5035L6.4948 14.0683C6.82022 13.7022 6.99998 13.2294 6.99998 12.7396L7 10.5C7 7.73858 9.23858 5.5 12 5.5ZM12 5.5V3M10.9999 21H12.9999"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span
-                        class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                        1
-                    </span>
-                </button>
 
-            </div>
-            <!-- fin menu inferior -->
-        </ion-footer>
+        <!-- menu inferior -->
+        <div
+            class="fixed w-8/12 h-[55px] bg-gray-700 bottom-3 left-1/2 transform -translate-x-1/2 rounded-tl-[2em] rounded-bl-[2em] rounded-tr-[2em] rounded-br-[2em] flex justify-center gap-2 ">
+            <button
+                class="  w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white  relative">
+                <svg width="25px" height="25px" viewBox="0 0 1024 1024" class=" self-center   ">
+                    <path fill="currentColor"
+                        d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z" />
+                </svg>
+                <span
+                    class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                    1
+                </span>
+            </button>
+            <button
+                class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center  text-white flex justify-center">
+                <svg width="25px" height="25px" viewBox="0 0 32 32" fill="none" class=" self-center ">
+                    <g clip-path="url(#clip0_901_1004)">
+                        <path
+                            d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_901_1004">
+                            <rect width="32" height="32" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
+            <button class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center text-white flex justify-center">
+                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M3.75 4.5L4.5 3.75H10.5L11.25 4.5V10.5L10.5 11.25H4.5L3.75 10.5V4.5ZM5.25 5.25V9.75H9.75V5.25H5.25ZM13.5 3.75L12.75 4.5V10.5L13.5 11.25H19.5L20.25 10.5V4.5L19.5 3.75H13.5ZM14.25 9.75V5.25H18.75V9.75H14.25ZM17.25 20.25H15.75V17.25H12.75V15.75H15.75V12.75H17.25V15.75H20.25V17.25H17.25V20.25ZM4.5 12.75L3.75 13.5V19.5L4.5 20.25H10.5L11.25 19.5V13.5L10.5 12.75H4.5ZM5.25 18.75V14.25H9.75V18.75H5.25Z"
+                        fill="currentColor" />
+                </svg>
+            </button>
+            <button class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white">
+                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
+                    <path
+                        d="M8 6H16M8 10H16M8 14H11M6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button
+                class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white relative">
+                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="self-center ">
+                    <path
+                        d="M12 5.5C14.7614 5.5 17 7.73858 17 10.5V12.7396C17 13.2294 17.1798 13.7022 17.5052 14.0683L18.7808 15.5035C19.6407 16.4708 18.954 18 17.6597 18H6.34025C5.04598 18 4.35927 16.4708 5.21913 15.5035L6.4948 14.0683C6.82022 13.7022 6.99998 13.2294 6.99998 12.7396L7 10.5C7 7.73858 9.23858 5.5 12 5.5ZM12 5.5V3M10.9999 21H12.9999"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                    1
+                </span>
+            </button>
+        </div>
+        <!-- fin menu inferior -->
     </ion-page>
 </template>
 
