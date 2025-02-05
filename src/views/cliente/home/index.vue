@@ -91,6 +91,26 @@
             </div>
             <!-- fin categorias -->
 
+            <!--banner-->
+            <div class="flex flex-col gap-4  p-2">
+                <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
+                    <p class="font-bold">Inscríbete como handyman</p>
+                </div>
+                <div class="w-full h-1/5 bg-[#cecece] mx-auto rounded-xl p-1 shadow-lg">
+                    <div class="w-full h-full flex">
+                        <div class="w-4/12 p-2 self-center ">
+                            <img src="/img_banner_incribete_como_handyman.png" alt="Afilia tu negocio"
+                                class="w-full h-auto object-contain">
+                        </div>
+                        <div class="flex flex-col justify-center items-start text-white p-4 w-8/12">
+                            <h2 class="text-[16px] font-bold">Obten mas ingresos, afiliandote como handyman</h2>
+                            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg self-end">Afíliate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--fin banner-->
+
             <!-- productos -->
             <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
                 <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
@@ -147,7 +167,8 @@
                         </div>
                         <div class="p-2">
                             <p class="font-bold text-wrap -mt-1">Producto </p>
-                            <p class="text-sm line-clamp-3 text-ellipsis break-words ">Lorem ipsum dolor sit amet consectetur, adipisicing
+                            <p class="text-sm line-clamp-3 text-ellipsis break-words ">Lorem ipsum dolor sit amet
+                                consectetur, adipisicing
                                 elit asdasda asdas</p>
                         </div>
                         <div class="px-2 flex justify-between gap-2 -mt-2 ">
@@ -181,6 +202,26 @@
                 </div>
             </div>
             <!-- fin productos -->
+
+            <!--banner-->
+            <div class="flex flex-col gap-4  p-2">
+                <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
+                    <p class="font-bold">Afilia tu negocio</p>
+                </div>
+                <div class="w-full h-1/5 bg-[#cecece] mx-auto rounded-xl p-1 shadow-lg">
+                    <div class="w-full h-full flex">
+                        <div class="w-4/12 p-2 self-center ">
+                            <img src="/img_banner_afilia_tu_negocio.png" alt="Afilia tu negocio"
+                                class="w-full h-auto object-contain">
+                        </div>
+                        <div class="flex flex-col justify-center items-start text-white p-4 w-8/12">
+                            <h2 class="text-[16px] font-bold">Incrementa tus ventas, afiliando tu negocio</h2>
+                            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg self-end">Afíliate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--fin banner-->
 
             <!-- servicios -->
             <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2 ">
@@ -230,27 +271,15 @@
                                         class="bg-purple-200 text-purple-800 text-xs font-semibold mr-1 px-1.5 py-0.5 rounded-2xl">Categoría</span>
                                 </div>
                             </div>
-                            <div class="flex  justify-between items-center my-1">
-                                <p class="text-sm font-bold text-gray-800 line-clamp-1">{{ service.price }}</p>
-                                <p class=" text-[12px] line-through text-red-500 self-center line-clamp-1">
-                                    $199.999,99</p>
-                            </div>
                             <div class="flex justify-end">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                                     <svg fill="#fff" width="20px" height="20px" viewBox="0 0 96 96">
-
-                                        <title />
-
                                         <g>
-
                                             <path
                                                 d="M43.7578,61.7578a5.9994,5.9994,0,1,0,8.4844,8.4844l18-18a5.9979,5.9979,0,0,0,0-8.4844l-18-18a5.9994,5.9994,0,0,0-8.4844,8.4844L51.5156,42H6A6,6,0,0,0,6,54H51.5156Z" />
-
                                             <path
                                                 d="M90,0H30a5.9966,5.9966,0,0,0-6,6V18a6,6,0,0,0,12,0V12H84V84H36V78a6,6,0,0,0-12,0V90a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V6A5.9966,5.9966,0,0,0,90,0Z" />
-
                                         </g>
-
                                     </svg>
                                 </button>
                             </div>

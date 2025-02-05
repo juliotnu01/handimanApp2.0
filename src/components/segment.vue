@@ -1,0 +1,55 @@
+<template>
+    <div class="flex flex-col space-y-4">
+        <!-- Botones de segmentos -->
+        <div class="flex space-x-1 mx-auto">
+            <button v-for="(segment, index) in segments" :key="index" @click="selectSegment(index)" :class="[
+                'px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out',
+                selectedSegment === index
+                    ? 'bg-black text-white scale-105' // Efecto de escala y color al seleccionar
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+            ]">
+                {{ segment }}
+            </button>
+        </div>
+
+        <!-- Contenido del segmento con transición -->
+        <transition name="segment-fade" mode="out-in">
+            <div :key="selectedSegment"
+                class="p-4 transition-all duration-300 ease-in-out">
+                <slot :name="`segment-${selectedSegment}`"></slot>
+            </div>
+        </transition>
+    </div>
+
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const props = defineProps({
+    segments: {
+        type: Array,
+        required: true,
+    },
+});
+
+const selectedSegment = ref(0);
+
+const selectSegment = (index) => {
+    selectedSegment.value = index;
+};
+</script>
+
+<style scoped>
+/* Estilos para la transición */
+.segment-fade-enter-active,
+.segment-fade-leave-active {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.segment-fade-enter-from,
+.segment-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+</style>

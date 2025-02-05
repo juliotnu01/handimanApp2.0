@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-header class="pb-4 shadow-none dark:bg-white " :translucent="true">
+        <ion-header class="pb-4 shadow-none dark:bg-white " :translucent="true" v-if="isUserViewPage">
 
             <!-- menu superior -->
             <div class="w-full h-20 p-4 flex justify-between items-center gap-2">
@@ -23,7 +23,7 @@
                         </button>
                     </div>
                 </div>
-                <button @click="openMenuDerecha"
+                <button @click="goToUserViewPage"
                     class="flex items-center gap-4 p-2 bg-gray-100 rounded-lg shadow-sm  dark:bg-gray-100">
                     <div class="flex flex-col">
                         <span class="text-lg font-semibold dark:text-black ">John Doe</span>
@@ -38,15 +38,16 @@
             <!-- fin menu superior -->
 
             <!-- direccion de envio -->
-            <!-- <ion-item class="w-[97%] h-fit self-center rounded-lg shadow-lg border-solid border-[1px] mx-auto  ">
-                <ion-select justify="end" label="Dirección de Envio" class="text-xs text-purple-800 font-medium "
-                    interface="popover" v-model="selectedDireccion">
+            <ion-item class="w-fit h-8 self-center rounded-lg  ml-auto flex px-2 -mb-6">
+                <ion-select justify="end" label="Dirección de Envio"
+                    class="text-xs text-purple-800 font-medium self-center  " interface="popover"
+                    v-model="selectedDireccion">
                     <ion-select-option v-for="(direccion, d) in direcciones" :key="d" :value="direccion"
                         class="text-xs text-blue-600 hover:bg-purple-100">
                         {{ direccion }}
                     </ion-select-option>
                 </ion-select>
-            </ion-item> -->
+            </ion-item>
             <!-- fin direccion de envio -->
 
         </ion-header>
@@ -69,6 +70,7 @@
 
         <ion-content class="scrollable  " id="main-content-cliente">
             <ion-router-outlet />
+
             <!-- modal productos -->
             <ion-modal :is-open="isOpenComputed" :initial-breakpoint="1" :breakpoints="[1]" :backdropDismiss="false">
                 <ion-header class="shadow-none">
@@ -232,7 +234,8 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <!-- fin modal productos -->
+            <!-- fin modal productos --> 
+
             <!-- modal filtros -->
             <ion-modal :is-open="isOpenFilterComputed" :initial-breakpoint="0.55" :breakpoints="[0.55]"
                 :backdropDismiss="false">
@@ -414,25 +417,24 @@ import {
 } from '@ionic/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed } from 'vue';
-
+import { useClienteStore } from '@/stores/cliente/clienteStore';
+import { useHomeStore } from '@/stores/cliente/homeStore';
+import { useUserViewStore } from '@/stores/cliente/userViewStore';
+import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
+// stores 
+const clienteStore = useClienteStore();
+const homeStore = useHomeStore();
+const userViewStore = useUserViewStore();
 
+const isUserViewPage = computed(() => route.path !== '/cliente/user');
 const isHomePage = computed(() => route.path === '/cliente/home');
-
 const goToHome = () => {
     router.push('/cliente/home');
 };
-
-
-// stores 
-import { useClienteStore } from '@/stores/cliente/clienteStore';
-import { useHomeStore } from '@/stores/cliente/homeStore';
-import { storeToRefs } from 'pinia';
-const clienteStore = useClienteStore();
-const homeStore = useHomeStore();
 
 // cliente
 const { openMenuIzquierda,
@@ -451,23 +453,19 @@ const {
     hasOfferReseña,
     hasReview,
 } = storeToRefs(clienteStore);
-
-
 // home
 const { closeModalFilter, closeModal } = homeStore;
 const { isOpenFilter, isOpen, services, items, } = storeToRefs(homeStore);
-
 const isOpenFilterComputed = computed({
     get() { return isOpenFilter.value; },
     set(value) { isOpenFilter.value = value; }
 });
-
 const isOpenComputed = computed({
     get() { return isOpen.value; },
     set(value) { isOpen.value = value; }
 });
 
-
+const { goToUserViewPage } = userViewStore
 
 </script>
 <style scoped>
