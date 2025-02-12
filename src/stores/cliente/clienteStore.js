@@ -12,6 +12,7 @@ export const useClienteStore = defineStore('cliente', {
         range: { lower: 20, upper: 9999999 },
         hasOffer: false,
         isOpenFilter: false,
+        isOpenCarritoDeCompras: false,
         hasReview: false,
     }),
     getters: {
@@ -49,7 +50,7 @@ export const useClienteStore = defineStore('cliente', {
          * @returns {string} The formatted value as a string.
          */
         pinFormatter(value) { return `${value}` },
-      
+
         /**
          * Handles the change event for the lower range value.
          *
@@ -86,6 +87,7 @@ export const useClienteStore = defineStore('cliente', {
         handleReviewChange(event) {
             this.hasReview = event.detail.checked;
         },
+        setOpenCarritoDeCompras(open) { this.isOpenCarritoDeCompras = open },
 
     }
 })

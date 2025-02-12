@@ -234,10 +234,10 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <!-- fin modal productos --> 
+            <!-- fin modal productos -->
 
             <!-- modal filtros -->
-            <ion-modal :is-open="isOpenFilterComputed" :initial-breakpoint="0.55" :breakpoints="[0.55]"
+            <ion-modal :is-open="isOpenFilterComputed" :initial-breakpoint="0.75" :breakpoints="[0.75]"
                 :backdropDismiss="false">
                 <ion-header class="shadow-none ion-padding mb-0 pb-0">
                     <div class="flex justify-between">
@@ -313,30 +313,115 @@
                 </ion-content>
             </ion-modal>
             <!-- fin modal filtros -->
+            <!-- modal carrito de compras -->
+            <ion-modal :is-open="isOpenCarritoDeComprasComputed" :initial-breakpoint="1" :breakpoints="[1]"
+                :backdropDismiss="false">
+                <ion-header class="shadow-none ion-padding mb-0 pb-0">
+                    <div class="flex justify-between py-4">
+                        <p class="font-bold text-sm self-center text-sky-600 " @click="setOpenCarritoDeCompras(false)">
+                            Cerrar</p>
+                    </div>
+                </ion-header>
+                <ion-content class="ion-padding  ">
+                    <div class=" w-full h-full">
+                        <div class=" h-fit w-full p-2">
+                            <p class="font-bold capitalize "> servicios</p>
+                            <div v-for="n in 14" :key="n"
+                                class="flex w-12/12  mx-auto my-2 bg-white rounded-lg shadow-md px-1">
+                                <div
+                                    class="flex-shrink-0 w-16 h-16 rounded-full overflow-hidden border border-gray-300 m-2">
+                                    <img src="https://picsum.photos/200/300" alt="Random Image"
+                                        class="object-cover w-full h-full">
+                                </div>
+                                <div class="flex-grow ml-2 overflow-hidden self-center ">
+                                    <p class="text-ellipsis whitespace-nowrap overflow-hidden font-bold text-sm ">
+                                        {{ n }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
+                                        obcaecati nam
+                                        doloribus velit eaque sit doloremque fugit possimus libero quidem eum provident
+                                        voluptate earum praesentium eos assumenda sapiente, adipisci ex.
+                                    </p>
+                                    <p class="text-green-400 font-bold tracking-wide">
+                                        $999.999,99
+                                    </p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button
+                                        class="relative self-center bg-white rounded-lg w-10 h-10 text-2xl font-bold shadow-lg overflow-hidden ripple">
+                                        -
+                                        <span
+                                            class="ripple-effect absolute bg-black opacity-10 rounded-full transform -translate-x-1/2 -translate-y-1/2 scale-0"></span>
+                                    </button>
+                                    <input type="number" min="0" max="99"
+                                        class="self-center rounded-lg border-solid border-[#cecece] dark:bg-white text-center p-1"
+                                        value="99">
+                                    <button
+                                        class="self-center bg-white rounded-lg w-10 h-10 text-2xl font-bold shadow-lg">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="isCartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-10" @click="toggleCart"></div>
+                        <div v-if="isCartOpen" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 bg-white rounded-lg shadow-lg p-4 z-20">
+                            <button @click="toggleCart" class="absolute top-2 right-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                                <span class="text-black font-bold self-center flex items-center justify-center">x</span>
+                            </button>
+                            <h2 class="text-lg font-bold mb-2">Carrito de Compras</h2>
+                            <hr class="my-2">
+                            <div class="flex justify-between">
+                                <p>Subtotal:</p>
+                                <p>${{ subtotal.toFixed(2) }}</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p>Impuestos (16%):</p>
+                                <p>${{ impuestos.toFixed(2) }}</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p>Comisión (5%):</p>
+                                <p>${{ comision.toFixed(2) }}</p>
+                            </div>
+                            <hr class="my-2">
+                            <div class="flex justify-between font-bold">
+                                <p>Total:</p>
+                                <p>${{ total.toFixed(2) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ion-content>
+                <ion-footer class="ion-content">
+                    <div class="w-full h-20 items-center flex justify-between p-2 relative">
+                        <button
+                            class="flex gap-4 bg-gray-800 text-white w-fit h-fit rounded-lg shadow-lg p-2 self-center">
+                            <p class="font-bold">$ 9.999.999.999,99</p>
+                            <p class="uppercase font-bold">Comprar ahora</p>
+                        </button>
+
+                        <button @click="toggleCart" class="mx-auto relative">
+                            <svg fill="#000000" width="30px" height="30px" viewBox="0 0 32 32">
+                                <path d="M13,16c0,1.654,1.346,3,3,3s3-1.346,3-3s-1.346-3-3-3S13,14.346,13,16z" />
+                                <path d="M13,26c0,1.654,1.346,3,3,3s3-1.346,3-3s-1.346-3-3-3S13,24.346,13,26z" />
+                                <path d="M13,6c0,1.654,1.346,3,3,3s3-1.346,3-3s-1.346-3-3-3S13,4.346,13,6z" />
+                            </svg>
+
+                        </button>
+                    </div>
+                </ion-footer>
+            </ion-modal>
+            <!-- fin modal carrito de compras -->
         </ion-content>
 
         <ion-menu menu-id="menu-derecha" content-id="main-content-cliente" side="end">
             <ion-header>
             </ion-header>
             <ion-content class="ion-padding">
-                <ion-list>
-                    <ion-item>
-                        <ion-label>Home</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Profile</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Logout</ion-label>
-                    </ion-item>
-                </ion-list>
+
             </ion-content>
         </ion-menu>
 
         <!-- menu inferior -->
         <div
             class="fixed w-8/12 h-[55px] bg-gray-700 bottom-3 left-1/2 transform -translate-x-1/2 rounded-tl-[2em] rounded-bl-[2em] rounded-tr-[2em] rounded-br-[2em] flex justify-center gap-2 ">
-            <button
+            <button @click="setOpenCarritoDeCompras(true)"
                 class="  w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white  relative">
                 <svg width="25px" height="25px" viewBox="0 0 1024 1024" class=" self-center   ">
                     <path fill="currentColor"
@@ -416,7 +501,7 @@ import {
     IonFooter,
 } from '@ionic/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
@@ -444,7 +529,8 @@ const { openMenuIzquierda,
     handleUpperChange,
     handleReviewChange,
     handleLowerChange,
-    handleOfferChange } = clienteStore;
+    handleOfferChange,
+    setOpenCarritoDeCompras } = clienteStore;
 const {
     direcciones,
     selectedDireccion,
@@ -452,6 +538,7 @@ const {
     hasOffer,
     hasOfferReseña,
     hasReview,
+    isOpenCarritoDeCompras,
 } = storeToRefs(clienteStore);
 // home
 const { closeModalFilter, closeModal } = homeStore;
@@ -464,8 +551,48 @@ const isOpenComputed = computed({
     get() { return isOpen.value; },
     set(value) { isOpen.value = value; }
 });
-
+const isOpenCarritoDeComprasComputed = computed({
+    get() { return isOpenCarritoDeCompras.value; },
+    set(value) { isOpenCarritoDeCompras.value = value; }
+});
 const { goToUserViewPage } = userViewStore
+
+const isCartOpen = ref(false);
+const cartItems = ref([
+    { id: 1, name: 'Producto 1', price: 10.00 },
+    { id: 2, name: 'Producto 2', price: 20.00 },
+    { id: 3, name: 'Producto 3', price: 30.00 },
+    { id: 4, name: 'Producto 4', price: 40.00 },
+    { id: 5, name: 'Producto 5', price: 50.00 },
+    { id: 6, name: 'Producto 6', price: 60.00 },
+    { id: 7, name: 'Producto 7', price: 70.00 },
+    { id: 8, name: 'Producto 8', price: 80.00 },
+    { id: 9, name: 'Producto 9', price: 90.00 },
+    { id: 10, name: 'Producto 10', price: 100.00 },
+]);
+
+const toggleCart = () => {
+    console.log("asdads");
+
+    isCartOpen.value = !isCartOpen.value;
+};
+
+const subtotal = computed(() => {
+    return cartItems.value.reduce((sum, item) => sum + item.price, 0);
+});
+
+const impuestos = computed(() => {
+    return subtotal.value * 0.16; // 16% de impuestos
+});
+
+const comision = computed(() => {
+    return subtotal.value * 0.05; // 5% de comisión
+});
+
+const total = computed(() => {
+    return subtotal.value + impuestos.value + comision.value;
+});
+
 
 </script>
 <style scoped>

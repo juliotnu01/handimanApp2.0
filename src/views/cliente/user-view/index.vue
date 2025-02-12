@@ -188,7 +188,8 @@
                                     </div>
                                     <div class="flex justify-between mt-4">
                                         <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg flex gap-2">
-                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class=" self-center ">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                class=" self-center ">
                                                 <path id="Vector"
                                                     d="M16 8H20C20.5523 8 21 8.44772 21 9V20L17.667 17.231C17.4875 17.0818 17.2608 17 17.0273 17H9C8.44771 17 8 16.5523 8 16V13M16 8V5C16 4.44772 15.5523 4 15 4H4C3.44772 4 3 4.44772 3 5V16.0003L6.33301 13.2308C6.51255 13.0817 6.73924 13 6.97266 13H8M16 8V12C16 12.5523 15.5523 13 15 13H8"
                                                     stroke="#000000" stroke-width="2" stroke-linecap="round"
@@ -211,10 +212,73 @@
                         </div>
                     </template>
                     <template #segment-2>
-                        <p>Contenido del Segmento 3</p>
+                        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+                            <div class="p-4">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h2 class="text-lg font-bold">Order #925</h2>
+                                        <p class="text-sm">Dine-In</p>
+                                    </div>
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ready
+                                        to serve</span>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="text-xl font-bold">$87.34 USD</p>
+                                    <p class="text-sm text-gray-500">Ariel Hikmat</p>
+                                </div>
+                                <div class="mt-4 text-sm text-gray-500">
+                                    <p>Wednesday, July 12, 2023, 06:12 PM</p>
+                                </div>
+                                <button
+                                    class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+                                    @click="toggleDetails">
+                                    See Details
+                                </button>
+                                <button
+                                    class="mt-2 px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-700">
+                                    Pay Bills
+                                </button>
+                                <div v-if="showDetails" class="mt-4 text-sm text-gray-500">
+                                    <ul>
+                                        <li>Scrambled eggs with toast: 1 - $16.99</li>
+                                        <li>Smoked Salmon Bagel: 1 - $18.49</li>
+                                        <li>Belgian Waffles: 2 - $38.98</li>
+                                        <li>Classic Lemonade: 1 - $12.49</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
                     </template>
                     <template #segment-3>
-                        <p>Contenido del Segmento 4</p>
+                        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                            <!-- User Review Card -->
+                            <div class="p-4 border-b border-gray-200" v-for="(review, index) in reviews" :key="index">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="text-lg font-bold">{{ review.userName }}</h3>
+                                        <p class="text-sm text-gray-500">{{ review.duration }}</p>
+                                    </div>
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        {{ review.rating }}
+                                    </span>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-600">{{ review.reviewText }}</p>
+                                </div>
+                                <button
+                                    class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+                                    @click="toggleDetails2(index)">
+                                    Toggle Details
+                                </button>
+                                <div v-if="review.showDetails" class="mt-4 text-sm text-gray-500">
+                                    <!-- Aquí irían los detalles adicionales -->
+                                    <p>Detalle adicional del recibo...</p>
+                                </div>
+                            </div>
+                        </div>
                     </template>
                 </segment>
             </div>
@@ -240,6 +304,40 @@ const isVisible = ref(Array(10).fill(false));
 const toggleSection = (index) => {
     isVisible.value[index] = !isVisible.value[index];
 };
+
+const showDetails = ref(false);
+
+const toggleDetails = () =>  {
+    showDetails.value = !showDetails.value;
+}
+
+const reviews = ref([
+    {
+        userName: 'Jamal Abdul',
+        duration: 'new user on Doorin',
+        rating: '5.0',
+        reviewText: 'A game-changer, easy to use, with tons of options and amazing deals. Highly recommended for all travel plans.',
+        showDetails: false
+    },
+    {
+        userName: 'Kamila Kabelo',
+        duration: 'using Doorin for 8 months',
+        rating: '4.9',
+        reviewText: 'Simplifies hotel bookings with a user-friendly interface and great prices. Never disappoints!',
+        showDetails: false
+    },
+    {
+        userName: 'Shena Kerren',
+        duration: 'using Doorin for 3 months',
+        rating: '4.8',
+        reviewText: 'Loves the app for finding the best hotels, smooth transactions, accurate listings, and excellent customer service.',
+        showDetails: false
+    }
+]);
+
+const toggleDetails2 = (index) =>  {
+    reviews.value[index].showDetails = !reviews.value[index].showDetails;
+}
 </script>
 
 <style scoped>

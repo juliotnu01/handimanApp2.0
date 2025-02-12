@@ -94,7 +94,7 @@
             <!--banner-->
             <div class="flex flex-col gap-4  p-2">
                 <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
-                    <p class="font-bold">Inscríbete como handyman</p>
+                    <p class="font-bold">Inscríbete como especialista</p>
                 </div>
                 <div class="w-full h-1/5 bg-[#cecece] mx-auto rounded-xl p-1 shadow-lg">
                     <div class="w-full h-full flex">
@@ -103,7 +103,7 @@
                                 class="w-full h-auto object-contain">
                         </div>
                         <div class="flex flex-col justify-center items-start text-white p-4 w-8/12">
-                            <h2 class="text-[16px] font-bold">Obten mas ingresos, afiliandote como handyman</h2>
+                            <h2 class="text-[16px] font-bold">Obten mas ingresos, afiliandote como especialista</h2>
                             <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg self-end">Afíliate</button>
                         </div>
                     </div>
@@ -224,8 +224,8 @@
             <!--fin banner-->
 
             <!-- servicios -->
-            <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2 ">
-                <div class=" top-0 left-0 bg-white  px-2 flex justify-between">
+            <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
+                <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
                     <p class="font-bold">Servicios</p>
                     <router-link :to="{ name: 'servicios-view' }"
                         class="font-bold text-sm self-center text-sky-600 hover:underline">
@@ -233,12 +233,11 @@
                     </router-link>
                 </div>
                 <div class="flex space-x-4 mt-2">
-                    <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services"
-                        :key="service.id">
+                    <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services" :key="service.id">
                         <div class="w-40 h-46 bg-gray-400 flex items-center justify-center text-[10px] shrink-0">
                             <img :src="service.image" alt="" class="object-cover w-full h-full">
                         </div>
-                        <div class="flex flex-col justify-between p-2  max-w-[60%]">
+                        <div class="flex flex-col justify-between p-2 max-w-[60%]">
                             <div>
                                 <div class="flex justify-between items-center">
                                     <p class="text-wrap line-clamp-2 font-bold text-[18px]">
@@ -254,7 +253,7 @@
                                         <path
                                             d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                                     </svg>
-                                    <span class="ml-1  font-semibold">4.9 (1.2K+ reviews)</span>
+                                    <span class="ml-1 font-semibold">4.9 (1.2K+ reviews)</span>
                                 </div>
                                 <p class="text-sm line-clamp-3 text-wrap"> Lorem ipsum dolor sit amet consectetur
                                     adipisicing elit. Quas exercitationem fugit deserunt laudantium minima hic
