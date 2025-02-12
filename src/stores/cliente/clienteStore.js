@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { menuController } from '@ionic/vue'
+import { useRoute, useRouter } from 'vue-router';
 export const useClienteStore = defineStore('cliente', {
     state: () => ({
         clientes: [],
@@ -14,9 +15,25 @@ export const useClienteStore = defineStore('cliente', {
         isOpenFilter: false,
         isOpenCarritoDeCompras: false,
         hasReview: false,
+        isCartOpen: false,
+        cartItems: [
+            { id: 1, name: 'Producto 1', price: 10.00 },
+            { id: 2, name: 'Producto 2', price: 20.00 },
+            { id: 3, name: 'Producto 3', price: 30.00 },
+            { id: 4, name: 'Producto 4', price: 40.00 },
+            { id: 5, name: 'Producto 5', price: 50.00 },
+            { id: 6, name: 'Producto 6', price: 60.00 },
+            { id: 7, name: 'Producto 7', price: 70.00 },
+            { id: 8, name: 'Producto 8', price: 80.00 },
+            { id: 9, name: 'Producto 9', price: 90.00 },
+            { id: 10, name: 'Producto 10', price: 100.00 },
+        ],
+        router: useRouter(),
+        route: useRoute(),
+
+
     }),
     getters: {
-
 
     },
     actions: {
@@ -87,7 +104,43 @@ export const useClienteStore = defineStore('cliente', {
         handleReviewChange(event) {
             this.hasReview = event.detail.checked;
         },
+        /**
+         * Sets the state of the shopping cart's open status.
+         *
+         * @param {boolean} open - The new state of the shopping cart (true for open, false for closed).
+         */
         setOpenCarritoDeCompras(open) { this.isOpenCarritoDeCompras = open },
 
+        /**
+         * Toggles the state of the shopping cart.
+         * If the cart is currently open, it will be closed, and vice versa.
+         */
+        toggleCart() { this.isCartOpen = !this.isCartOpen; },
+        /**
+         * Navigates the user to the chat view.
+         * Utilizes the router to push a new route with the name 'chat-view'.
+         */
+        /**
+         * Navigates to the chat view.
+         * 
+         * This method uses the router to push a new route named 'chat-view'.
+         * 
+         * @returns {Promise} A promise that resolves when the navigation is complete.
+         */
+        goToChatsView() { return this.router.push({ name: 'chat-view' }) },
+        /**
+         * Checks if the current route is not the user view page.
+         *
+         * @returns {boolean} Returns true if the current route is not '/cliente/user', otherwise false.
+         */
+        isUserViewPage() { return this.route.path !== '/cliente/user' },
+        /**
+         * Navigates the user to the home page for clients.
+         *
+         * @returns {Promise} A promise that resolves when the navigation is complete.
+         */
+        goToHome () {
+            return this.router.push('/cliente/home');
+        }
     }
 })

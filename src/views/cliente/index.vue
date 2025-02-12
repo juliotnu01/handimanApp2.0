@@ -313,6 +313,7 @@
                 </ion-content>
             </ion-modal>
             <!-- fin modal filtros -->
+
             <!-- modal carrito de compras -->
             <ion-modal :is-open="isOpenCarritoDeComprasComputed" :initial-breakpoint="1" :breakpoints="[1]"
                 :backdropDismiss="false">
@@ -361,9 +362,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="isCartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-10" @click="toggleCart"></div>
-                        <div v-if="isCartOpen" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 bg-white rounded-lg shadow-lg p-4 z-20">
-                            <button @click="toggleCart" class="absolute top-2 right-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                        <div v-if="isCartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-10" @click="toggleCart">
+                        </div>
+                        <div v-if="isCartOpen"
+                            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 bg-white rounded-lg shadow-lg p-4 z-20">
+                            <button @click="toggleCart"
+                                class="absolute top-2 right-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
                                 <span class="text-black font-bold self-center flex items-center justify-center">x</span>
                             </button>
                             <h2 class="text-lg font-bold mb-2">Carrito de Compras</h2>
@@ -432,7 +436,7 @@
                     1
                 </span>
             </button>
-            <button
+            <button @click="goToChatsView"
                 class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center  text-white flex justify-center">
                 <svg width="25px" height="25px" viewBox="0 0 32 32" fill="none" class=" self-center ">
                     <g clip-path="url(#clip0_901_1004)">
@@ -506,10 +510,9 @@ import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { storeToRefs } from 'pinia';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const router = useRouter();
 // stores 
 const clienteStore = useClienteStore();
 const homeStore = useHomeStore();
@@ -517,9 +520,6 @@ const userViewStore = useUserViewStore();
 
 const isUserViewPage = computed(() => route.path !== '/cliente/user');
 const isHomePage = computed(() => route.path === '/cliente/home');
-const goToHome = () => {
-    router.push('/cliente/home');
-};
 
 // cliente
 const { openMenuIzquierda,
@@ -530,7 +530,7 @@ const { openMenuIzquierda,
     handleReviewChange,
     handleLowerChange,
     handleOfferChange,
-    setOpenCarritoDeCompras } = clienteStore;
+    setOpenCarritoDeCompras, toggleCart, goToChatsView, goToHome } = clienteStore;
 const {
     direcciones,
     selectedDireccion,
@@ -539,7 +539,10 @@ const {
     hasOfferReseña,
     hasReview,
     isOpenCarritoDeCompras,
+    isCartOpen,
+    cartItems
 } = storeToRefs(clienteStore);
+
 // home
 const { closeModalFilter, closeModal } = homeStore;
 const { isOpenFilter, isOpen, services, items, } = storeToRefs(homeStore);
@@ -557,25 +560,8 @@ const isOpenCarritoDeComprasComputed = computed({
 });
 const { goToUserViewPage } = userViewStore
 
-const isCartOpen = ref(false);
-const cartItems = ref([
-    { id: 1, name: 'Producto 1', price: 10.00 },
-    { id: 2, name: 'Producto 2', price: 20.00 },
-    { id: 3, name: 'Producto 3', price: 30.00 },
-    { id: 4, name: 'Producto 4', price: 40.00 },
-    { id: 5, name: 'Producto 5', price: 50.00 },
-    { id: 6, name: 'Producto 6', price: 60.00 },
-    { id: 7, name: 'Producto 7', price: 70.00 },
-    { id: 8, name: 'Producto 8', price: 80.00 },
-    { id: 9, name: 'Producto 9', price: 90.00 },
-    { id: 10, name: 'Producto 10', price: 100.00 },
-]);
 
-const toggleCart = () => {
-    console.log("asdads");
 
-    isCartOpen.value = !isCartOpen.value;
-};
 
 const subtotal = computed(() => {
     return cartItems.value.reduce((sum, item) => sum + item.price, 0);
