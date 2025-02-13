@@ -2,19 +2,19 @@ import { defineStore } from 'pinia';
 
 export const useChatStore = defineStore('chat', {
     state: () => ({
-        messages: [],
-        users: []
+        isOpenChat: false,
     }),
     getters: {
-        getMessages: (state) => state.messages,
-        getUsers: (state) => state.users
+
     },
     actions: {
-        addMessage(message) {
-            this.messages.push(message);
-        },
-        addUser(user) {
-            this.users.push(user);
+        /**
+         * Sets the value of isOpenChat.
+         *
+         * @param {boolean} value - The new value to set for isOpenChat.
+         */
+        setIsOpenChat(value) {
+            this.isOpenChat = value;
         }
     }
 });
