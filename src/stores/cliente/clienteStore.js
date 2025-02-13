@@ -141,6 +141,10 @@ export const useClienteStore = defineStore('cliente', {
          */
         goToHome () {
             return this.router.push('/cliente/home');
+        },
+
+        gotToCategoriasView(){
+            return this.router.push({ name: 'categorias-view' })
         }
     }
 })
