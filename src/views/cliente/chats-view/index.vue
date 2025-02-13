@@ -159,7 +159,7 @@
                                             <div class="flex justify-between items-center">
                                                 <div class="flex gap-2">
                                                     <p class="text-sm text-gray-600 self-center ">
-                                                        Precio propuesto
+                                                        Propuesta
                                                     </p>
                                                 </div>
                                                 <ion-item class="w-1/2 h-8   ">
