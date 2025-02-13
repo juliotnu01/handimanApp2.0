@@ -151,7 +151,7 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                                 <p class="text-sm text-gray-600 self-center ">
-                                                    {{ message.serviceDate }}
+                                                    {{ message.serviceDate }} 5:16 AM
                                                 </p>
                                             </div>
                                             <p class="font-bold text-sm">Servicio solicitado: {{ message.serviceName }}
