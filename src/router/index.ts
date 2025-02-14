@@ -40,6 +40,16 @@ const routes: Array<RouteRecordRaw> = [
         path: "chat",
         name: "chat-view",
         component: () => import("../views/cliente/chats-view/index.vue"),
+      },
+      {
+        path: "ordenes",
+        name: "ordenes-view",
+        component: () => import("../views/cliente/ordenes/index.vue"),
+      },
+      {
+        path: "notificaciones",
+        name: "notificaciones-view",
+        component: () => import("../views/cliente/notificaciones/index.vue"),
       }
     ],
   },

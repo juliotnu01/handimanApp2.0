@@ -139,12 +139,36 @@ export const useClienteStore = defineStore('cliente', {
          *
          * @returns {Promise} A promise that resolves when the navigation is complete.
          */
-        goToHome () {
+        goToHome() {
             return this.router.push('/cliente/home');
         },
 
-        gotToCategoriasView(){
+        /**
+         * Navigates the user to the categories view.
+         * Utilizes the router to push a new route with the name 'categorias-view'.
+         *
+         * @returns {Promise} A promise that resolves when the navigation is complete.
+         */
+        gotToCategoriasView() {
             return this.router.push({ name: 'categorias-view' })
+        },
+        /**
+         * Navigates the user to the orders view.
+         * Utilizes the router to push a new route with the name 'ordenes-view'.
+         *
+         * @returns {Promise} A promise that resolves when the navigation is complete.
+         */
+        goToOrdenesView() {
+            return this.router.push({ name: 'ordenes-view' })
+        },
+        /**
+         * Navigates the user to the orders view.
+         * Utilizes the router to push a new route with the name 'ordenes-view'.
+         *
+         * @returns {Promise} A promise that resolves when the navigation is complete.
+         */
+        goToNotificacionesView() {
+            return this.router.push({ name: 'notificaciones-view' })
         }
     }
 })
