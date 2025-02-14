@@ -30,6 +30,7 @@ export const useClienteStore = defineStore('cliente', {
         ],
         router: useRouter(),
         route: useRoute(),
+        modo: false,
 
 
     }),
