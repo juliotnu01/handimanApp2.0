@@ -683,28 +683,28 @@ const appPages = [
     },
     {
         title: 'Mi billetera',
-        url: '/folder/Outbox',
+        url: '/cliente/billetera',
         iosIcon: cash,
         mdIcon: cash
     },
-    {
-        title: 'Ayuda',
-        url: '/folder/Favorites',
-        iosIcon: heartOutline,
-        mdIcon: heartSharp
-    },
+    // {
+    //     title: 'Ayuda',
+    //     url: '/folder/Favorites',
+    //     iosIcon: heartOutline,
+    //     mdIcon: heartSharp
+    // },
     {
         title: 'Mensajes',
         url: '/cliente/chat',
         iosIcon: mailOutline,
         mdIcon: mailOutline
     },
-    {
-        title: 'Centro de  seguridad',
-        url: '/folder/Trash',
-        iosIcon: lockOpen,
-        mdIcon: lockOpen
-    },
+    // {
+    //     title: 'Centro de  seguridad',
+    //     url: '/folder/Trash',
+    //     iosIcon: lockOpen,
+    //     mdIcon: lockOpen
+    // },
     {
         title: 'Configuración',
         url: '/folder/Spam',

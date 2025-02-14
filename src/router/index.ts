@@ -50,6 +50,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "notificaciones",
         name: "notificaciones-view",
         component: () => import("../views/cliente/notificaciones/index.vue"),
+      },
+      {
+        path: "billetera",
+        name: "billetera-view",
+        component: () => import("../views/cliente/billetera/index.vue"),
       }
     ],
   },
