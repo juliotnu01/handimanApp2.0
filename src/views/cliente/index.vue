@@ -1,55 +1,55 @@
 <template>
     <ion-page>
         <ion-header class="pb-4 shadow-none dark:bg-white " :translucent="true" v-if="isUserViewPage">
-
-            <!-- menu superior -->
-            <div class="w-full h-20 p-4 flex justify-between items-center gap-2">
-                <div class="flex gap-2">
-                    <button @click="openMenuIzquierda"
-                        class="bg-gray-200 w-12 h-10 min-w-12 rounded-lg text-center shadow-lg flex justify-center items-center dark:bg-gray-200">
-                        <svg width="25px" height="25px" viewBox="0 0 20 20" fill="none" class=" dark:text-black ">
-                            <path fill="currentColor" fill-rule="evenodd"
-                                d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z" />
-                        </svg>
-                    </button>
-                    <div v-if="!isHomePage">
-                        <button @click="goToHome"
+            <ion-toolbar>
+                <!-- menu superior -->
+                <div class="w-full h-20 p-4 flex justify-between items-center gap-2">
+                    <div class="flex gap-2">
+                        <button @click="openMenuIzquierda"
                             class="bg-gray-200 w-12 h-10 min-w-12 rounded-lg text-center shadow-lg flex justify-center items-center dark:bg-gray-200">
-                            <svg fill="#000000" width="30px" height="30px" viewBox="-4.5 0 32 32">
-                                <path
-                                    d="M19.469 12.594l3.625 3.313c0.438 0.406 0.313 0.719-0.281 0.719h-2.719v8.656c0 0.594-0.5 1.125-1.094 1.125h-4.719v-6.063c0-0.594-0.531-1.125-1.125-1.125h-2.969c-0.594 0-1.125 0.531-1.125 1.125v6.063h-4.719c-0.594 0-1.125-0.531-1.125-1.125v-8.656h-2.688c-0.594 0-0.719-0.313-0.281-0.719l10.594-9.625c0.438-0.406 1.188-0.406 1.656 0l2.406 2.156v-1.719c0-0.594 0.531-1.125 1.125-1.125h2.344c0.594 0 1.094 0.531 1.094 1.125v5.875z">
-                                </path>
+                            <svg width="25px" height="25px" viewBox="0 0 20 20" fill="none" class=" dark:text-black ">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z" />
                             </svg>
                         </button>
+                        <div v-if="!isHomePage">
+                            <button @click="goToHome"
+                                class="bg-gray-200 w-12 h-10 min-w-12 rounded-lg text-center shadow-lg flex justify-center items-center dark:bg-gray-200">
+                                <svg fill="#000000" width="30px" height="30px" viewBox="-4.5 0 32 32">
+                                    <path
+                                        d="M19.469 12.594l3.625 3.313c0.438 0.406 0.313 0.719-0.281 0.719h-2.719v8.656c0 0.594-0.5 1.125-1.094 1.125h-4.719v-6.063c0-0.594-0.531-1.125-1.125-1.125h-2.969c-0.594 0-1.125 0.531-1.125 1.125v6.063h-4.719c-0.594 0-1.125-0.531-1.125-1.125v-8.656h-2.688c-0.594 0-0.719-0.313-0.281-0.719l10.594-9.625c0.438-0.406 1.188-0.406 1.656 0l2.406 2.156v-1.719c0-0.594 0.531-1.125 1.125-1.125h2.344c0.594 0 1.094 0.531 1.094 1.125v5.875z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+                    <button @click="goToUserViewPage"
+                        class="flex items-center gap-4 p-2 bg-gray-100 rounded-lg shadow-sm  dark:bg-gray-100">
+                        <div class="flex flex-col">
+                            <span class="text-lg font-semibold dark:text-black ">John Doe</span>
+                        </div>
+                        <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
+                            <img alt="Silhouette of a person's head"
+                                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                                class="w-full h-full object-cover" />
+                        </div>
+                    </button>
                 </div>
-                <button @click="goToUserViewPage"
-                    class="flex items-center gap-4 p-2 bg-gray-100 rounded-lg shadow-sm  dark:bg-gray-100">
-                    <div class="flex flex-col">
-                        <span class="text-lg font-semibold dark:text-black ">John Doe</span>
-                    </div>
-                    <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
-                        <img alt="Silhouette of a person's head"
-                            src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                            class="w-full h-full object-cover" />
-                    </div>
-                </button>
-            </div>
-            <!-- fin menu superior -->
+                <!-- fin menu superior -->
 
-            <!-- direccion de envio -->
-            <ion-item class="w-fit h-8 self-center rounded-lg  ml-auto flex px-2 -mb-6">
-                <ion-select justify="end" label="Dirección de Envio"
-                    class="text-xs text-purple-800 font-medium self-center  " interface="popover"
-                    v-model="selectedDireccion">
-                    <ion-select-option v-for="(direccion, d) in direcciones" :key="d" :value="direccion"
-                        class="text-xs text-blue-600 hover:bg-purple-100">
-                        {{ direccion }}
-                    </ion-select-option>
-                </ion-select>
-            </ion-item>
-            <!-- fin direccion de envio -->
-
+                <!-- direccion de envio -->
+                <ion-item class="w-fit h-8 self-center rounded-lg  ml-auto flex px-2 -mb-6">
+                    <ion-select justify="end" label="Dirección de Envio"
+                        class="text-xs text-purple-800 font-medium self-center  " interface="popover"
+                        v-model="selectedDireccion">
+                        <ion-select-option v-for="(direccion, d) in direcciones" :key="d" :value="direccion"
+                            class="text-xs text-blue-600 hover:bg-purple-100">
+                            {{ direccion }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <!-- fin direccion de envio -->
+            </ion-toolbar>
         </ion-header>
 
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
@@ -88,7 +88,7 @@
                     </label>
                 </div>
                 <div class="w-fit absolute bottom-0 m-4 right-0  ">
-                    <ion-button  class="w-full font-bold " :color="`danger`">
+                    <ion-button class="w-full font-bold " :color="`danger`">
                         <div class="w-full h-full flex justify-between">
                             <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
@@ -570,6 +570,7 @@ import {
     IonIcon,
     IonAvatar,
     IonButton,
+    IonToolbar,
 } from '@ionic/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed, ref } from 'vue';
