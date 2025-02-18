@@ -1,21 +1,31 @@
-import { defineStore } from 'pinia'
-import { menuController } from '@ionic/vue'
-import { useRoute, useRouter } from 'vue-router';
+import { defineStore } from 'pinia';
+import { menuController } from '@ionic/vue';
+import { useRouter, useRoute } from 'vue-router';
+import {
+    home, cash, mailOutline, locate
+} from 'ionicons/icons';
+import { Preferences } from "@capacitor/preferences";
+
+/**
+ * Define el store de cliente, que maneja el estado y las acciones relacionadas con el cliente.
+ * 
+ * @returns {Object} El store de cliente.
+ */
 export const useClienteStore = defineStore('cliente', {
     state: () => ({
-        clientes: [],
+        clientes: [], // Array de clientes
         direcciones: [
             '123 Main St, Springfield, IL',
             '456 Elm St, Shelbyville, IL',
             '789 Oak St, Capital City, IL'
-        ],
-        selectedDireccion: '789 Oak St, Capital City, IL',
-        range: { lower: 20, upper: 9999999 },
-        hasOffer: false,
-        isOpenFilter: false,
-        isOpenCarritoDeCompras: false,
-        hasReview: false,
-        isCartOpen: false,
+        ], // Array de direcciones disponibles
+        selectedDireccion: '789 Oak St, Capital City, IL', // Dirección seleccionada actualmente
+        range: { lower: 20, upper: 9999999 }, // Rango de valores para filtrado
+        hasOffer: false, // Indica si hay ofertas disponibles
+        isOpenFilter: false, // Indica si el filtro está abierto
+        isOpenCarritoDeCompras: false, // Indica si el carrito de compras está abierto
+        hasReview: false, // Indica si hay reseñas disponibles
+        isCartOpen: false, // Indica si el carrito está abierto
         cartItems: [
             { id: 1, name: 'Producto 1', price: 10.00 },
             { id: 2, name: 'Producto 2', price: 20.00 },
@@ -27,149 +37,206 @@ export const useClienteStore = defineStore('cliente', {
             { id: 8, name: 'Producto 8', price: 80.00 },
             { id: 9, name: 'Producto 9', price: 90.00 },
             { id: 10, name: 'Producto 10', price: 100.00 },
-        ],
-        router: useRouter(),
-        route: useRoute(),
-        modo: false,
-
-
+        ], // Array de items en el carrito
+        user_name: null, 
+        email_user: null,
+        avatar_user: null, 
+        appPages: [
+            {
+                title: 'Home',
+                url: '/cliente/home',
+                iosIcon: home,
+                mdIcon: home
+            },
+            {
+                title: 'Mi billetera',
+                url: '/cliente/billetera',
+                iosIcon: cash,
+                mdIcon: cash
+            },
+            {
+                title: 'Mensajes',
+                url: '/cliente/chat',
+                iosIcon: mailOutline,
+                mdIcon: mailOutline
+            },
+            {
+                title: 'Configuración',
+                url: '/folder/Spam',
+                iosIcon: locate,
+                mdIcon: locate
+            }
+        ], // Array de páginas disponibles en la app
+        modo: true
     }),
-    getters: {
-
-    },
     actions: {
         /**
-         * Opens the left menu ('menuIzquierda') and enables it.
+         * Abre el menú izquierdo.
          * 
-         * This function enables the menu identified by 'menuIzquierda' and then opens it.
-         * It uses the `menuController` to perform these actions.
-         * 
-         * @async
-         * @function openMenuIzquierda
-         * @returns {Promise<void>} A promise that resolves when the menu is opened.
+         * @returns {Promise} Promesa que se resuelve cuando el menú izquierdo se abre.
          */
         async openMenuIzquierda() {
             return await menuController.open('menu-izquierda');
         },
         /**
-         * Opens the right-side menu using the menu controller.
+         * Abre el menú derecho.
          * 
-         * @async
-         * @function openMenuDerecha
-         * @returns {Promise<void>} A promise that resolves when the menu is opened.
+         * @returns {Promise} Promesa que se resuelve cuando el menú derecho se abre.
          */
         async openMenuDerecha() {
             return await menuController.open('menu-derecha');
         },
         /**
-         * Formats the given value as a string.
-         *
-         * @param {any} value - The value to be formatted.
-         * @returns {string} The formatted value as a string.
+         * Formatea un valor como cadena.
+         * 
+         * @param {any} value El valor a formatear.
+         * @returns {string} El valor formateado como cadena.
          */
-        pinFormatter(value) { return `${value}` },
-
+        pinFormatter(value) {
+            return `${value}`;
+        },
         /**
-         * Handles the change event for the lower range value.
-         *
-         * @param {Event} event - The event object containing the new value for the lower range.
+         * Maneja el cambio en el valor inferior del rango.
+         * 
+         * @param {Event} event El evento que contiene el nuevo valor.
          */
         handleLowerChange(event) {
             this.range.lower = event.detail.value;
         },
         /**
-         * Handles the change event for the upper range value.
-         *
-         * @param {Event} event - The event object containing the new value for the upper range.
+         * Maneja el cambio en el valor superior del rango.
+         * 
+         * @param {Event} event El evento que contiene el nuevo valor.
          */
         handleUpperChange(event) {
             this.range.upper = event.detail.value;
         },
         /**
-         * Handles the change event for the offer checkbox.
-         *
-         * @param {Event} event - The event object from the checkbox change.
-         * @property {Object} event.detail - The detail object of the event.
-         * @property {boolean} event.detail.checked - The checked state of the checkbox.
+         * Maneja el cambio en la disponibilidad de ofertas.
+         * 
+         * @param {Event} event El evento que contiene el nuevo estado.
          */
         handleOfferChange(event) {
             this.hasOffer = event.detail.checked;
         },
         /**
-         * Handles the change event for the review checkbox.
-         *
-         * @param {Event} event - The event object from the change event.
-         * @property {Object} event.detail - The detail object of the event.
-         * @property {boolean} event.detail.checked - The checked state of the review checkbox.
+         * Maneja el cambio en la disponibilidad de reseñas.
+         * 
+         * @param {Event} event El evento que contiene el nuevo estado.
          */
         handleReviewChange(event) {
             this.hasReview = event.detail.checked;
         },
         /**
-         * Sets the state of the shopping cart's open status.
-         *
-         * @param {boolean} open - The new state of the shopping cart (true for open, false for closed).
-         */
-        setOpenCarritoDeCompras(open) { this.isOpenCarritoDeCompras = open },
-
-        /**
-         * Toggles the state of the shopping cart.
-         * If the cart is currently open, it will be closed, and vice versa.
-         */
-        toggleCart() { this.isCartOpen = !this.isCartOpen; },
-        /**
-         * Navigates the user to the chat view.
-         * Utilizes the router to push a new route with the name 'chat-view'.
-         */
-        /**
-         * Navigates to the chat view.
+         * Establece el estado de apertura del carrito de compras.
          * 
-         * This method uses the router to push a new route named 'chat-view'.
+         * @param {boolean} open El estado de apertura del carrito.
+         */
+        setOpenCarritoDeCompras(open) {
+            this.isOpenCarritoDeCompras = open;
+        },
+        /**
+         * Alterna el estado de apertura del carrito.
+         */
+        toggleCart() {
+            this.isCartOpen = !this.isCartOpen;
+        },
+        /**
+         * Redirige a la vista de chats.
          * 
-         * @returns {Promise} A promise that resolves when the navigation is complete.
+         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
-        goToChatsView() { return this.router.push({ name: 'chat-view' }) },
+        goToChatsView() {
+            const router = useRouter();
+            return router.push({ name: 'chat-view' });
+        },
         /**
-         * Checks if the current route is not the user view page.
-         *
-         * @returns {boolean} Returns true if the current route is not '/cliente/user', otherwise false.
+         * Determina si la página actual es la de vista de usuario.
+         * 
+         * @returns {boolean} Verdadero si la página actual es la de vista de usuario, falso de lo contrario.
          */
-        isUserViewPage() { return this.route.path !== '/cliente/user' },
+        isUserViewPage() {
+            const route = useRoute();
+            return route.path !== '/cliente/user';
+        },
         /**
-         * Navigates the user to the home page for clients.
-         *
-         * @returns {Promise} A promise that resolves when the navigation is complete.
+         * Redirige a la página de inicio.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         goToHome() {
-            return this.router.push('/cliente/home');
+            const router = useRouter();
+            return router.push('/cliente/home');
         },
-
         /**
-         * Navigates the user to the categories view.
-         * Utilizes the router to push a new route with the name 'categorias-view'.
-         *
-         * @returns {Promise} A promise that resolves when the navigation is complete.
+         * Redirige a la vista de categorías.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         gotToCategoriasView() {
-            return this.router.push({ name: 'categorias-view' })
+            const router = useRouter();
+            return router.push({ name: 'categorias-view' });
         },
         /**
-         * Navigates the user to the orders view.
-         * Utilizes the router to push a new route with the name 'ordenes-view'.
-         *
-         * @returns {Promise} A promise that resolves when the navigation is complete.
+         * Redirige a la vista de órdenes.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         goToOrdenesView() {
-            return this.router.push({ name: 'ordenes-view' })
+            const router = useRouter();
+            return router.push({ name: 'ordenes-view' });
         },
         /**
-         * Navigates the user to the orders view.
-         * Utilizes the router to push a new route with the name 'ordenes-view'.
-         *
-         * @returns {Promise} A promise that resolves when the navigation is complete.
+         * Redirige a la vista de notificaciones.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         goToNotificacionesView() {
-            return this.router.push({ name: 'notificaciones-view' })
-        }
+            const router = useRouter();
+            return router.push({ name: 'notificaciones-view' });
+        },
+        /**
+         * Carga el nombre del usuario desde las preferencias.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando el nombre del usuario es cargado.
+         */
+        async loadUserName() {
+            let { value } = await Preferences.get({ key: 'user' });
+            if (value) {
+                let user = JSON.parse(value);
+                this.user_name = user.name;
+            } else {
+                this.user_name = 'Usuario no identificado'; // Valor por defecto
+            }
+        },
+        /**
+         * Carga el email del usuario desde las preferencias.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando el email del usuario es cargado.
+         */
+        async loadEmailUser() {
+            let { value } = await Preferences.get({ key: 'user' });
+            if (value) {
+                let user = JSON.parse(value);
+                this.email_user = user.email;
+            } else {
+                this.email_user = 'Usuario no identificado'; // Valor por defecto
+            }
+        },
+        /**
+         * Carga el avatar del usuario desde las preferencias.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando el avatar del usuario es cargado.
+         */
+        async loadAvatarUser() {
+            let { value } = await Preferences.get({ key: 'user' });
+            if (value) {
+                let user = JSON.parse(value);
+                this.avatar_user = user.profile_photo_url;
+            } else {
+                this.avatar_user = 'Usuario no identificado'; // Valor por defecto
+            }
+        },
+        
     }
-})
+});

@@ -26,11 +26,11 @@
                     <button @click="goToUserViewPage"
                         class="flex items-center gap-4 p-2 bg-gray-100 rounded-lg shadow-sm  dark:bg-gray-100">
                         <div class="flex flex-col">
-                            <span class="text-lg font-semibold dark:text-black ">John Doe</span>
+                            <span class="text-lg font-semibold dark:text-black ">{{ user_name }}</span>
                         </div>
                         <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
                             <img alt="Silhouette of a person's head"
-                                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                                :src="avatar_user"
                                 class="w-full h-full object-cover" />
                         </div>
                     </button>
@@ -52,20 +52,20 @@
         </ion-header>
 
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
-            <ion-header class="ion-padding">
-                <ion-item>
+            <ion-header class="ion-padding  ">
+                <ion-item class=" -mb-4 "  >
                     <ion-avatar class="mr-5 ">
-                        <img alt="avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        <img alt="avatar" :src="avatar_user" />
                     </ion-avatar>
                     <ion-label>
-                        <ion-label>Juliot nuñez</ion-label>
+                        <ion-label>{{ user_name }}</ion-label>
                         <ion-label>
-                            nunezjuliot@gmail.com
+                            {{ email_user }}
                         </ion-label>
                     </ion-label>
                 </ion-item>
             </ion-header>
-            <ion-content class="ion-padding">
+            <ion-content class="ion-padding   ">
                 <ion-list>
                     <ion-item router-direction="root" :router-link="p.url" lines="none" v-for="(p, i) in appPages"
                         :key="i" class="">
@@ -74,20 +74,23 @@
                     </ion-item>
                 </ion-list>
                 <hr class="mx-auto" />
-                <div class=" mx-4 mt-4 flex justify-start ">
+                <!-- <div class=" mx-4 mt-4 flex justify-start ">
                     <div
                         class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                        <input type="checkbox" name="toggle" id="toggle" v-model="modoComputed" :class="{
-                            'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo,
-                            'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo
+                        <input type="checkbox" name="toggle" id="toggle"  :class="{
+                            'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': true,
+                            'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': false
                         }" />
                         <label for="toggle"
-                            :class="{ ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': modoComputed == false, ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modoComputed == true || modoComputed == null }"></label>
+                            :class="{ 
+                                ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': modoComputed == false, 
+                                ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modoComputed == true || modoComputed == null }">
+                        </label>
                     </div>
                     <label for="toggle" class=" text-xs text-gray-700 self-center ">
                         {{ modoComputed ? 'Cliente' : 'Especialista' }}
                     </label>
-                </div>
+                </div> -->
             </ion-content>
             <ion-footer>
                 <div class="w-fit absolute bottom-0 m-4 right-0  ">
@@ -581,34 +584,13 @@ import {
     IonFooter,
 } from '@ionic/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { computed, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
-import {
-    archiveOutline,
-    archiveSharp,
-    bookmarkOutline,
-    bookmarkSharp,
-    heartOutline,
-    heartSharp,
-    mailOutline,
-    mailSharp,
-    paperPlaneOutline,
-    paperPlaneSharp,
-    trashOutline,
-    trashSharp,
-    warningOutline,
-    warningSharp,
-    home,
-    speedometer,
-    cash,
-    lockOpen,
-    locate,
-    car
-} from 'ionicons/icons';
+
 const route = useRoute();
 // stores 
 const clienteStore = useClienteStore();
@@ -633,7 +615,11 @@ const { openMenuIzquierda,
     goToHome,
     gotToCategoriasView,
     goToOrdenesView,
-    goToNotificacionesView } = clienteStore;
+    goToNotificacionesView,
+    saveUserName,
+    loadUserName,
+    loadEmailUser,
+    loadAvatarUser } = clienteStore;
 const {
     direcciones,
     selectedDireccion,
@@ -645,6 +631,10 @@ const {
     isCartOpen,
     cartItems,
     modo,
+    appPages,
+    user_name,
+    email_user,
+    avatar_user
 } = storeToRefs(clienteStore);
 
 // home
@@ -680,52 +670,14 @@ const total = computed(() => {
     return subtotal.value + impuestos.value + comision.value;
 });
 
-const appPages = [
-    {
-        title: 'Home',
-        url: '/cliente/home',
-        iosIcon: home,
-        mdIcon: home
-    },
-    {
-        title: 'Mi billetera',
-        url: '/cliente/billetera',
-        iosIcon: cash,
-        mdIcon: cash
-    },
-    // {
-    //     title: 'Ayuda',
-    //     url: '/folder/Favorites',
-    //     iosIcon: heartOutline,
-    //     mdIcon: heartSharp
-    // },
-    {
-        title: 'Mensajes',
-        url: '/cliente/chat',
-        iosIcon: mailOutline,
-        mdIcon: mailOutline
-    },
-    // {
-    //     title: 'Centro de  seguridad',
-    //     url: '/folder/Trash',
-    //     iosIcon: lockOpen,
-    //     mdIcon: lockOpen
-    // },
-    {
-        title: 'Configuración',
-        url: '/folder/Spam',
-        iosIcon: locate,
-        mdIcon: locate
-    }
-];
-const modoComputed = computed({
-    get() {
-        return modo.value;
-    },
-    set(val) {
-        modo.value = val;
-    },
-});
+
+
+
+onMounted(() => {
+    loadUserName()
+    loadEmailUser()
+    loadAvatarUser()
+})
 </script>
 <style scoped>
 /* cliente */

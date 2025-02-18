@@ -15,7 +15,7 @@
         <ion-content class="mb-10">
             <div class="w-full h-fit relative">
                 <img src="https://picsum.photos/200/300" alt="Header Image" class="w-full h-36  object-cover">
-                <img src="https://picsum.photos/200/300" alt="Avatar"
+                <img :src="avatar_user" alt="Avatar"
                     class="w-20 h-20 rounded-full absolute bottom-0 left-4 transform translate-y-1/2 border-4 border-black">
             </div>
             <div class="w-full h-10  pl-4 flex  justify-end px-4 gap-4 mt-2">
@@ -40,7 +40,7 @@
             </div>
             <div class="w-full h-fit  pl-4 flex  text-start mb-2 ">
                 <p class="line-clamp-1 text-black font-bold  w-fit px-2 self-center rounded-lg text-2xl">
-                    Juliot Nuñez
+                    {{ user_name }}
                 </p>
                 <div class="flex gap-1">
                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
@@ -72,20 +72,35 @@
                     </svg>
                 </div>
             </div>
-            <div class="flex items-center pl-4 ">
-                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M49,18.92A23.74,23.74,0,0,0,25.27,42.77c0,16.48,17,31.59,22.23,35.59a2.45,2.45,0,0,0,3.12,0c5.24-4.12,22.1-19.11,22.1-35.59A23.74,23.74,0,0,0,49,18.92Zm0,33.71a10,10,0,1,1,10-10A10,10,0,0,1,49,52.63Z" />
-                </svg>
-                <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">123
-                    Random St, City, Country</span>
-            </div>
-            <div class="flex items-center self-center pl-4 mb-4">
-                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#000">
-                    <path
-                        d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                </svg>
-                <span class="ml-1 text-sm font-semibold">4.9 (1.2K+ reviews)</span>
+            <div class="flex items-center pl-4 my-3">
+                <div class="flex flex-col">
+                    <div class="flex gap-1">
+                        <svg fill="#000000" width="20px" height="20px" viewBox="0 0 100 100"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M49,18.92A23.74,23.74,0,0,0,25.27,42.77c0,16.48,17,31.59,22.23,35.59a2.45,2.45,0,0,0,3.12,0c5.24-4.12,22.1-19.11,22.1-35.59A23.74,23.74,0,0,0,49,18.92Zm0,33.71a10,10,0,1,1,10-10A10,10,0,0,1,49,52.63Z" />
+                        </svg>
+                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">123
+                            Random St, City, Country</span>
+                    </div>
+                    <div class="flex justify-between items-center ">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" >
+                            <path
+                                d="M3 8L8.44992 11.6333C9.73295 12.4886 10.3745 12.9163 11.0678 13.0825C11.6806 13.2293 12.3194 13.2293 12.9322 13.0825C13.6255 12.9163 14.2671 12.4886 15.5501 11.6333L21 8M6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V8.2C21 7.0799 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19Z"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {{ email_user }}
+                        </span>
+                    </div>
+                    <div class="flex items-center self-center w-full justify-between ">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#000">
+                            <path
+                                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                        </svg>
+                        <span class=" text-sm font-semibold">4.9 (1.2K+ reviews)</span>
+                    </div>
+                </div>
             </div>
             <div class="px-[10px]">
                 <segment :segments="['General', 'Recientes', 'Ordenes', 'Reviews']" class="mx-auto">
@@ -288,10 +303,20 @@
 
 <script setup>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
+import { useClienteStore } from '@/stores/cliente/clienteStore'
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { useRouter } from 'vue-router';
 import segment from '@/components/segment.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+
+const clienteStore = useClienteStore();
+
+
+const { user_name,
+    email_user,
+    avatar_user } = storeToRefs(clienteStore)
+
 
 const userViewStore = useUserViewStore();
 const router = useRouter();
@@ -307,7 +332,7 @@ const toggleSection = (index) => {
 
 const showDetails = ref(false);
 
-const toggleDetails = () =>  {
+const toggleDetails = () => {
     showDetails.value = !showDetails.value;
 }
 
@@ -335,9 +360,11 @@ const reviews = ref([
     }
 ]);
 
-const toggleDetails2 = (index) =>  {
+const toggleDetails2 = (index) => {
     reviews.value[index].showDetails = !reviews.value[index].showDetails;
 }
+
+
 </script>
 
 <style scoped>
