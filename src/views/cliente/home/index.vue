@@ -1,42 +1,41 @@
 <template>
     <ion-page>
         <ion-header>
-            <ion-toolbar>
-                <div class="w-[97%] h-fit self-center mx-auto my-4 flex justify-between relative">
-                    <ion-searchbar class="w-10/12 h-10" @ionInput="handleSearchInput"></ion-searchbar>
-                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="self-center mx-2 "
-                        @click="setOpenFilter(true)">
-                        <g id="style=fill">
-                            <g id="filter-circle">
-                                <path id="vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7.75 17.5C7.75 17.0858 7.41421 16.75 7 16.75H2C1.58579 16.75 1.25 17.0858 1.25 17.5C1.25 17.9142 1.58579 18.25 2 18.25H7C7.41421 18.25 7.75 17.9142 7.75 17.5Z"
-                                    fill="#000000" />
-                                <path id="vector (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M16.25 6.5C16.25 6.08579 16.5858 5.75 17 5.75H22C22.4142 5.75 22.75 6.08579 22.75 6.5C22.75 6.91421 22.4142 7.25 22 7.25H17C16.5858 7.25 16.25 6.91421 16.25 6.5Z"
-                                    fill="#000000" />
-                                <path id="vector (Stroke)_3" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M22.75 17.5C22.75 17.0858 22.4142 16.75 22 16.75H13C12.5858 16.75 12.25 17.0858 12.25 17.5C12.25 17.9142 12.5858 18.25 13 18.25H22C22.4142 18.25 22.75 17.9142 22.75 17.5Z"
-                                    fill="#000000" />
-                                <path id="vector (Stroke)_4" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M1.25 6.5C1.25 6.08579 1.58579 5.75 2 5.75H11C11.4142 5.75 11.75 6.08579 11.75 6.5C11.75 6.91421 11.4142 7.25 11 7.25H2C1.58579 7.25 1.25 6.91421 1.25 6.5Z"
-                                    fill="#000000" />
-                                <path id="vector (Stroke)_5" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M13.75 17.3999C13.75 15.3288 12.0711 13.6499 10 13.6499C7.92893 13.6499 6.25 15.3288 6.25 17.3999C6.25 19.471 7.92893 21.1499 10 21.1499C12.0711 21.1499 13.75 19.471 13.75 17.3999Z"
-                                    fill="#000000" />
-                                <path id="vector (Stroke)_6" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M10.25 6.3999C10.25 4.32883 11.9289 2.6499 14 2.6499C16.0711 2.6499 17.75 4.32883 17.75 6.3999C17.75 8.47097 16.0711 10.1499 14 10.1499C11.9289 10.1499 10.25 8.47097 10.25 6.3999Z"
-                                    fill="#000000" />
-                            </g>
+            <div class="w-[97%] h-fit self-center mx-auto  flex justify-between relative">
+                <ion-searchbar class="w-10/12 h-10" @ionInput="handleSearchInput"></ion-searchbar>
+                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="self-center mx-2 "
+                    @click="setOpenFilter(true)">
+                    <g id="style=fill">
+                        <g id="filter-circle">
+                            <path id="vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.75 17.5C7.75 17.0858 7.41421 16.75 7 16.75H2C1.58579 16.75 1.25 17.0858 1.25 17.5C1.25 17.9142 1.58579 18.25 2 18.25H7C7.41421 18.25 7.75 17.9142 7.75 17.5Z"
+                                fill="#000000" />
+                            <path id="vector (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M16.25 6.5C16.25 6.08579 16.5858 5.75 17 5.75H22C22.4142 5.75 22.75 6.08579 22.75 6.5C22.75 6.91421 22.4142 7.25 22 7.25H17C16.5858 7.25 16.25 6.91421 16.25 6.5Z"
+                                fill="#000000" />
+                            <path id="vector (Stroke)_3" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M22.75 17.5C22.75 17.0858 22.4142 16.75 22 16.75H13C12.5858 16.75 12.25 17.0858 12.25 17.5C12.25 17.9142 12.5858 18.25 13 18.25H22C22.4142 18.25 22.75 17.9142 22.75 17.5Z"
+                                fill="#000000" />
+                            <path id="vector (Stroke)_4" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.25 6.5C1.25 6.08579 1.58579 5.75 2 5.75H11C11.4142 5.75 11.75 6.08579 11.75 6.5C11.75 6.91421 11.4142 7.25 11 7.25H2C1.58579 7.25 1.25 6.91421 1.25 6.5Z"
+                                fill="#000000" />
+                            <path id="vector (Stroke)_5" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M13.75 17.3999C13.75 15.3288 12.0711 13.6499 10 13.6499C7.92893 13.6499 6.25 15.3288 6.25 17.3999C6.25 19.471 7.92893 21.1499 10 21.1499C12.0711 21.1499 13.75 19.471 13.75 17.3999Z"
+                                fill="#000000" />
+                            <path id="vector (Stroke)_6" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M10.25 6.3999C10.25 4.32883 11.9289 2.6499 14 2.6499C16.0711 2.6499 17.75 4.32883 17.75 6.3999C17.75 8.47097 16.0711 10.1499 14 10.1499C11.9289 10.1499 10.25 8.47097 10.25 6.3999Z"
+                                fill="#000000" />
                         </g>
-                    </svg>
-                </div>
-            </ion-toolbar>
+                    </g>
+                </svg>
+            </div>
         </ion-header>
         <ion-content>
+            
             <!-- buscador -->
-            <div class="w-[97%] h-fit self-center mx-auto my-4 flex justify-between relative">
+            <div v-if="searchQuery" class="w-[97%] h-fit self-center mx-auto  flex justify-between relative">
                 <!-- Contenedor de cartas -->
-                <div v-if="searchQuery"
+                <div
                     class="absolute w-11/12 max-h-[70em] top-12 z-[11] left-1/2 transform -translate-x-1/2 flex flex-col gap-4 p-2 rounded-lg shadow-lg overflow-y-auto">
                     <div class="w-full h-fit" v-for="n in 20" :key="n">
                         <div class="flex bg-white rounded-lg shadow-md overflow-hidden">
@@ -68,7 +67,7 @@
                 </div>
             </div>
             <!-- fin buscador -->
-
+            
             <!-- categorias -->
             <div class="flex flex-col gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide p-2">
                 <div class="sticky top-0 left-0 bg-white px-2 flex justify-between">
@@ -233,7 +232,8 @@
                     </router-link>
                 </div>
                 <div class="flex space-x-4 mt-2">
-                    <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services" :key="service.id">
+                    <div class="bg-gray-200 w-full max-w-full flex rounded-xl relative" v-for="service in services"
+                        :key="service.id">
                         <div class="w-40 h-46 bg-gray-400 flex items-center justify-center text-[10px] shrink-0">
                             <img :src="service.image" alt="" class="object-cover w-full h-full">
                         </div>

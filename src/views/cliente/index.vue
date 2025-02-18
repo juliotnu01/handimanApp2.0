@@ -1,7 +1,7 @@
 <template>
     <ion-page>
-        <ion-header class="pb-4 shadow-none dark:bg-white " :translucent="true" v-if="isUserViewPage">
-            <ion-toolbar>
+        <ion-header class="shadow-none dark:bg-white border-none " :translucent="true" v-if="isUserViewPage">
+            <ion-toolbar class="border-none shadow-none">
                 <!-- menu superior -->
                 <div class="w-full h-20 p-4 flex justify-between items-center gap-2">
                     <div class="flex gap-2">
@@ -36,11 +36,10 @@
                     </button>
                 </div>
                 <!-- fin menu superior -->
-
                 <!-- direccion de envio -->
-                <ion-item class="w-fit h-8 self-center rounded-lg  ml-auto flex px-2 -mb-6">
+                <ion-item class="w-fit h-8 self-center rounded-lg  ml-auto flex px-2  border-none  ">
                     <ion-select justify="end" label="Dirección de Envio"
-                        class="text-xs text-purple-800 font-medium self-center  " interface="popover"
+                        class="text-xs text-purple-800 font-medium self-center border-none " interface="popover"
                         v-model="selectedDireccion">
                         <ion-select-option v-for="(direccion, d) in direcciones" :key="d" :value="direccion"
                             class="text-xs text-blue-600 hover:bg-purple-100">
@@ -53,7 +52,7 @@
         </ion-header>
 
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
-            <ion-content class="ion-padding">
+            <ion-header class="ion-padding">
                 <ion-item>
                     <ion-avatar class="mr-5 ">
                         <img alt="avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -65,6 +64,8 @@
                         </ion-label>
                     </ion-label>
                 </ion-item>
+            </ion-header>
+            <ion-content class="ion-padding">
                 <ion-list>
                     <ion-item router-direction="root" :router-link="p.url" lines="none" v-for="(p, i) in appPages"
                         :key="i" class="">
@@ -87,6 +88,8 @@
                         {{ modoComputed ? 'Cliente' : 'Especialista' }}
                     </label>
                 </div>
+            </ion-content>
+            <ion-footer>
                 <div class="w-fit absolute bottom-0 m-4 right-0  ">
                     <ion-button class="w-full font-bold " :color="`danger`">
                         <div class="w-full h-full flex justify-between">
@@ -96,27 +99,27 @@
                                 <g>
                                     <g>
                                         <path d="M340.109,355.875c-5.707,0-11.023,2.153-14.578,5.926c-3.438,3.646-5.094,8.516-4.764,14.062
-			c1.087,18.758,1.366,37.374,1.438,54.903c-24.923,0.365-53.802,0.558-83.906,0.558c-56.414,0.006-107.818-0.665-145.585-1.878
-			c-0.317-75.389-2.133-151.893-3.89-225.927c-1.246-52.654-2.541-107.049-3.285-160.649c29.66-1.623,68.789-2.381,122.435-2.381
-			c26.509,0,52.722,0.183,76.279,0.348c9.282,0.068,18.159,0.124,26.481,0.178c0.544,11.656,1.468,23.237,2.519,35.878
-			c0.036,0.421,0.102,0.815,0.193,1.3c-0.137,0.937-0.208,1.871-0.208,2.798v12.022c0,11.154,9.074,20.225,20.23,20.225
-			s20.23-9.071,20.23-20.225V80.989c0-0.317-0.021-0.63-0.061-0.932c0.137-1.34,0.152-2.656,0.04-4.009
-			c-1.411-16.955-2.874-34.489-2.985-52.206c-0.03-4.522-1.407-8.653-3.977-11.989c-3.184-7.021-9.76-11.192-17.742-11.212
-			c-15.335-0.031-32.275-0.15-50.16-0.287C255.363,0.183,230.286,0,205.056,0C143.074,0,98.469,1.166,64.68,3.662
-			c-6.807,0.505-12.454,3.89-15.942,9.551c-2.61,3.385-3.963,7.607-3.905,12.226c0.686,59.694,2.143,120.355,3.552,179.026
-			c1.902,79.232,3.867,161.16,3.966,241.737c0.013,8.196,4.296,14.817,11.535,17.936c3.468,3.271,7.939,5.093,13.004,5.281
-			c41.172,1.569,97.814,2.432,159.484,2.432c37.234,0,74.959-0.319,106.219-0.919c8.709-0.162,15.757-5.312,18.474-13.456
-			c1.102-2.514,1.655-5.302,1.655-8.277c-0.005-26.329-0.116-50.069-1.508-73.945C360.462,362.527,350.032,355.875,340.109,355.875z
-			" />
+        c1.087,18.758,1.366,37.374,1.438,54.903c-24.923,0.365-53.802,0.558-83.906,0.558c-56.414,0.006-107.818-0.665-145.585-1.878
+        c-0.317-75.389-2.133-151.893-3.89-225.927c-1.246-52.654-2.541-107.049-3.285-160.649c29.66-1.623,68.789-2.381,122.435-2.381
+        c26.509,0,52.722,0.183,76.279,0.348c9.282,0.068,18.159,0.124,26.481,0.178c0.544,11.656,1.468,23.237,2.519,35.878
+        c0.036,0.421,0.102,0.815,0.193,1.3c-0.137,0.937-0.208,1.871-0.208,2.798v12.022c0,11.154,9.074,20.225,20.23,20.225
+        s20.23-9.071,20.23-20.225V80.989c0-0.317-0.021-0.63-0.061-0.932c0.137-1.34,0.152-2.656,0.04-4.009
+        c-1.411-16.955-2.874-34.489-2.985-52.206c-0.03-4.522-1.407-8.653-3.977-11.989c-3.184-7.021-9.76-11.192-17.742-11.212
+        c-15.335-0.031-32.275-0.15-50.16-0.287C255.363,0.183,230.286,0,205.056,0C143.074,0,98.469,1.166,64.68,3.662
+        c-6.807,0.505-12.454,3.89-15.942,9.551c-2.61,3.385-3.963,7.607-3.905,12.226c0.686,59.694,2.143,120.355,3.552,179.026
+        c1.902,79.232,3.867,161.16,3.966,241.737c0.013,8.196,4.296,14.817,11.535,17.936c3.468,3.271,7.939,5.093,13.004,5.281
+        c41.172,1.569,97.814,2.432,159.484,2.432c37.234,0,74.959-0.319,106.219-0.919c8.709-0.162,15.757-5.312,18.474-13.456
+        c1.102-2.514,1.655-5.302,1.655-8.277c-0.005-26.329-0.116-50.069-1.508-73.945C360.462,362.527,350.032,355.875,340.109,355.875z
+        " />
                                         <path d="M406.383,142.679h-117.84c-0.152-16.618-0.645-33.215-2.356-49.777c-0.091-0.942-0.33-1.78-0.533-2.643
-			c-0.797-14.117-18.54-26.015-30.554-12.659c-41.36,45.956-82.726,91.911-124.083,137.867c-7,3.146-12.299,10.836-11.832,18.943
-			c-0.467,8.104,4.832,15.797,11.832,18.94c41.357,45.956,82.723,91.911,124.083,137.872c12.014,13.351,29.757,1.447,30.554-12.659
-			c0.203-0.863,0.442-1.706,0.533-2.646c1.712-16.56,2.204-33.159,2.356-49.779h117.84c8.805,0,14.31-5.113,16.508-11.518
-			c2.504-2.858,4.129-6.672,4.129-11.552v-62.048v-13.23v-62.045c0-4.888-1.625-8.694-4.124-11.547
-			C420.692,147.797,415.188,142.679,406.383,142.679z M390.6,227.796v13.226v48.697H275.264c-1.721,0-3.265,0.244-4.737,0.6
-			c-9.146-0.051-18.332,5.814-18.337,17.61c0,8.49-0.056,16.98-0.198,25.477c-29.693-33.002-59.389-65.999-89.09-98.995
-			c29.696-33,59.392-65.996,89.09-98.995c0.138,8.487,0.198,16.978,0.198,25.479c0,11.793,9.191,17.661,18.337,17.608
-			c1.468,0.358,3.017,0.602,4.737,0.602H390.6V227.796z" />
+        c-0.797-14.117-18.54-26.015-30.554-12.659c-41.36,45.956-82.726,91.911-124.083,137.867c-7,3.146-12.299,10.836-11.832,18.943
+        c-0.467,8.104,4.832,15.797,11.832,18.94c41.357,45.956,82.723,91.911,124.083,137.872c12.014,13.351,29.757,1.447,30.554-12.659
+        c0.203-0.863,0.442-1.706,0.533-2.646c1.712-16.56,2.204-33.159,2.356-49.779h117.84c8.805,0,14.31-5.113,16.508-11.518
+        c2.504-2.858,4.129-6.672,4.129-11.552v-62.048v-13.23v-62.045c0-4.888-1.625-8.694-4.124-11.547
+        C420.692,147.797,415.188,142.679,406.383,142.679z M390.6,227.796v13.226v48.697H275.264c-1.721,0-3.265,0.244-4.737,0.6
+        c-9.146-0.051-18.332,5.814-18.337,17.61c0,8.49-0.056,16.98-0.198,25.477c-29.693-33.002-59.389-65.999-89.09-98.995
+        c29.696-33,59.392-65.996,89.09-98.995c0.138,8.487,0.198,16.978,0.198,25.479c0,11.793,9.191,17.661,18.337,17.608
+        c1.468,0.358,3.017,0.602,4.737,0.602H390.6V227.796z" />
                                     </g>
                                 </g>
                             </svg>
@@ -126,7 +129,7 @@
                         </div>
                     </ion-button>
                 </div>
-            </ion-content>
+            </ion-footer>
         </ion-menu>
 
         <ion-content class="scrollable  " id="main-content-cliente">
@@ -483,65 +486,70 @@
             </ion-content>
         </ion-menu>
 
-        <!-- menu inferior -->
-        <div
-            class="fixed w-8/12 h-[55px] bg-gray-700 bottom-3 left-1/2 transform -translate-x-1/2 rounded-tl-[2em] rounded-bl-[2em] rounded-tr-[2em] rounded-br-[2em] flex justify-center gap-2 ">
-            <button @click="setOpenCarritoDeCompras(true)"
-                class="  w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white  relative">
-                <svg width="25px" height="25px" viewBox="0 0 1024 1024" class=" self-center   ">
-                    <path fill="currentColor"
-                        d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z" />
-                </svg>
-                <span
-                    class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                    1
-                </span>
-            </button>
-            <button @click="goToChatsView"
-                class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center  text-white flex justify-center">
-                <svg width="25px" height="25px" viewBox="0 0 32 32" fill="none" class=" self-center ">
-                    <g clip-path="url(#clip0_901_1004)">
-                        <path
-                            d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_901_1004">
-                            <rect width="32" height="32" fill="white" />
-                        </clipPath>
-                    </defs>
-                </svg>
-            </button>
-            <button class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center text-white flex justify-center"
-                @click="gotToCategoriasView">
+        <ion-footer>
+            <!-- menu inferior -->
+            <div
+                class="fixed w-8/12 h-[55px] bg-gray-700 bottom-3 left-1/2 transform -translate-x-1/2 rounded-tl-[2em] rounded-bl-[2em] rounded-tr-[2em] rounded-br-[2em] flex justify-center gap-2 ">
+                <button @click="setOpenCarritoDeCompras(true)"
+                    class="  w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white  relative">
+                    <svg width="25px" height="25px" viewBox="0 0 1024 1024" class=" self-center   ">
+                        <path fill="currentColor"
+                            d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z" />
+                    </svg>
+                    <span
+                        class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                        1
+                    </span>
+                </button>
+                <button @click="goToChatsView"
+                    class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center  text-white flex justify-center">
+                    <svg width="25px" height="25px" viewBox="0 0 32 32" fill="none" class=" self-center ">
+                        <g clip-path="url(#clip0_901_1004)">
+                            <path
+                                d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_901_1004">
+                                <rect width="32" height="32" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </button>
+                <button
+                    class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center text-white flex justify-center"
+                    @click="gotToCategoriasView">
 
-                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M3.75 4.5L4.5 3.75H10.5L11.25 4.5V10.5L10.5 11.25H4.5L3.75 10.5V4.5ZM5.25 5.25V9.75H9.75V5.25H5.25ZM13.5 3.75L12.75 4.5V10.5L13.5 11.25H19.5L20.25 10.5V4.5L19.5 3.75H13.5ZM14.25 9.75V5.25H18.75V9.75H14.25ZM17.25 20.25H15.75V17.25H12.75V15.75H15.75V12.75H17.25V15.75H20.25V17.25H17.25V20.25ZM4.5 12.75L3.75 13.5V19.5L4.5 20.25H10.5L11.25 19.5V13.5L10.5 12.75H4.5ZM5.25 18.75V14.25H9.75V18.75H5.25Z"
-                        fill="currentColor" />
-                </svg>
-            </button>
-            <button class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white"
-                @click="goToOrdenesView">
-                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
-                    <path
-                        d="M8 6H16M8 10H16M8 14H11M6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </button>
-            <button @click="goToNotificacionesView"
-                class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white relative">
-                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="self-center ">
-                    <path
-                        d="M12 5.5C14.7614 5.5 17 7.73858 17 10.5V12.7396C17 13.2294 17.1798 13.7022 17.5052 14.0683L18.7808 15.5035C19.6407 16.4708 18.954 18 17.6597 18H6.34025C5.04598 18 4.35927 16.4708 5.21913 15.5035L6.4948 14.0683C6.82022 13.7022 6.99998 13.2294 6.99998 12.7396L7 10.5C7 7.73858 9.23858 5.5 12 5.5ZM12 5.5V3M10.9999 21H12.9999"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                    1
-                </span>
-            </button>
-        </div>
-        <!-- fin menu inferior -->
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3.75 4.5L4.5 3.75H10.5L11.25 4.5V10.5L10.5 11.25H4.5L3.75 10.5V4.5ZM5.25 5.25V9.75H9.75V5.25H5.25ZM13.5 3.75L12.75 4.5V10.5L13.5 11.25H19.5L20.25 10.5V4.5L19.5 3.75H13.5ZM14.25 9.75V5.25H18.75V9.75H14.25ZM17.25 20.25H15.75V17.25H12.75V15.75H15.75V12.75H17.25V15.75H20.25V17.25H17.25V20.25ZM4.5 12.75L3.75 13.5V19.5L4.5 20.25H10.5L11.25 19.5V13.5L10.5 12.75H4.5ZM5.25 18.75V14.25H9.75V18.75H5.25Z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
+                <button
+                    class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white"
+                    @click="goToOrdenesView">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
+                        <path
+                            d="M8 6H16M8 10H16M8 14H11M6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <button @click="goToNotificacionesView"
+                    class="w-12 h-12 bg-gray-500 bg-opacity-75 rounded-full self-center flex justify-center text-white relative">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="self-center ">
+                        <path
+                            d="M12 5.5C14.7614 5.5 17 7.73858 17 10.5V12.7396C17 13.2294 17.1798 13.7022 17.5052 14.0683L18.7808 15.5035C19.6407 16.4708 18.954 18 17.6597 18H6.34025C5.04598 18 4.35927 16.4708 5.21913 15.5035L6.4948 14.0683C6.82022 13.7022 6.99998 13.2294 6.99998 12.7396L7 10.5C7 7.73858 9.23858 5.5 12 5.5ZM12 5.5V3M10.9999 21H12.9999"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span
+                        class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                        1
+                    </span>
+                </button>
+            </div>
+            <!-- fin menu inferior -->
+        </ion-footer>
     </ion-page>
 </template>
 
@@ -566,11 +574,11 @@ import {
     IonRange,
     IonRouterOutlet,
     IonRefresher,
-    IonFooter,
     IonIcon,
     IonAvatar,
     IonButton,
     IonToolbar,
+    IonFooter,
 } from '@ionic/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed, ref } from 'vue';
@@ -655,9 +663,6 @@ const isOpenCarritoDeComprasComputed = computed({
     set(value) { isOpenCarritoDeCompras.value = value; }
 });
 const { goToUserViewPage } = userViewStore
-
-
-
 
 const subtotal = computed(() => {
     return cartItems.value.reduce((sum, item) => sum + item.price, 0);

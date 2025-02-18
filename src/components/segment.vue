@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col space-y-4">
         <!-- Botones de segmentos -->
-        <div class="flex space-x-1 mx-auto">
+        <div class="flex space-x-2 mx-auto">
             <button v-for="(segment, index) in segments" :key="index" @click="selectSegment(index)" :class="[
                 'px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out',
                 selectedSegment === index

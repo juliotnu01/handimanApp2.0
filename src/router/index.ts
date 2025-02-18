@@ -1,10 +1,17 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
+import { Preferences } from "@capacitor/preferences";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/cliente/home",
+    redirect: "/login",
+    name: "root",
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/login/index.vue"),
   },
   {
     path: "/cliente",
@@ -55,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "billetera",
         name: "billetera-view",
         component: () => import("../views/cliente/billetera/index.vue"),
-      }
+      },
     ],
   },
 ];
@@ -63,6 +70,22 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  try {
+    if (to.name === "cliente") {
+      const { value } = await Preferences.get({ key: "mode" });
+      const redirectPath =
+        value === "1" ? { name: "cliente-home" } : { name: "login" };
+      next(redirectPath);
+    } else {
+      next();
+    }
+  } catch (error) {
+    console.error("Error al obtener el modo:", error);
+    next("/login");
+  }
 });
 
 export default router;
