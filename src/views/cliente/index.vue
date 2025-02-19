@@ -616,10 +616,10 @@ const { openMenuIzquierda,
     gotToCategoriasView,
     goToOrdenesView,
     goToNotificacionesView,
-    saveUserName,
     loadUserName,
     loadEmailUser,
-    loadAvatarUser } = clienteStore;
+    loadAvatarUser,
+    loadBasicInformationUser } = clienteStore;
 const {
     direcciones,
     selectedDireccion,
@@ -677,6 +677,7 @@ onMounted(() => {
     loadUserName()
     loadEmailUser()
     loadAvatarUser()
+    loadBasicInformationUser()
 })
 </script>
 <style scoped>

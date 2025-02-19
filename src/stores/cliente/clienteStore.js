@@ -38,9 +38,10 @@ export const useClienteStore = defineStore('cliente', {
             { id: 9, name: 'Producto 9', price: 90.00 },
             { id: 10, name: 'Producto 10', price: 100.00 },
         ], // Array de items en el carrito
-        user_name: null, 
+        user_name: null,
         email_user: null,
-        avatar_user: null, 
+        avatar_user: null,
+        basic_information: null,
         appPages: [
             {
                 title: 'Home',
@@ -237,6 +238,21 @@ export const useClienteStore = defineStore('cliente', {
                 this.avatar_user = 'Usuario no identificado'; // Valor por defecto
             }
         },
-        
+        /**
+         * Carga la informacion basica  del usuario desde las preferencias.
+         * 
+         * @returns {Promise} Promesa que se resuelve cuando la informacion basica del usuario es cargado.
+         */
+        async loadBasicInformationUser() {
+            let { value } = await Preferences.get({ key: 'user' });
+            
+            if (value) {
+                let user = JSON.parse(value);
+                this.basic_information = user.basic_information;
+            } else {
+                this.basic_information = 'Usuario no identificado'; // Valor por defecto
+            }
+        },
+
     }
 });

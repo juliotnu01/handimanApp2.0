@@ -14,7 +14,7 @@
         </ion-header>
         <ion-content class="mb-10">
             <div class="w-full h-fit relative">
-                <img src="https://picsum.photos/200/300" alt="Header Image" class="w-full h-36  object-cover">
+                <img :src="basic_information?.banner_photo_url" alt="Header Image" class="w-full h-36  object-cover">
                 <img :src="avatar_user" alt="Avatar"
                     class="w-20 h-20 rounded-full absolute bottom-0 left-4 transform translate-y-1/2 border-4 border-black">
             </div>
@@ -34,9 +34,10 @@
                     </svg>
                 </button>
             </div>
-            <div class="w-full h-10  pl-4 flex mt-2 ">
-                <p class="line-clamp-1 text-black font-bold bg-[#cecece] w-fit px-2 self-center rounded-lg  ">Lorem
-                    ipsum dolor lorem</p>
+            <div class="w-10/12 h-10  px-1 ml-2 flex mt-2 ">
+                <p class="line-clamp-1 text-black font-bold bg-[#cecece] w-fit px-2 self-center rounded-lg   ">
+                    {{ basic_information?.title_user }}
+                </p>
             </div>
             <div class="w-full h-fit  pl-4 flex  text-start mb-2 ">
                 <p class="line-clamp-1 text-black font-bold  w-fit px-2 self-center rounded-lg text-2xl">
@@ -75,16 +76,53 @@
             <div class="flex items-center pl-4 my-3">
                 <div class="flex flex-col">
                     <div class="flex gap-1">
+                        <svg width="20px" height="20px" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"
+                                fill="#000000" />
+                            <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"
+                                fill="#000000" />
+                        </svg>
+                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {{ fullName }}
+                        </span>
+                    </div>
+                    <div class="flex gap-1">
+                        <svg fill="#000000" width="20px" height="20px" viewBox="-6 0 32 32" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>birthday-cake</title>
+                            <path
+                                d="M16.32 14.12c-1.56-0.44-3.56-0.72-5.72-0.76v-0.96c0-0.48-0.36-0.84-0.84-0.84s-0.84 0.36-0.84 0.84v0.96c-2.12 0.040-4.12 0.28-5.68 0.76-2.16 0.6-3.24 1.48-3.24 2.6v7.72c0 1.12 1.080 2 3.24 2.64 1.76 0.52 4.080 0.8 6.56 0.8s4.8-0.28 6.56-0.8c2.12-0.6 3.24-1.52 3.24-2.64v-7.72c-0.040-1.12-1.080-2-3.28-2.6zM8.92 15v1.72c0 0.48 0.36 0.84 0.84 0.84s0.84-0.36 0.84-0.84v-1.72c4.36 0.12 7.040 1.16 7.24 1.72-0.080 0.12-0.32 0.32-1.24 0.8-1.2 0.6-1.56 1.6-1.8 2.24-0.040 0.12-0.12 0.32-0.16 0.4-0.080-0.080-0.16-0.24-0.24-0.32-0.36-0.56-1-1.52-2.36-1.44-1.4 0.080-1.8 1.56-2.080 2.6-0.12 0.4-0.32 1.16-0.48 1.24-0.36 0-0.44-0.080-0.72-0.6-0.36-0.6-0.92-1.56-2.44-1.6-0.44-0.040-0.44-0.040-0.6-0.44-0.24-0.56-0.6-1.44-2.12-1.88-1.4-0.4-1.84-0.88-1.88-0.96 0.16-0.56 2.84-1.64 7.2-1.76zM9.76 26.2c-4.92 0-7.92-1.16-8.080-1.76v-5.68c0.36 0.2 0.84 0.36 1.4 0.52 0.76 0.24 0.88 0.52 1.040 0.92 0.24 0.56 0.6 1.4 2.080 1.44 0.64 0.040 0.8 0.28 1.080 0.8 0.36 0.56 0.84 1.44 2.16 1.44 1.44 0 1.8-1.44 2.080-2.52 0.12-0.44 0.36-1.36 0.56-1.36 0.36-0.040 0.48 0.12 0.88 0.68 0.32 0.48 0.8 1.24 1.8 1.16 1-0.12 1.36-0.96 1.56-1.56 0.2-0.56 0.4-1.040 1-1.36 0.16-0.080 0.32-0.16 0.48-0.24v5.72c-0.080 0.64-3.12 1.8-8.040 1.8zM9.76 10.36c1.28 0 2.28-1.040 2.28-2.28 0-0.72-0.6-3.96-2.28-3.96s-2.28 3.28-2.28 3.96c0 1.24 1.040 2.28 2.28 2.28zM9.76 5.96c0.28 0.48 0.6 1.56 0.6 2.12 0 0.32-0.28 0.6-0.6 0.6s-0.6-0.28-0.6-0.6c0-0.56 0.32-1.6 0.6-2.12z">
+                            </path>
+                        </svg>
+                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {{ basic_information?.birthdate }}
+                        </span>
+                    </div>
+                    <div class="flex gap-1">
                         <svg fill="#000000" width="20px" height="20px" viewBox="0 0 100 100"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M49,18.92A23.74,23.74,0,0,0,25.27,42.77c0,16.48,17,31.59,22.23,35.59a2.45,2.45,0,0,0,3.12,0c5.24-4.12,22.1-19.11,22.1-35.59A23.74,23.74,0,0,0,49,18.92Zm0,33.71a10,10,0,1,1,10-10A10,10,0,0,1,49,52.63Z" />
                         </svg>
-                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">123
-                            Random St, City, Country</span>
+                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {{ basic_information?.main_address }}
+                        </span>
                     </div>
-                    <div class="flex justify-between items-center ">
-                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" >
+                    <div class="flex gap-1">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11 18H13M9.2 21H14.8C15.9201 21 16.4802 21 16.908 20.782C17.2843 20.5903 17.5903 20.2843 17.782 19.908C18 19.4802 18 18.9201 18 17.8V6.2C18 5.0799 18 4.51984 17.782 4.09202C17.5903 3.71569 17.2843 3.40973 16.908 3.21799C16.4802 3 15.9201 3 14.8 3H9.2C8.0799 3 7.51984 3 7.09202 3.21799C6.71569 3.40973 6.40973 3.71569 6.21799 4.09202C6 4.51984 6 5.07989 6 6.2V17.8C6 18.9201 6 19.4802 6.21799 19.908C6.40973 20.2843 6.71569 20.5903 7.09202 20.782C7.51984 21 8.07989 21 9.2 21Z"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {{ basic_information?.user_mobile }}
+                        </span>
+                    </div>
+                    <div class="flex  items-center gap-2 ">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M3 8L8.44992 11.6333C9.73295 12.4886 10.3745 12.9163 11.0678 13.0825C11.6806 13.2293 12.3194 13.2293 12.9322 13.0825C13.6255 12.9163 14.2671 12.4886 15.5501 11.6333L21 8M6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V8.2C21 7.0799 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19Z"
                                 stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -93,7 +131,20 @@
                             {{ email_user }}
                         </span>
                     </div>
-                    <div class="flex items-center self-center w-full justify-between ">
+                    <div class="flex  items-center gap-2 ">
+                        <svg fill="#000000" width="20px" height="20px" viewBox="0 0 512 512" id="_x30_1" version="1.1"
+                            xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path
+                                d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M418.275,146h-46.667  c-5.365-22.513-12.324-43.213-20.587-61.514c15.786,8.776,30.449,19.797,43.572,32.921C403.463,126.277,411.367,135.854,418.275,146  z M452,256c0,17.108-2.191,33.877-6.414,50h-64.034c1.601-16.172,2.448-32.887,2.448-50s-0.847-33.828-2.448-50h64.034  C449.809,222.123,452,238.892,452,256z M256,452c-5.2,0-21.048-10.221-36.844-41.813c-6.543-13.087-12.158-27.994-16.752-44.187  h107.191c-4.594,16.192-10.208,31.1-16.752,44.187C277.048,441.779,261.2,452,256,452z M190.813,306  c-1.847-16.247-2.813-33.029-2.813-50s0.966-33.753,2.813-50h130.374c1.847,16.247,2.813,33.029,2.813,50s-0.966,33.753-2.813,50  H190.813z M60,256c0-17.108,2.191-33.877,6.414-50h64.034c-1.601,16.172-2.448,32.887-2.448,50s0.847,33.828,2.448,50H66.414  C62.191,289.877,60,273.108,60,256z M256,60c5.2,0,21.048,10.221,36.844,41.813c6.543,13.087,12.158,27.994,16.752,44.187H202.404  c4.594-16.192,10.208-31.1,16.752-44.187C234.952,70.221,250.8,60,256,60z M160.979,84.486c-8.264,18.301-15.222,39-20.587,61.514  H93.725c6.909-10.146,14.812-19.723,23.682-28.593C130.531,104.283,145.193,93.262,160.979,84.486z M93.725,366h46.667  c5.365,22.513,12.324,43.213,20.587,61.514c-15.786-8.776-30.449-19.797-43.572-32.921C108.537,385.723,100.633,376.146,93.725,366z   M351.021,427.514c8.264-18.301,15.222-39,20.587-61.514h46.667c-6.909,10.146-14.812,19.723-23.682,28.593  C381.469,407.717,366.807,418.738,351.021,427.514z" />
+                        </svg>
+                        <span class="line-clamp-1 w-fit px-2 self-center  ">
+                            <a :href="basic_information?.website">
+                                {{ basic_information?.website }}
+                            </a>
+                        </span>
+                    </div>
+                    <div class="flex items-center self-center w-full gap-2 ">
                         <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#000">
                             <path
                                 d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
@@ -117,15 +168,7 @@
                         </div>
                         <div class="w-full h-full ">
                             <p class="font-bold">Acerca de mí:</p>
-                            <p class="mt-2">Soy un profesional con más de 10 años de experiencia en el sector de la
-                                construcción y mantenimiento. Me especializo en ofrecer soluciones rápidas y efectivas
-                                para cualquier problema que pueda surgir en su hogar o negocio.</p>
-                            <p class="mt-2">Mi objetivo es proporcionar un servicio de alta calidad, asegurando la
-                                satisfacción del cliente en cada proyecto. Trabajo con dedicación y atención al detalle
-                                para garantizar que cada trabajo se realice correctamente y a tiempo.</p>
-                            <p class="mt-2">Estoy comprometido con la mejora continua y siempre busco nuevas formas de
-                                perfeccionar mis habilidades y conocimientos. No dude en ponerse en contacto conmigo
-                                para cualquier consulta o para solicitar un presupuesto sin compromiso.</p>
+                            <p class="mt-2">{{ basic_information?.abount_user }}</p>
                         </div>
                     </template>
                     <template #segment-1>
@@ -307,7 +350,7 @@ import { useClienteStore } from '@/stores/cliente/clienteStore'
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { useRouter } from 'vue-router';
 import segment from '@/components/segment.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const clienteStore = useClienteStore();
@@ -315,7 +358,11 @@ const clienteStore = useClienteStore();
 
 const { user_name,
     email_user,
-    avatar_user } = storeToRefs(clienteStore)
+    avatar_user, basic_information } = storeToRefs(clienteStore)
+
+const fullName = computed(() => `${basic_information.value?.first_name} ${basic_information.value?.second_name} ${basic_information.value?.first_last_name} ${basic_information.value?.second_last_name}`);
+
+const { loadBasicInformationUser } = clienteStore
 
 
 const userViewStore = useUserViewStore();
@@ -364,7 +411,9 @@ const toggleDetails2 = (index) => {
     reviews.value[index].showDetails = !reviews.value[index].showDetails;
 }
 
-
+onMounted(() => {
+    loadBasicInformationUser()
+})
 </script>
 
 <style scoped>
