@@ -148,7 +148,7 @@ export const useClienteStore = defineStore('cliente', {
          * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         goToChatsView() {
-            const router = useRouter();
+            let router = useRouter();
             return router.push({ name: 'chat-view' });
         },
         /**
@@ -157,26 +157,18 @@ export const useClienteStore = defineStore('cliente', {
          * @returns {boolean} Verdadero si la página actual es la de vista de usuario, falso de lo contrario.
          */
         isUserViewPage() {
-            const route = useRoute();
+            let route = useRoute();
             return route.path !== '/cliente/user';
         },
-        /**
-         * Redirige a la página de inicio.
-         * 
-         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
-         */
-        goToHome() {
-            const router = useRouter();
-            return router.push('/cliente/home');
-        },
+        
         /**
          * Redirige a la vista de categorías.
          * 
          * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         gotToCategoriasView() {
-            const router = useRouter();
-            return router.push({ name: 'categorias-view' });
+            let router = useRouter();
+            router.push({ name: 'categorias-view' });
         },
         /**
          * Redirige a la vista de órdenes.
@@ -184,8 +176,8 @@ export const useClienteStore = defineStore('cliente', {
          * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         goToOrdenesView() {
-            const router = useRouter();
-            return router.push({ name: 'ordenes-view' });
+            let router = useRouter();
+            router.push({ name: 'ordenes-view' });
         },
         /**
          * Redirige a la vista de notificaciones.
@@ -193,8 +185,8 @@ export const useClienteStore = defineStore('cliente', {
          * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
          */
         goToNotificacionesView() {
-            const router = useRouter();
-            return router.push({ name: 'notificaciones-view' });
+            let router = useRouter();
+            router.push({ name: 'notificaciones-view' });
         },
         /**
          * Carga el nombre del usuario desde las preferencias.
@@ -245,7 +237,7 @@ export const useClienteStore = defineStore('cliente', {
          */
         async loadBasicInformationUser() {
             let { value } = await Preferences.get({ key: 'user' });
-            
+
             if (value) {
                 let user = JSON.parse(value);
                 this.basic_information = user.basic_information;

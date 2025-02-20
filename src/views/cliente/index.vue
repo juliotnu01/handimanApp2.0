@@ -29,8 +29,7 @@
                             <span class="text-lg font-semibold dark:text-black ">{{ user_name }}</span>
                         </div>
                         <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
-                            <img alt="Silhouette of a person's head"
-                                :src="avatar_user"
+                            <img alt="Silhouette of a person's head" :src="avatar_user"
                                 class="w-full h-full object-cover" />
                         </div>
                     </button>
@@ -53,7 +52,7 @@
 
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
             <ion-header class="ion-padding  ">
-                <ion-item class=" -mb-4 "  >
+                <ion-item class=" -mb-4 ">
                     <ion-avatar class="mr-5 ">
                         <img alt="avatar" :src="avatar_user" />
                     </ion-avatar>
@@ -589,9 +588,11 @@ import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { storeToRefs } from 'pinia';
-import { useRoute } from 'vue-router';
+
+import { useRouter, useRoute } from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 // stores 
 const clienteStore = useClienteStore();
 const homeStore = useHomeStore();
@@ -612,7 +613,6 @@ const { openMenuIzquierda,
     setOpenCarritoDeCompras,
     toggleCart,
     goToChatsView,
-    goToHome,
     gotToCategoriasView,
     goToOrdenesView,
     goToNotificacionesView,
@@ -671,7 +671,9 @@ const total = computed(() => {
 });
 
 
-
+const goToHome = () => {
+    router.push({ name: 'cliente-home' });
+}
 
 onMounted(() => {
     loadUserName()
