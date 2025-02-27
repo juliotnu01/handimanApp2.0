@@ -612,10 +612,10 @@ const { openMenuIzquierda,
     handleOfferChange,
     setOpenCarritoDeCompras,
     toggleCart,
-    goToChatsView,
-    gotToCategoriasView,
-    goToOrdenesView,
-    goToNotificacionesView,
+    // goToChatsView,
+    // gotToCategoriasView,
+    // goToOrdenesView,
+    // goToNotificacionesView,
     loadUserName,
     loadEmailUser,
     loadAvatarUser,
@@ -673,6 +673,20 @@ const total = computed(() => {
 
 const goToHome = () => {
     router.push({ name: 'cliente-home' });
+}
+const goToChatsView = () => {
+    router.push({ name: 'chat-view' });
+}
+const gotToCategoriasView = () => {
+    router.push({ name: 'categorias-view' });
+}
+
+const goToOrdenesView = () => {
+    router.push({ name: 'ordenes-view' });
+}
+
+const goToNotificacionesView = () => {
+    router.push({ name: 'notificaciones-view' });
 }
 
 onMounted(() => {

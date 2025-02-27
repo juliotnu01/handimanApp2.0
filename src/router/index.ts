@@ -63,6 +63,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "billetera-view",
         component: () => import("../views/cliente/billetera/index.vue"),
       },
+      {
+        path: "verificacion",
+        name: "verificacion-view",
+        component: () => import("../views/cliente/verificacion/index.vue"),
+      }
     ],
   },
 ];
@@ -74,11 +79,11 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   try {
-    if (to.name === "cliente") {
-      const { value } = await Preferences.get({ key: "mode" });
-      const redirectPath =
-        value === "1" ? { name: "cliente-home" } : { name: "login" };
-      next(redirectPath);
+    const { value: user } = await Preferences.get({ key: "user" });
+    const { value: mode } = await Preferences.get({ key: "mode" });
+
+    if (to.name === "login" && user) {
+      mode === "1" ? next({ name: "cliente-home" }) : next();
     } else {
       next();
     }

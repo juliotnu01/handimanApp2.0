@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { menuController } from '@ionic/vue';
 import { useRouter, useRoute } from 'vue-router';
 import {
-    home, cash, mailOutline, locate
+    home, cash, mailOutline, locate, shieldCheckmark
 } from 'ionicons/icons';
 import { Preferences } from "@capacitor/preferences";
 
@@ -60,6 +60,12 @@ export const useClienteStore = defineStore('cliente', {
                 url: '/cliente/chat',
                 iosIcon: mailOutline,
                 mdIcon: mailOutline
+            },
+            {
+                title: 'Verificación',
+                url: '/cliente/verificacion',
+                iosIcon: shieldCheckmark,
+                mdIcon: shieldCheckmark
             },
             {
                 title: 'Configuración',
@@ -143,15 +149,6 @@ export const useClienteStore = defineStore('cliente', {
             this.isCartOpen = !this.isCartOpen;
         },
         /**
-         * Redirige a la vista de chats.
-         * 
-         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
-         */
-        goToChatsView() {
-            let router = useRouter();
-            return router.push({ name: 'chat-view' });
-        },
-        /**
          * Determina si la página actual es la de vista de usuario.
          * 
          * @returns {boolean} Verdadero si la página actual es la de vista de usuario, falso de lo contrario.
@@ -160,34 +157,7 @@ export const useClienteStore = defineStore('cliente', {
             let route = useRoute();
             return route.path !== '/cliente/user';
         },
-        
-        /**
-         * Redirige a la vista de categorías.
-         * 
-         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
-         */
-        gotToCategoriasView() {
-            let router = useRouter();
-            router.push({ name: 'categorias-view' });
-        },
-        /**
-         * Redirige a la vista de órdenes.
-         * 
-         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
-         */
-        goToOrdenesView() {
-            let router = useRouter();
-            router.push({ name: 'ordenes-view' });
-        },
-        /**
-         * Redirige a la vista de notificaciones.
-         * 
-         * @returns {Promise} Promesa que se resuelve cuando la navegación se completa.
-         */
-        goToNotificacionesView() {
-            let router = useRouter();
-            router.push({ name: 'notificaciones-view' });
-        },
+
         /**
          * Carga el nombre del usuario desde las preferencias.
          * 

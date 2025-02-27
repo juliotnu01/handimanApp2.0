@@ -22,13 +22,13 @@
                                 <ion-item>
                                     <ion-input v-model="model.email" type="email" label-placement="stacked"
                                         label="Correo electronico" placeholder="correo@dominio.com">
-                                        <ion-icon slot="start" aria-hidden="true" :icon="mailOutline"></ion-icon>
+                                        <ion-icon slot="start"  :icon="mailOutline"></ion-icon>
                                     </ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input type="password" v-model="model.password" label-placement="stacked"
                                         label="Ingrese su contraseña" placeholder="******">
-                                        <ion-icon slot="start" :icon="lockClosed" aria-hidden="true"></ion-icon>
+                                        <ion-icon slot="start" :icon="lockClosed" ></ion-icon>
                                     </ion-input>
                                 </ion-item>
 
@@ -51,25 +51,25 @@
                                 <ion-item>
                                     <ion-input label-placement="stacked" label="Nombre de usuario"
                                         placeholder="Jon doe">
-                                        <ion-icon slot="start" aria-hidden="true" :icon="person"></ion-icon>
+                                        <ion-icon slot="start"  :icon="person"></ion-icon>
                                     </ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input type="email" label-placement="stacked" label="Correo electronico"
                                         placeholder="correo@dominio.com">
-                                        <ion-icon slot="start" aria-hidden="true" :icon="mailOutline"></ion-icon>
+                                        <ion-icon slot="start"  :icon="mailOutline"></ion-icon>
                                     </ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input type="password" label-placement="stacked" label="Contraseña"
                                         placeholder="******">
-                                        <ion-icon slot="start" :icon="lockClosed" aria-hidden="true"></ion-icon>
+                                        <ion-icon slot="start" :icon="lockClosed" ></ion-icon>
                                     </ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input type="password" label-placement="stacked" label="Confirmar contraseña"
                                         placeholder="******">
-                                        <ion-icon slot="start" :icon="lockClosed" aria-hidden="true"></ion-icon>
+                                        <ion-icon slot="start" :icon="lockClosed" ></ion-icon>
                                     </ion-input>
                                 </ion-item>
                                 <ion-button>Ingresar</ion-button>
