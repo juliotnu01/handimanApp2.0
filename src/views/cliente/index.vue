@@ -652,7 +652,6 @@ const isOpenCarritoDeComprasComputed = computed({
     get() { return isOpenCarritoDeCompras.value; },
     set(value) { isOpenCarritoDeCompras.value = value; }
 });
-const { goToUserViewPage } = userViewStore
 
 const subtotal = computed(() => {
     return cartItems.value.reduce((sum, item) => sum + item.price, 0);
@@ -687,6 +686,9 @@ const goToOrdenesView = () => {
 
 const goToNotificacionesView = () => {
     router.push({ name: 'notificaciones-view' });
+}
+const goToUserViewPage = () => {
+    router.push({ name: 'user-view' });
 }
 
 onMounted(() => {

@@ -67,6 +67,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "verificacion",
         name: "verificacion-view",
         component: () => import("../views/cliente/verificacion/index.vue"),
+      },
+      {
+        path: "certificados",
+        name: "certificados-view",
+        component: () => import("../views/cliente/certificados/index.vue"),
       }
     ],
   },
