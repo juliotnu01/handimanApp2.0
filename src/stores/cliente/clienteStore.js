@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { menuController } from '@ionic/vue';
 import { useRouter, useRoute } from 'vue-router';
 import {
-    home, cash, mailOutline, locate, shieldCheckmark,ribbonSharp
+    home, cash, mailOutline, locate, shieldCheckmark,ribbonSharp,cardOutline
 } from 'ionicons/icons';
 import { Preferences } from "@capacitor/preferences";
 
@@ -72,6 +72,12 @@ export const useClienteStore = defineStore('cliente', {
                 url: '/cliente/certificados',
                 iosIcon: ribbonSharp,
                 mdIcon: ribbonSharp
+            },
+            {
+                title: 'Metodo de pago',
+                url: '/cliente/payment-method',
+                iosIcon: cardOutline,
+                mdIcon: cardOutline
             },
             {
                 title: 'Configuración',

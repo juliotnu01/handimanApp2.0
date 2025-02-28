@@ -2,22 +2,38 @@
     <ion-page>
         <!-- Encabezado -->
         <ion-header class="bg-white shadow-sm">
-            <ion-toolbar>
-                <ion-title class="text-gray-800 font-semibold">Certificados</ion-title>
-            </ion-toolbar>
         </ion-header>
-
         <ion-content class="bg-gray-50">
             <!-- Formulario para cargar un archivo PDF -->
             <div class="p-6 bg-white rounded-lg shadow-md mx-4 mt-6">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Cargar Certificado</h2>
 
                 <!-- Campo de selección de archivo -->
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Selecciona un archivo PDF</label>
-                    <input type="file" accept="application/pdf" ref="fileInput"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        @change="handleFileUpload" />
+                <div class="mb-4 w-full">
+                    <div class="w-full flex flex-col items-center">
+                        <!-- Contenedor principal con el ícono y el texto -->
+                        <label for="fileInput"
+                            class="flex items-center justify-between w-full px-4 py-2 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                            <!-- Ícono SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 mr-3" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+
+                            <!-- Texto dinámico -->
+                            <span class="flex-grow text-left text-gray-700 truncate">
+                                {{ fileCertificateName !== '' ? fileCertificateName : 'Seleccionar archivo' }}
+                            </span>
+
+                            <!-- Indicador de acción (opcional) -->
+                            <span class="text-sm text-gray-500">PDF</span>
+                        </label>
+
+                        <!-- Input oculto -->
+                        <input type="file" accept="application/pdf" ref="fileInput" id="fileInput" class="hidden"
+                            @change="handleFileUpload" />
+                    </div>
                 </div>
 
                 <!-- Campo de descripción -->
@@ -74,10 +90,6 @@
                                 {{ cert.is_verified ? 'Verificado' : 'Pendiente de verificación' }}
                             </p>
                         </div>
-                        <!-- <button class="text-red-500 hover:text-red-700 focus:outline-none"
-                            @click="removeSavedCertificate(index)">
-                            <ion-icon :icon="trashOutline" class="text-xl"></ion-icon>
-                        </button> -->
                     </li>
                 </ul>
             </div>
@@ -106,6 +118,7 @@ const selectedFile = ref(null);
 const fileList = ref([]);
 const fileInput = ref(null); // Referencia al campo de entrada de archivos
 const savedCertificates = ref([]);
+const fileCertificateName = ref('');
 
 onMounted(async () => {
     const { value } = await Preferences.get({ key: 'user' });
@@ -118,6 +131,7 @@ onMounted(async () => {
 // Manejar la selección de archivos
 const handleFileUpload = (event) => {
     const file = event.target.files[0];
+    fileCertificateName.value = file.name;
     if (file && file.type === 'application/pdf') {
         selectedFile.value = file;
     } else {
@@ -147,6 +161,7 @@ const addFileToList = () => {
     selectedFile.value = null;
     description.value = '';
     fileInput.value.value = ''; // Limpiar el campo de selección de archivos
+    fileCertificateName.value = '';
 };
 
 // Eliminar archivo de la lista
