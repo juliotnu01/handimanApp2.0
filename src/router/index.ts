@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 import { Preferences } from "@capacitor/preferences";
+import { useAppStore } from '@/stores/appStore.js'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -88,6 +89,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  const appStore = useAppStore();
+  appStore.setIsLoading(true); // Mostrar el indicador de carga
+
   try {
     const { value: user } = await Preferences.get({ key: "user" });
     const { value: mode } = await Preferences.get({ key: "mode" });
@@ -101,6 +105,11 @@ router.beforeEach(async (to, from, next) => {
     console.error("Error al obtener el modo:", error);
     next("/login");
   }
+});
+
+router.afterEach(() => {
+  const appStore = useAppStore();
+  appStore.setIsLoading(false); // Ocultar el indicador de carga
 });
 
 export default router;

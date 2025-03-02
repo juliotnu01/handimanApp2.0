@@ -51,7 +51,7 @@
         </ion-header>
 
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
-            <ion-header class="ion-padding  ">
+            <ion-header class="ion-padding">
                 <ion-item class=" -mb-4 ">
                     <ion-avatar class="mr-5 ">
                         <img alt="avatar" :src="avatar_user" />
@@ -64,10 +64,10 @@
                     </ion-label>
                 </ion-item>
             </ion-header>
-            <ion-content class="ion-padding   ">
+            <ion-content class="ion-padding">
                 <ion-list>
                     <ion-item router-direction="root" :router-link="p.url" lines="none" v-for="(p, i) in appPages"
-                        :key="i" class="">
+                        :key="i" class=""  @click="closeMenu" >
                         <ion-icon #="start" :ios="p.iosIcon" :md="p.mdIcon" class="mr-2"></ion-icon>
                         <ion-label>{{ p.title }}</ion-label>
                     </ion-item>
@@ -581,6 +581,7 @@ import {
     IonButton,
     IonToolbar,
     IonFooter,
+    menuController
 } from '@ionic/vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed, onMounted } from 'vue';
@@ -669,7 +670,6 @@ const total = computed(() => {
     return subtotal.value + impuestos.value + comision.value;
 });
 
-
 const goToHome = () => {
     router.push({ name: 'cliente-home' });
 }
@@ -690,13 +690,16 @@ const goToNotificacionesView = () => {
 const goToUserViewPage = () => {
     router.push({ name: 'user-view' });
 }
-
+const closeMenu = async () => {
+  await menuController.close('menu-izquierda');
+};
 onMounted(() => {
     loadUserName()
     loadEmailUser()
     loadAvatarUser()
     loadBasicInformationUser()
 })
+
 </script>
 <style scoped>
 /* cliente */

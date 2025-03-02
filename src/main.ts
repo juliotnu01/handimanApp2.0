@@ -39,12 +39,12 @@ import 'swiper/css/thumbs';
 
 /* Theme variables */
 import "./theme/variables.css";
-
-const app = createApp(App).use(IonicVue).use(router);
 const pinia = createPinia();
+
+const app = createApp(App)
+.use(pinia).use(IonicVue).use(router);
 
 router.isReady().then(() => {
   app
-  .use(pinia)
   .mount("#app");
 });
