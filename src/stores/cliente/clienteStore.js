@@ -42,6 +42,7 @@ export const useClienteStore = defineStore('cliente', {
         email_user: null,
         avatar_user: null,
         basic_information: null,
+        reviewsStats: null,
         appPages: [
             {
                 title: 'Home',
@@ -223,6 +224,16 @@ export const useClienteStore = defineStore('cliente', {
             if (value) {
                 let user = JSON.parse(value);
                 this.basic_information = user.basic_information;
+            } else {
+                this.basic_information = 'Usuario no identificado'; // Valor por defecto
+            }
+        },
+        async loadReviewStatsUser() {
+            let { value } = await Preferences.get({ key: 'user' });
+
+            if (value) {
+                let user = JSON.parse(value);
+                this.reviewsStats = user.review_stats;
             } else {
                 this.basic_information = 'Usuario no identificado'; // Valor por defecto
             }

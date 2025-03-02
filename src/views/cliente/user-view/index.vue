@@ -44,12 +44,14 @@
                     {{ user_name }}
                 </p>
                 <div class="flex gap-1">
-                    <svg  v-if="hasAllVerifications"   width="25px" height="25px" viewBox="0 0 24 24" fill="none" class=" self-center ">
+                    <svg v-if="hasAllVerifications" width="25px" height="25px" viewBox="0 0 24 24" fill="none"
+                        class=" self-center ">
                         <path
                             d="M9 12L11 14L15 10M12 3L13.9101 4.87147L16.5 4.20577L17.2184 6.78155L19.7942 7.5L19.1285 10.0899L21 12L19.1285 13.9101L19.7942 16.5L17.2184 17.2184L16.5 19.7942L13.9101 19.1285L12 21L10.0899 19.1285L7.5 19.7942L6.78155 17.2184L4.20577 16.5L4.87147 13.9101L3 12L4.87147 10.0899L4.20577 7.5L6.78155 6.78155L7.5 4.20577L10.0899 4.87147L12 3Z"
                             stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <svg  v-if=" hasApprovedCertifications "   fill="#000000" width="25px" height="25px" viewBox="0 0 24 24" class=" self-center ">
+                    <svg v-if="hasApprovedCertifications" fill="#000000" width="25px" height="25px"
+                        viewBox="0 0 24 24" class=" self-center ">
                         <path
                             d="M15.38,15.61c-0.02-0.07-0.03-0.15-0.04-0.22c-0.05-0.33-0.12-0.82-0.51-1.21c-0.39-0.39-0.88-0.47-1.21-0.52  c-0.08-0.01-0.15-0.02-0.21-0.03c-0.06-0.03-0.11-0.08-0.17-0.12C12.97,13.3,12.57,13,12,13s-0.97,0.3-1.24,0.5  c-0.06,0.04-0.11,0.09-0.15,0.11c-0.07,0.02-0.15,0.03-0.22,0.04c-0.33,0.05-0.82,0.13-1.21,0.52c-0.39,0.39-0.46,0.88-0.51,1.21  c-0.01,0.08-0.02,0.16-0.04,0.21c-0.03,0.06-0.08,0.11-0.12,0.17C8.31,16.04,8,16.44,8,17.01s0.3,0.97,0.5,1.24  c0.04,0.06,0.09,0.11,0.11,0.16c0.02,0.07,0.03,0.15,0.04,0.22c0.05,0.33,0.12,0.82,0.51,1.21c0.39,0.39,0.88,0.47,1.21,0.52  c0.08,0.01,0.15,0.02,0.21,0.04c0.06,0.03,0.11,0.08,0.17,0.12c0.27,0.2,0.67,0.5,1.24,0.5s0.97-0.3,1.24-0.5  c0.06-0.04,0.11-0.09,0.16-0.11c0.07-0.02,0.15-0.03,0.22-0.04c0.33-0.05,0.82-0.12,1.21-0.52c0.39-0.39,0.46-0.88,0.51-1.21  c0.01-0.08,0.02-0.16,0.04-0.21c0.03-0.06,0.08-0.11,0.12-0.17c0.2-0.27,0.5-0.67,0.5-1.24s-0.3-0.97-0.5-1.24  C15.45,15.71,15.41,15.66,15.38,15.61z M13.89,17.06c-0.12,0.16-0.26,0.35-0.36,0.59c-0.1,0.25-0.14,0.49-0.17,0.69  c0,0.01,0,0.03-0.01,0.04c-0.01,0-0.03,0-0.04,0c-0.2,0.03-0.44,0.07-0.68,0.17c-0.24,0.1-0.44,0.25-0.59,0.36  c-0.01,0.01-0.03,0.02-0.04,0.03c-0.01-0.01-0.03-0.02-0.04-0.03c-0.16-0.12-0.35-0.26-0.59-0.36c-0.25-0.1-0.49-0.14-0.69-0.17  c-0.01,0-0.03,0-0.04,0c0-0.01,0-0.03-0.01-0.04c-0.03-0.19-0.07-0.44-0.17-0.68c-0.1-0.24-0.24-0.44-0.36-0.59  c-0.01-0.02-0.02-0.03-0.04-0.05c0.01-0.02,0.02-0.03,0.04-0.05c0.12-0.16,0.26-0.35,0.36-0.59c0.1-0.25,0.14-0.49,0.17-0.69  c0-0.01,0-0.03,0.01-0.04c0.01,0,0.03,0,0.04-0.01c0.19-0.03,0.44-0.07,0.68-0.17c0.24-0.1,0.44-0.25,0.59-0.36  c0.01-0.01,0.03-0.02,0.04-0.03c0.01,0.01,0.03,0.02,0.04,0.03c0.16,0.12,0.35,0.26,0.59,0.36c0.25,0.1,0.49,0.14,0.68,0.17  c0.01,0,0.03,0,0.04,0.01c0,0.01,0,0.03,0.01,0.04c0.03,0.2,0.07,0.44,0.17,0.69c0.1,0.24,0.24,0.44,0.36,0.59  c0.01,0.02,0.02,0.03,0.04,0.05C13.91,17.02,13.9,17.04,13.89,17.06z" />
                         <polygon
@@ -59,7 +61,8 @@
                         <path d="M14,9c0.55,0,1-0.45,1-1s-0.45-1-1-1h-4C9.45,7,9,7.45,9,8s0.45,1,1,1H14z" />
                         <path d="M6,11c0,0.55,0.45,1,1,1h10c0.55,0,1-0.45,1-1s-0.45-1-1-1H7C6.45,10,6,10.45,6,11z" />
                     </svg>
-                    <svg   v-if=" hasActivePaymentMethods"  fill="#000000" width="25px" height="25px" viewBox="0 0 32 32" class="self-center">
+                    <svg v-if="hasActivePaymentMethods" fill="#000000" width="25px" height="25px" viewBox="0 0 32 32"
+                        class="self-center">
                         <path
                             d="M30,15.18V11a3,3,0,0,0-3-3H25.5L19.8.4A1,1,0,0,0,18.41.19L13.35,3.88A6,6,0,0,0,3,8a3,3,0,0,0-3,3V29a3,3,0,0,0,3,3H27a3,3,0,0,0,3-3V24.82A3,3,0,0,0,32,22V18A3,3,0,0,0,30,15.18ZM18.79,2.39,23,8H11.08ZM9,4a4,4,0,0,1,2.71,1.06L7.67,8H5A4,4,0,0,1,9,4ZM27,30H3a1,1,0,0,1-1-1V11a1,1,0,0,1,1-1H27a1,1,0,0,1,1,1v4H25a5,5,0,0,0,0,10h3v4A1,1,0,0,1,27,30Zm3-8a1,1,0,0,1-1,1H25a3,3,0,0,1,0-6h4a1,1,0,0,1,1,1Z" />
 
@@ -104,7 +107,8 @@
                             <path
                                 d="M49,18.92A23.74,23.74,0,0,0,25.27,42.77c0,16.48,17,31.59,22.23,35.59a2.45,2.45,0,0,0,3.12,0c5.24-4.12,22.1-19.11,22.1-35.59A23.74,23.74,0,0,0,49,18.92Zm0,33.71a10,10,0,1,1,10-10A10,10,0,0,1,49,52.63Z" />
                         </svg>
-                        <span class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis w-10/12">
+                        <span
+                            class="ml-1 text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis w-10/12">
                             {{ basic_information?.main_address }}
                         </span>
                     </div>
@@ -147,7 +151,18 @@
                             <path
                                 d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                         </svg>
-                        <span class=" text-sm font-semibold">4.9 (1.2K+ reviews)</span>
+                        <span class="text-sm font-semibold">
+                            {{ reviewsStats?.average.toFixed(2) }} 
+                            ( 
+                            {{
+                                reviewsStats?.count >= 1000000 
+                                ? (reviewsStats?.count / 1000000).toFixed(1) + 'm' 
+                                : reviewsStats?.count >= 1000 
+                                ? (reviewsStats?.count / 1000).toFixed(1) + 'K' 
+                                : reviewsStats?.count 
+                            }} 
+                            reviews)
+                        </span>
                     </div>
                 </div>
             </div>
@@ -308,33 +323,7 @@
                         </div>
                     </template>
                     <template #segment-3>
-                        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                            <!-- User Review Card -->
-                            <div class="p-4 border-b border-gray-200" v-for="(review, index) in reviews" :key="index">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <h3 class="text-lg font-bold">{{ review.userName }}</h3>
-                                        <p class="text-sm text-gray-500">{{ review.duration }}</p>
-                                    </div>
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{ review.rating }}
-                                    </span>
-                                </div>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-600">{{ review.reviewText }}</p>
-                                </div>
-                                <button
-                                    class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
-                                    @click="toggleDetails2(index)">
-                                    Toggle Details
-                                </button>
-                                <div v-if="review.showDetails" class="mt-4 text-sm text-gray-500">
-                                    <!-- Aquí irían los detalles adicionales -->
-                                    <p>Detalle adicional del recibo...</p>
-                                </div>
-                            </div>
-                        </div>
+                        <ReviewList />
                     </template>
                 </segment>
             </div>
@@ -351,6 +340,7 @@ import segment from '@/components/segment.vue';
 import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { Preferences } from '@capacitor/preferences';
+import ReviewList from '@/components/ReviewList.vue';
 
 const clienteStore = useClienteStore();
 const hasActivePaymentMethods = ref(false);
@@ -359,11 +349,11 @@ const hasApprovedCertifications = ref(false);
 
 const { user_name,
     email_user,
-    avatar_user, basic_information } = storeToRefs(clienteStore)
+    avatar_user, basic_information, reviewsStats } = storeToRefs(clienteStore)
 
 const fullName = computed(() => `${basic_information.value?.first_name} ${basic_information.value?.second_name} ${basic_information.value?.first_last_name} ${basic_information.value?.second_last_name}`);
 
-const { loadBasicInformationUser } = clienteStore
+const { loadBasicInformationUser, loadReviewStatsUser } = clienteStore
 
 
 const userViewStore = useUserViewStore();
@@ -431,6 +421,7 @@ onMounted(() => {
 
 onMounted(() => {
     loadBasicInformationUser()
+    loadReviewStatsUser()
 })
 </script>
 
