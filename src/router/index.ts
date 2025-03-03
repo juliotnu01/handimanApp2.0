@@ -78,6 +78,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "payment-method",
         name: "paymentMethod-view",
         component: () => import("../views/cliente/paymentMethod/index.vue"),
+      },
+      {
+        path: "configuracion",
+        name: "configuracion-view",
+        component: () => import("../views/cliente/configuracion/index.vue"),
       }
     ],
   },

@@ -82,7 +82,7 @@ export const useClienteStore = defineStore('cliente', {
             },
             {
                 title: 'Configuración',
-                url: '/folder/Spam',
+                url: '/cliente/configuracion',
                 iosIcon: locate,
                 mdIcon: locate
             }
