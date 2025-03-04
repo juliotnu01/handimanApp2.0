@@ -2,14 +2,14 @@
     <ion-page>
         <!-- Header -->
         <ion-header>
-           
+
         </ion-header>
 
         <!-- Content -->
         <ion-content class="bg-gray-100">
             <div class="p-6">
-                 <!-- Lista de Métodos de Pago -->
-                 <div v-if="paymentMethods.length > 0" class="space-y-4 mb-8">
+                <!-- Lista de Métodos de Pago -->
+                <div v-if="paymentMethods.length > 0" class="space-y-4 mb-8">
                     <h3 class="text-lg font-semibold text-gray-800">Tus Métodos de Pago</h3>
                     <div v-for="method in paymentMethods" :key="method.id" class="bg-white rounded-lg shadow-lg p-4">
                         <div class="flex justify-between items-center mb-2">
@@ -21,12 +21,10 @@
                             **** **** **** {{ method.account_number.slice(-4) }}
                         </div>
                         <div class="mt-2 flex items-center">
-                            <span
-                                :class="[
-                                    method.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800',
-                                    'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium'
-                                ]"
-                            >
+                            <span :class="[
+                                method.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800',
+                                'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium'
+                            ]">
                                 {{ method.status ? 'Activo' : 'Inactivo' }}
                             </span>
                         </div>
@@ -44,7 +42,7 @@
                             Nombre del Banco
                         </label>
                         <input type="text" id="bank_name" v-model="formData.bank_name" placeholder="Ej. Banco Nacional"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-white"
                             required />
                     </div>
 
@@ -54,9 +52,8 @@
                             Nombre del Titular
                         </label>
                         <input type="text" id="titular_name" v-model="formData.titular_name"
-                            placeholder="Ej. Juan Pérez"
-                            disabled
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="Ej. Juan Pérez" disabled
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-white"
                             required />
                     </div>
 
@@ -67,7 +64,7 @@
                         </label>
                         <input type="text" id="account_number" v-model="formData.account_number"
                             placeholder="Ej. 1234567890"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-white"
                             required />
                     </div>
 
@@ -77,7 +74,7 @@
                             ID del Titular
                         </label>
                         <input type="text" id="id_titular" v-model="formData.id_titular" placeholder="Ej. 12345678"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-white"
                             required />
                     </div>
 
@@ -87,7 +84,7 @@
                             Tipo de Cuenta
                         </label>
                         <select id="type_account" v-model="formData.type_account"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-white"
                             required>
                             <option value="" disabled>Selecciona un tipo</option>
                             <option value="ahorro">Cuenta de Ahorro</option>
@@ -172,10 +169,10 @@ const submitForm = async () => {
             user_id: formData.value.user_id
         };
         message_toast.value = "¡Método de pago registrado con éxito!".
-        setIsOpenToast(true)
+            setIsOpenToast(true)
     } catch (error) {
         message_toast.value = "Ocurrió un error al registrar el método de pago.".
-        setIsOpenToast(true)
+            setIsOpenToast(true)
     }
 };
 
