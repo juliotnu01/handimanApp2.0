@@ -4,7 +4,7 @@
         </ion-header>
         <ion-content class="ion-padding">
             <!-- Título principal -->
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Configuración del Cliente</h1>
+            <div class="text-2xl font-bold text-start text-gray-800 mb-8">Configuración</div>
             <div class="space-y-6">
                 <!-- Sección de Foto de Banner -->
                 <div class="bg-white p-6 rounded-lg shadow-md">

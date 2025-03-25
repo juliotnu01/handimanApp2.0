@@ -1,7 +1,7 @@
 <template>
     <ion-page>
         <ion-header>
-            <div class="w-[97%] h-fit self-center mx-auto  flex justify-between relative">
+            <div class="w-[97%] h-fit self-center mx-auto  flex justify-between relative mb-3">
                 <ion-searchbar class="w-10/12 h-10" @ionInput="handleSearchInput"></ion-searchbar>
                 <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="self-center mx-2 "
                     @click="setOpenFilter(true)">

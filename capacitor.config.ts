@@ -4,6 +4,10 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'Citius',
   webDir: 'dist',
+  server: {
+    cleartext: true, // Permite tráfico HTTP
+    androidScheme: "http"
+  },
   plugins: {
     StatusBar: {
       style: 'LIGHT',

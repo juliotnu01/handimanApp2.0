@@ -67,7 +67,7 @@
             <ion-content class="ion-padding">
                 <ion-list>
                     <ion-item router-direction="root" :router-link="p.url" lines="none" v-for="(p, i) in appPages"
-                        :key="i" class=""  @click="closeMenu" >
+                        :key="i" class="" @click="closeMenu">
                         <ion-icon #="start" :ios="p.iosIcon" :md="p.mdIcon" class="mr-2"></ion-icon>
                         <ion-label>{{ p.title }}</ion-label>
                     </ion-item>
@@ -93,7 +93,7 @@
             </ion-content>
             <ion-footer>
                 <div class="w-fit absolute bottom-0 m-4 right-0  ">
-                    <ion-button class="w-full font-bold " :color="`danger`">
+                    <ion-button class="w-full font-bold " :color="`danger`" @click.prevent="logout">
                         <div class="w-full h-full flex justify-between">
                             <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
@@ -581,28 +581,31 @@ import {
     IonButton,
     IonToolbar,
     IonFooter,
-    menuController
+    menuController,
+    IonButtons
 } from '@ionic/vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed, onMounted } from 'vue';
 import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
 import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { storeToRefs } from 'pinia';
-
+import { Preferences } from "@capacitor/preferences";
 import { useRouter, useRoute } from 'vue-router';
-
+import { useAppStore } from '@/stores/appStore';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 const route = useRoute();
 const router = useRouter();
-// stores 
+
+// Stores
 const clienteStore = useClienteStore();
 const homeStore = useHomeStore();
 const userViewStore = useUserViewStore();
+const appStore = useAppStore();
 
 const isUserViewPage = computed(() => route.path !== '/cliente/user');
 const isHomePage = computed(() => route.path === '/cliente/home');
 
-// cliente
+// Cliente
 const { openMenuIzquierda,
     openMenuDerecha,
     setOpenFilter,
@@ -613,10 +616,6 @@ const { openMenuIzquierda,
     handleOfferChange,
     setOpenCarritoDeCompras,
     toggleCart,
-    // goToChatsView,
-    // gotToCategoriasView,
-    // goToOrdenesView,
-    // goToNotificacionesView,
     loadUserName,
     loadEmailUser,
     loadAvatarUser,
@@ -638,7 +637,7 @@ const {
     avatar_user
 } = storeToRefs(clienteStore);
 
-// home
+// Home
 const { closeModalFilter, closeModal } = homeStore;
 const { isOpenFilter, isOpen, services, items, } = storeToRefs(homeStore);
 const isOpenFilterComputed = computed({
@@ -659,11 +658,11 @@ const subtotal = computed(() => {
 });
 
 const impuestos = computed(() => {
-    return subtotal.value * 0.16; // 16% de impuestos
+    return subtotal.value * 0.16;
 });
 
 const comision = computed(() => {
-    return subtotal.value * 0.05; // 5% de comisión
+    return subtotal.value * 0.05;
 });
 
 const total = computed(() => {
@@ -691,34 +690,62 @@ const goToUserViewPage = () => {
     router.push({ name: 'user-view' });
 }
 const closeMenu = async () => {
-  await menuController.close('menu-izquierda');
+    await menuController.close('menu-izquierda');
 };
-onMounted(() => {
-    loadUserName()
-    loadEmailUser()
-    loadAvatarUser()
-    loadBasicInformationUser()
-})
 
+const logout = () => {
+    appStore.openModal('¿Estás seguro de que quieres cerrar sesión?', () => {
+        appStore.setIsLoading(true);
+        Preferences.clear().then(() => {
+            router.push({ name: "login" });
+        }).catch(error => {
+            console.error("Error al limpiar el almacenamiento local:", error);
+        }).finally(() => {
+            appStore.setIsLoading(false);
+        });
+    });
+};
+
+onMounted(() => {
+    loadUserName();
+    loadEmailUser();
+    loadAvatarUser();
+    loadBasicInformationUser();
+});
 </script>
-<style scoped>
-/* cliente */
-/* Estilos adicionales para los inputs */
-ion-item {
-    --padding-start: 0;
-    --inner-padding-end: 0;
-    --background: transparent;
-    /* Fondo transparente */
+
+<style>
+:root {
+    --ion-safe-area-top: 1.5rem;
 }
 
-ion-input {
-    --padding-start: 8px;
-    --padding-end: 8px;
-    --background: #f9fafb;
-    /* Fondo gris claro */
-    --border-radius: 8px;
-    /* Bordes redondeados */
-    --border: 1px solid #e2e8f0;
-    /* Borde gris */
+:root.ios {
+    --ion-safe-area-bottom: 1rem;
+}
+
+ion-header {
+    box-shadow: none !important;
+}
+
+ion-toolbar {
+    --border-width: 0 !important;
+    --border-style: none !important;
+    --box-shadow: none !important;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25%);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 1s infinite;
 }
 </style>
