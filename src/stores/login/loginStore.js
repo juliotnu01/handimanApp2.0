@@ -48,10 +48,23 @@ export const useLoginStore = defineStore('login', {
         async registerUser() {
             try {
                 this.loading = true;
-                console.log({ mr: this.model_register });
+                let { data } = await api.post(`/register-user`, this.model_register);
+                if (data.error) {
+                    this.showToast(data.error, true);
+                    this.loading = false;
+                    return;
+                }
+                await Preferences.set({ key: 'name', value: data.user.email });
+                await Preferences.set({ key: 'user', value: JSON.stringify(data.user) });
+                await Preferences.set({ key: 'valid_user', value: data.valid });
+                await Preferences.set({ key: 'mode', value: data.user.mode });
+                if (this.model_register.mode == 'cliente') {
+                    await this.router.push({ name: 'cliente-home' });
+                } else if (this.model_register.mode == 'especialista') {
+                    await this.router.push({ name: 'especialista-home' });
+                }
 
-                // let { data } = await api.post(`/register`, this.model_register);
-                // this.showToast('Usuario registrado con éxito...', true)
+                this.showToast(data.message, true)
                 this.loading = false;
             } catch (error) {
                 this.showToast(`Error en el registro --> ${error}`, true)
