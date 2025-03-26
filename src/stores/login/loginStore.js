@@ -11,6 +11,13 @@ export const useLoginStore = defineStore('login', {
             email: 'admin@admin.com',
             password: 'asdasdasd',
         },
+        model_register: {
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: '',
+            mode: 'cliente' // cliente, especialista
+        },
         loading: false,
         router: useRouter()
 
@@ -37,5 +44,20 @@ export const useLoginStore = defineStore('login', {
                 this.loading = false;
             }
         },
+
+        async registerUser() {
+            try {
+                this.loading = true;
+                console.log({ mr: this.model_register });
+
+                // let { data } = await api.post(`/register`, this.model_register);
+                // this.showToast('Usuario registrado con éxito...', true)
+                this.loading = false;
+            } catch (error) {
+                this.showToast(`Error en el registro --> ${error}`, true)
+                this.loading = false;
+            }
+        }
+
     },
 });

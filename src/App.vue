@@ -1,5 +1,5 @@
 <template>
-  <ion-app>
+  <ion-app class="safe-area">
     <ion-router-outlet />
     <ion-toast :is-open="isOpenToast" :message="messageToast" :duration="2000" @didDismiss="closeToast">
     </ion-toast>
@@ -89,11 +89,17 @@ onUnmounted(() => {
 
 <style>
 :root {
-  --ion-safe-area-top: 1.5rem;
+  --ion-safe-area-top: env(safe-area-inset-top, 0px);
+  --ion-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --ion-safe-area-left: env(safe-area-inset-left, 0px);
+  --ion-safe-area-right: env(safe-area-inset-right, 0px);
 }
 
-:root.ios {
-  --ion-safe-area-bottom: 1rem;
+.safe-area {
+  padding-top: var(--ion-safe-area-top);
+  padding-bottom: var(--ion-safe-area-bottom);
+  padding-left: var(--ion-safe-area-left);
+  padding-right: var(--ion-safe-area-right);
 }
 
 ion-header {
@@ -107,7 +113,6 @@ ion-toolbar {
 }
 
 @keyframes bounce {
-
   0%,
   100% {
     transform: translateY(0);

@@ -5,12 +5,12 @@
                 class="bg-gradient-to-br from-indigo-100 via-purple-200 to-pink-100 min-h-screen flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
                 <!-- Contenedor Principal -->
                 <div
-                    class="relative w-full max-w-md sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl overflow-hidden">
+                    class="relative w-full max-w-md sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl overflow-hidden max-h-screen overflow-y-auto">
 
                     <!-- Encabezado -->
                     <div class="px-6 pt-16 pb-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center">
                         <div class="inline-block bg-white rounded-full shadow-md p-2 -mt-12 mb-4">
-                            <img src="/logo.png" alt="Logo" class="h-16 w-16 animate-bounce" />
+                            <img src="/logo.png" alt="Logo" class="h-16 w-16 " />
                         </div>
                         <h1 class="text-3xl font-semibold tracking-tight">Bienvenido a Citus</h1>
                         <p class="mt-2 text-lg font-light">Explora tus posibilidades</p>
@@ -48,7 +48,7 @@
                                     <div class="flex items-center justify-between">
                                         <label for="remember-me" class="flex items-center">
                                             <input id="remember-me" type="checkbox"
-                                                class="form-checkbox h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500">
+                                                class="form-checkbox h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 dark:bg-white ">
                                             <span class="ml-2 text-sm text-gray-900">Recordarme</span>
                                         </label>
                                         <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">¿Olvidaste tu
@@ -57,9 +57,8 @@
 
                                     <div>
                                         <ion-button expand="block" @click="login" class="font-bold">
-                                            <svg class="mr-3 -ml-1 h-5 w-5 animate-spin text-white"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                v-if="loading">
+                                            <svg class="mr-3 -ml-1 h-5 w-5 animate-spin text-white" fill="none"
+                                                viewBox="0 0 24 24" v-if="loading">
                                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                                     stroke-width="4"></circle>
                                                 <path class="opacity-75" fill="currentColor"
@@ -73,15 +72,14 @@
                             </template>
 
                             <template #segment-1>
-                                <form class="space-y-6">
+                                <form class="space-y-2">
                                     <div>
                                         <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Nombre
-                                            de
-                                            Usuario</label>
+                                            de Usuario</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
                                             <ion-input id="username" type="text" placeholder="Jon Doe"
-                                                class="custom-input">
+                                                class="custom-input" v-model="model_register.name">
                                                 <ion-icon slot="start" :icon="person"></ion-icon>
                                             </ion-input>
                                         </ion-item>
@@ -94,7 +92,7 @@
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
                                             <ion-input id="register-email" type="email" placeholder="correo@dominio.com"
-                                                class="custom-input">
+                                                class="custom-input" v-model="model_register.email">
                                                 <ion-icon slot="start" :icon="mailOutline"></ion-icon>
                                             </ion-input>
                                         </ion-item>
@@ -106,7 +104,7 @@
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
                                             <ion-input id="register-password" type="password" placeholder="******"
-                                                class="custom-input">
+                                                class="custom-input" v-model="model_register.password">
                                                 <ion-icon slot="start" :icon="lockClosed"></ion-icon>
                                             </ion-input>
                                         </ion-item>
@@ -119,22 +117,73 @@
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
                                             <ion-input id="confirm-password" type="password" placeholder="******"
-                                                class="custom-input">
+                                                class="custom-input" v-model="model_register.password_confirmation">
                                                 <ion-icon slot="start" :icon="lockClosed"></ion-icon>
                                             </ion-input>
                                         </ion-item>
                                     </div>
-
                                     <div>
-                                        <ion-button expand="block" class="font-bold">Registrarse</ion-button>
+                                        <label for="mode"
+                                            class="block text-gray-700 text-sm font-bold mb-2">Modo</label>
+                                        <div class="flex  custom-input-container rounded-md shadow-sm items-center  ">
+                                            <div v-if="model_register.mode === 'cliente'"
+                                                class="flex justify-center items-center flex-shrink-0 ml-3 bg-white">
+                                                <svg fill="#000000" width="25px" height="25px" viewBox="0 0 100 100"
+                                                    class="bg-white">
+                                                    <path d="M44.8,58.3c3.7-2.1,7.2-3.1,11.1-3.1c1.1,0,2.2,0.1,3.2,0.2c0.5,0.1,0.6-0.1,0.1-0.4c-1.9-1.1-4-2.1-6.2-3
+        c-4.3-1.8-4.9-3.4-4.9-5.2c0-1.8,1.2-3.4,2.6-4.7c2.5-2.3,3.9-5.4,3.9-9.1c0-6.9-4.3-12.8-11.9-12.8c-7.6,0-11.9,5.9-11.9,12.8
+        c0,3.7,1.4,6.9,3.9,9.1c1.4,1.3,2.6,3,2.6,4.7c0,1.7-0.7,3.4-4.9,5.2c-6.2,2.6-12.1,5.6-12.2,11.2c0,3.7,2.8,7,6.3,7h14.2
+        c1.1,0,2-0.9,2-2l0-6.5C42.8,60.3,43.5,59,44.8,58.3z" />
+                                                    <path d="M77.3,64.2c-9.4,2.9-16.8-6-27.1-1.8c-0.8,0.3-1.2,1-1.2,1.9V75c0,1.4,1.2,2.3,2.5,1.9
+        c10.2-3.1,17.6,5.8,27.2,1.8c0.7-0.3,1.3-1,1.3-1.9V66.1C80,64.8,78.6,63.8,77.3,64.2z M64.8,74.2c-2.2,0-4-1.8-4-4
+        c0-2.2,1.8-4,4-4s4,1.8,4,4C68.8,72.4,67,74.2,64.8,74.2z" />
+                                                </svg>
+                                            </div>
+                                            <div v-else-if="model_register.mode === 'especialista'"
+                                                class="flex justify-center items-center flex-shrink-0 ml-2 bg-white">
+                                                <svg fill="#000000" width="25px" height="25px" viewBox="0 0 256 190">
+                                                    <path d="M48.12,27.903C48.12,13.564,59.592,2,74.023,2c14.339,0,25.903,11.564,25.903,25.903
+	C99.834,42.335,88.27,53.806,74.023,53.806C59.684,53.806,48.12,42.242,48.12,27.903z M191,139h-47V97c0-20.461-17.881-37-38-37H43
+	C20.912,60,1.99,79.14,2,98v77c-0.026,8.533,6.001,12.989,12,13c6.014,0.011,12-4.445,12-13v-75h8v88h78v-88h8l0.081,50.37
+	c-0.053,8.729,5.342,12.446,10.919,12.63h60C207.363,163,207.363,139,191,139z M238.527,104.157
+	c-2.64-2.396-5.726-3.493-9.341-3.371c-1.218,0-2.396,0.284-3.614,0.69l-18.113-16.569l11.655-13.767l18.519,16.326L254,68.825
+	l-46.338-40.774l-16.366,18.641l18.031,15.879l-12.062,13.036l-16.488-15.107c0.284-1.218,0.406-2.396,0.284-3.614
+	c-0.122-3.614-1.543-6.701-4.183-9.056c-2.64-2.396-5.726-3.493-9.341-3.371c-1.218,0-2.518,0.284-3.614,0.69l10.478,9.503
+	l-9.259,10.153l-10.478-9.503c-0.284,1.218-0.406,2.518-0.284,3.614c0.122,3.614,1.543,6.538,4.183,8.935
+	c2.64,2.396,5.726,3.493,9.341,3.371c1.218,0,2.64-0.284,3.899-0.853l16.001,14.661l-26.479,27.453
+	c-1.828,1.543-2.762,3.736-2.762,6.132c0,4.467,3.614,8.082,8.082,8.082c2.762,0,5.158-1.421,6.701-3.493L198.85,95.1l15.067,13.767
+	l2.518,2.396c-0.284,1.218-0.406,2.64-0.406,3.899c0.122,3.614,1.543,6.538,4.183,9.056c2.64,2.396,5.726,3.493,9.341,3.371
+	c1.218,0,2.396-0.284,3.614-0.69l-10.478-9.503l9.341-10.193l10.356,9.544c0.284-1.218,0.406-2.518,0.284-3.614
+	C242.588,109.436,241.167,106.512,238.527,104.157z" />
+                                                </svg>
+                                            </div>
+                                            <ion-item lines="none" class="w-full rounded-md ">
+                                                <select id="mode" v-model="model_register.mode" class="custom-input">
+                                                    <option value="cliente">Cliente</option>
+                                                    <option value="especialista">Especialista</option>
+                                                </select>
+                                            </ion-item>
+                                        </div>
                                     </div>
+
+                                    <ion-button expand="block" @click="registerUser" class="font-bold">
+                                        <svg class="mr-3 -ml-1 h-5 w-5 animate-spin text-white" fill="none"
+                                            viewBox="0 0 24 24" v-if="loading">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                        Registrarse
+                                    </ion-button>
                                 </form>
                             </template>
                         </segment>
 
                         <div class="mt-6">
                             <div class="relative">
-                                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                <div class="absolute inset-0 flex items-center">
                                     <div class="w-full border-t border-gray-300"></div>
                                 </div>
                                 <div class="relative flex justify-center text-sm">
@@ -218,13 +267,12 @@ import { useLoginStore } from '@/stores/login/loginStore.js';
 import segment from '@/components/segment.vue';
 
 const loginStore = useLoginStore();
-const { login } = loginStore;
-const { model, loading } = storeToRefs(loginStore);
+const { login, registerUser } = loginStore;
+const { model_register, model, loading } = storeToRefs(loginStore);
 </script>
 
 <style scoped>
 .custom-input-container {
-    background-color: #f9fafb;
     /* Un gris muy claro */
     border: 1px solid #d1d5db;
     /* Borde gris */
@@ -239,7 +287,7 @@ const { model, loading } = storeToRefs(loginStore);
     /* pt-2.5 */
     padding-bottom: 0.625rem;
     /* pb-2.5 */
-    padding-left: 0.75rem;
+    /* padding-left: 0.05rem; */
     /* pl-3 */
     padding-right: 0.75rem;
     /* pr-3 */
@@ -264,5 +312,10 @@ const { model, loading } = storeToRefs(loginStore);
 .custom-input:focus {
     outline: none;
     /* No necesitas un borde aquí porque ya tienes el ring en el contenedor */
+}
+
+/* Agregar padding superior dinámico basado en el área segura */
+.pt-safe {
+    padding-top: env(safe-area-inset-top);
 }
 </style>
