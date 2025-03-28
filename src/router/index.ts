@@ -15,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/login/index.vue"),
   },
   {
+    path: "/validate-email-code",
+    name: "validate.email.code",
+    component: () => import("../views/ValidateEmail/index.vue"),
+  },
+  {
     path: "/cliente",
     name: "cliente",
     component: () => import("../views/cliente/index.vue"),
@@ -100,16 +105,57 @@ router.beforeEach(async (to, from, next) => {
   try {
     const { value: user } = await Preferences.get({ key: "user" });
     const { value: mode } = await Preferences.get({ key: "mode" });
+    const { value: emailValidated } = await Preferences.get({
+      key: "emailValidated",
+    });
+    const isEmailValidated = emailValidated === "true";
 
-    if (to.name === "login" && user) {
-      mode === "1" ? next({ name: "cliente-home" }) : next();
-    } else if (to.name !== "login" && !user) {
-      next({ name: "login" });
+    const protectedRoutes = [
+      "cliente-home",
+      "categorias-view",
+      "productos-view",
+      "servicios-view",
+      "user-view",
+      "chat-view",
+      "ordenes-view",
+      "notificaciones-view",
+      "billetera-view",
+      "verificacion-view",
+      "certificados-view",
+      "paymentMethod-view",
+      "configuracion-view",
+    ];
+
+    if (user) {
+      if (protectedRoutes.includes(to.name) && !isEmailValidated) {
+        return next({ name: "validate.email.code" });
+      }
+
+      if (to.name === "login") {
+        if (mode === "1") {
+          return next({ name: "cliente-home" });
+        } else {
+          return next();
+        }
+      }
+
+      if (
+        to.name !== "login" &&
+        !isEmailValidated &&
+        to.name !== "validate.email.code"
+      ) {
+        return next({ name: "validate.email.code" });
+      }
+
+      next();
     } else {
+      if (to.name !== "login") {
+        return next({ name: "login" });
+      }
       next();
     }
   } catch (error) {
-    console.error("Error al obtener el modo:", error);
+    console.error("Error en router.beforeEach:", error);
     next({ name: "login" });
   } finally {
     appStore.setIsLoading(false);
@@ -118,7 +164,7 @@ router.beforeEach(async (to, from, next) => {
 
 router.afterEach(() => {
   const appStore = useAppStore();
-  appStore.setIsLoading(false); // Ocultar el indicador de carga
+  appStore.setIsLoading(false);
 });
 
 export default router;

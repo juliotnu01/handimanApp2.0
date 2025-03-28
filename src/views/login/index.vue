@@ -46,12 +46,12 @@
                                     </div>
 
                                     <div class="flex items-center justify-between">
-                                        <label for="remember-me" class="flex items-center">
+                                        <!-- <label for="remember-me" class="flex items-center">
                                             <input id="remember-me" type="checkbox"
                                                 class="form-checkbox h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 dark:bg-white ">
                                             <span class="ml-2 text-sm text-gray-900">Recordarme</span>
-                                        </label>
-                                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">¿Olvidaste tu
+                                        </label> -->
+                                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500 ">¿Olvidaste tu
                                             contraseña?</a>
                                     </div>
 

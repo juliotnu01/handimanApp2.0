@@ -694,7 +694,7 @@ const closeMenu = async () => {
 };
 
 const logout = () => {
-    appStore.openModal('¿Estás seguro de que quieres cerrar sesión?', () => {
+    appStore.openModal('¿Estás seguro que quieres cerrar sesión?', () => {
         appStore.setIsLoading(true);
         Preferences.clear().then(() => {
             router.push({ name: "login" });

@@ -6,16 +6,21 @@
     <div v-if="isLoading" class="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50">
       <img src="/logo.png" alt="Loading" class="h-24 w-24 animate-bounce">
     </div>
-    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+    <div v-if="isModalOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out">
+      <div
+        class="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg transform transition-transform duration-300 ease-in-out scale-95"
+        :class="{ 'scale-100': isModalOpen }">
         <div class="mb-4">
-          <p class="text-lg font-semibold text-gray-800">{{ modalMessage }}</p>
+          <p class="text-sm text-center font-semibold text-gray-800">{{ modalMessage }}</p>
         </div>
-        <div class="flex justify-end space-x-4">
-          <button @click="onModalCancel" class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300">
+        <div class="flex justify-end space-x-2">
+          <button @click="onModalCancel"
+            class="px-2 py-1 font-bold rounded-md bg-gray-200 text-gray-700  transition-colors duration-200 text-[16px] ">
             Cancelar
           </button>
-          <button @click="onModalConfirm" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
+          <button @click="onModalConfirm"
+            class="px-2 py-1 font-bold rounded-md bg-blue-600 text-white  transition-colors duration-200 text-[16px] ">
             Aceptar
           </button>
         </div>
@@ -113,6 +118,7 @@ ion-toolbar {
 }
 
 @keyframes bounce {
+
   0%,
   100% {
     transform: translateY(0);

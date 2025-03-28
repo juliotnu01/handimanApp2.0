@@ -36,6 +36,7 @@ export const useLoginStore = defineStore('login', {
                 await Preferences.set({ key: 'user', value: JSON.stringify(data.user) });
                 await Preferences.set({ key: 'valid_user', value: data.valid });
                 await Preferences.set({ key: 'mode', value: data.user.mode });
+                await Preferences.set({ key: 'emailValidated', value: data.user.email_verification?.verified == 1 ? true : false });
                 await this.router.push({ name: 'cliente-home' });
                 this.showToast('Session iniciada con éxito...', true)
                 this.loading = false;
@@ -58,6 +59,7 @@ export const useLoginStore = defineStore('login', {
                 await Preferences.set({ key: 'user', value: JSON.stringify(data.user) });
                 await Preferences.set({ key: 'valid_user', value: data.valid });
                 await Preferences.set({ key: 'mode', value: data.user.mode });
+                await Preferences.set({ key: 'mode', value: data.user.email_verification?.verified == 1 ? true : false });
                 if (this.model_register.mode == 'cliente') {
                     await this.router.push({ name: 'cliente-home' });
                 } else if (this.model_register.mode == 'especialista') {
