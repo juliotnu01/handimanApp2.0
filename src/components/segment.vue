@@ -20,23 +20,35 @@
             </div>
         </transition>
     </div>
-
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     segments: {
         type: Array,
         required: true,
     },
+    modelValue: {
+        type: Number,
+        default: 0, // Valor inicial del segmento seleccionado
+    },
 });
 
-const selectedSegment = ref(0);
+const emit = defineEmits(['update:modelValue']);
 
+const selectedSegment = ref(props.modelValue);
+
+// Actualizar el segmento seleccionado desde el exterior
+watch(() => props.modelValue, (newValue) => {
+    selectedSegment.value = newValue;
+});
+
+// Función para seleccionar un segmento internamente
 const selectSegment = (index) => {
     selectedSegment.value = index;
+    emit('update:modelValue', index); // Emitir el cambio al exterior
 };
 </script>
 

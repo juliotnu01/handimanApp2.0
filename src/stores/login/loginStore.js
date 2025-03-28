@@ -65,7 +65,13 @@ export const useLoginStore = defineStore('login', {
                 } else if (this.model_register.mode == 'especialista') {
                     await this.router.push({ name: 'especialista-home' });
                 }
-
+                this.model_register = {
+                    name: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: '',
+                    mode: 'cliente' // cliente, especialista
+                };
                 this.showToast(data.message, true)
                 this.loading = false;
             } catch (error) {

@@ -12,13 +12,13 @@
                         <div class="inline-block bg-white rounded-full shadow-md p-2 -mt-12 mb-4">
                             <img src="/logo.png" alt="Logo" class="h-16 w-16 " />
                         </div>
-                        <h1 class="text-3xl font-semibold tracking-tight">Bienvenido a Citus</h1>
+                        <h1 class="text-3xl font-semibold tracking-tight">Bienvenido a Citius</h1>
                         <p class="mt-2 text-lg font-light">Explora tus posibilidades</p>
                     </div>
 
                     <!-- Contenido del Formulario -->
                     <div class="px-8 py-12">
-                        <segment :segments="['Iniciar Sesión', 'Registrarse']">
+                        <segment :segments="['Iniciar Sesión', 'Registrarse']" v-model="currentSegment">
                             <template #segment-0>
                                 <form class="space-y-6">
                                     <div>
@@ -240,10 +240,10 @@
 
                         <p class="mt-8 text-center text-sm text-gray-500">
                             ¿No tienes una cuenta?
-                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                Crear una cuenta
-                            </a>
                         </p>
+                        <div class="font-medium text-indigo-600 hover:text-indigo-500 text-center" @click="changeSegment(1)">
+                            Crear una cuenta
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,6 +269,10 @@ import segment from '@/components/segment.vue';
 const loginStore = useLoginStore();
 const { login, registerUser } = loginStore;
 const { model_register, model, loading } = storeToRefs(loginStore);
+const currentSegment = ref(0);
+const changeSegment = (index) => {
+    currentSegment.value = index;
+};
 </script>
 
 <style scoped>

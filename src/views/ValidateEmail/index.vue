@@ -54,13 +54,12 @@
         </ion-content>
     </ion-page>
 </template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 import { IonPage, IonContent, IonInput, IonButton, toastController } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { Preferences } from '@capacitor/preferences';
-import { api } from '@/common/apiJs'
+import { api } from '@/common/apiJs';
 
 const code = ref(['', '', '', '', '', '']);
 const inputRefs = ref([]);
@@ -74,25 +73,34 @@ const handleInput = (index) => {
     if (code.value[index].length > 1) {
         code.value[index] = code.value[index].charAt(0);
     }
-    focusNext(index);
+    if (code.value[index].length === 1 && index < 5) {
+        focusNext(index);
+    }
 };
 
 const handleKeyDown = (index, event) => {
-    if (event.key === 'Backspace' && code.value[index].length === 0 && index > 0) {
+    const key = event.key || event.inputType;
+
+    if ((key === 'Backspace' || key === 'deleteContentBackward') && code.value[index].length === 0 && index > 0) {
         code.value[index - 1] = '';
-        inputRefs.value[index - 1].getInputElement().then((input) => {
-            input.focus();
-        });
+        focusPrevious(index);
     }
 };
 
 const focusNext = (index) => {
-    if (code.value[index].length === 1 && index < 5) {
+    if (index < 5) {
         inputRefs.value[index + 1].getInputElement().then((input) => {
             input.focus();
         });
     }
 };
+
+const focusPrevious = (index) => {
+    inputRefs.value[index - 1].getInputElement().then((input) => {
+        input.focus();
+    });
+};
+
 const verifyCode = async () => {
     const enteredCode = code.value.join('');
 

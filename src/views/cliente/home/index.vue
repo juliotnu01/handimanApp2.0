@@ -31,7 +31,6 @@
             </div>
         </ion-header>
         <ion-content>
-            
             <!-- buscador -->
             <div v-if="searchQuery" class="w-[97%] h-fit self-center mx-auto  flex justify-between relative">
                 <!-- Contenedor de cartas -->
