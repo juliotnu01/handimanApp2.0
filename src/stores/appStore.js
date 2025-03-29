@@ -6,7 +6,9 @@ export const useAppStore = defineStore('app', {
         message_toast: '',
         is_loading: true,
         is_modal_open: false,
+        is_modal_open_redirect_configuration: false,
         modal_message: '',
+        redirect_configuration_modal_message: '',
         modal_confirm_action: null,
     }),
     getters: {

@@ -98,13 +98,15 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to: any, from: any, next: any) => {
   const appStore = useAppStore();
   appStore.setIsLoading(true);
 
   try {
-    const { value: user } = await Preferences.get({ key: "user" });
-    const { value: mode } = await Preferences.get({ key: "mode" });
+    const { value: user }: any = await Preferences.get({ key: "user" });
+    const { value: mode }: any = await Preferences.get({ key: "mode" });
+    const parsedUser = JSON.parse(user);
+
     const { value: emailValidated } = await Preferences.get({
       key: "emailValidated",
     });
@@ -133,8 +135,14 @@ router.beforeEach(async (to, from, next) => {
 
       if (to.name === "login") {
         if (mode === "1") {
+          if (!parsedUser.basic_information) {
+            return next({ name: "configuracion-view" });
+          }
           return next({ name: "cliente-home" });
         } else {
+          if (!parsedUser.basic_information) {
+            return next({ name: "configuracion-view" });
+          }
           return next();
         }
       }

@@ -26,6 +26,25 @@
         </div>
       </div>
     </div>
+    <div v-if="isModalOpenRedirectConfiguration"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out">
+      <div class="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg transform transition-transform duration-300 ease-in-out scale-95" :class="{ 'scale-100': isModalOpen }">
+        <div class="mb-4">
+          <p class="text-sm text-center font-semibold text-gray-800">{{ ReirectConfigurationModalMessage }}</p>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button @click="onModalCancel"
+            class="px-2 py-1 font-bold rounded-md bg-gray-200 text-gray-700  transition-colors duration-200 text-[16px] ">
+            Cancelar
+          </button>
+          <button @click="onModalConfirm"
+            class="px-2 py-1 font-bold rounded-md bg-blue-600 text-white  transition-colors duration-200 text-[16px] ">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  
   </ion-app>
 </template>
 
@@ -38,7 +57,7 @@ import { Preferences } from '@capacitor/preferences';
 import { App } from '@capacitor/app';
 
 const appStore = useAppStore();
-const { is_open_toast, message_toast, is_loading, is_modal_open, modal_message } = storeToRefs(appStore);
+const { is_open_toast, message_toast, is_loading, is_modal_open, modal_message, is_modal_open_redirect_configuration } = storeToRefs(appStore);
 const { setIsOpenToast, setIsLoading, openModal, closeModal, onModalConfirm } = appStore;
 
 const isOpenToast = computed({
@@ -58,8 +77,15 @@ const isLoading = computed({
 const isModalOpen = computed({
   get() { return is_modal_open.value; },
 });
+const isModalOpenRedirectConfiguration = computed({
+  get() { return is_modal_open_redirect_configuration.value; },
+});
 
 const modalMessage = computed({
+  get() { return modal_message.value; },
+});
+
+const ReirectConfigurationModalMessage = computed({
   get() { return modal_message.value; },
 });
 
