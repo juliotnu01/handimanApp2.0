@@ -41,7 +41,7 @@ export const useLoginStore = defineStore('login', {
                 this.showToast('Session iniciada con éxito...', true)
                 this.loading = false;
             } catch (error) {
-                this.showToast(`Error en el login --> ${error}`, true)
+                this.showToast(`Error en el login --> ${error}`, true) 
                 this.loading = false;
             }
         },

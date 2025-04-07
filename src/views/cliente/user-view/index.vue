@@ -20,8 +20,9 @@
             <div class="w-full h-fit relative">
                 <img :src="basic_information?.banner_photo_url ? `${api.defaults.baseURL.replace('/api', '')}${basic_information?.banner_photo_url}` : 'https://picsum.photos/200/300'"
                     alt="Header Image" class="w-full h-36 object-cover">
-                <img :src="avatar_user" alt="Avatar"
-                    class="w-20 h-20 rounded-full absolute bottom-0 left-4 transform translate-y-1/2 border-4 border-black">
+                    <generalAvatar customClasses="w-20 h-20 rounded-full absolute bottom-0 left-4 transform translate-y-1/2 border-4 border-black object-cover bg-white" />
+                    <!-- <img :src="avatar_user" alt="Avatar"
+                    class="w-20 h-20 rounded-full absolute bottom-0 left-4 transform translate-y-1/2 border-4 border-black object-cover"> -->
             </div>
             <div class="w-full h-10  pl-4 flex  justify-end px-4 gap-4 mt-2">
                 <button class="bg-gray-200 p-1 rounded-full w-10 h-10">
@@ -348,42 +349,27 @@ import { Preferences } from '@capacitor/preferences';
 import ReviewList from '@/components/ReviewList.vue';
 import { api } from '@/common/apiJs'
 import { useAppStore } from '@/stores/appStore'
+import generalAvatar from '@/components/generalAvatar.vue'
 
 const appStore = useAppStore();
 const { setIsOpenToast } = appStore;
 const { message_toast } = storeToRefs(appStore)
-
 const clienteStore = useClienteStore();
 const hasActivePaymentMethods = ref(false);
 const hasAllVerifications = ref(false);
 const hasApprovedCertifications = ref(false);
 
-const { user_name,
-    email_user,
-    avatar_user, basic_information, reviewsStats } = storeToRefs(clienteStore)
-
-const fullName = computed(() => `${basic_information.value?.first_name ?? ''} ${basic_information.value?.second_name ?? ''} ${basic_information.value?.first_last_name ?? ''} ${basic_information.value?.second_last_name ?? ''}`);
-
+const { user_name, email_user, avatar_user, basic_information, reviewsStats } = storeToRefs(clienteStore)
 const { loadBasicInformationUser, loadReviewStatsUser } = clienteStore
-
-
 const userViewStore = useUserViewStore();
 const router = useRouter();
-const goTotHome = () => {
-    return router.push({ name: 'cliente-home' });
-}
-
+const goTotHome = () => router.push({ name: 'cliente-home' });
+const fullName = computed(() => `${basic_information.value?.first_name ?? ''} ${basic_information.value?.second_name ?? ''} ${basic_information.value?.first_last_name ?? ''} ${basic_information.value?.second_last_name ?? ''}`);
 const isVisible = ref(Array(10).fill(false));
 
-const toggleSection = (index) => {
-    isVisible.value[index] = !isVisible.value[index];
-};
-
+const toggleSection = (index) => isVisible.value[index] = !isVisible.value[index];
 const showDetails = ref(false);
-
-const toggleDetails = () => {
-    showDetails.value = !showDetails.value;
-}
+const toggleDetails = () => showDetails.value = !showDetails.value;
 
 const reviews = ref([
     {
@@ -408,13 +394,6 @@ const reviews = ref([
         showDetails: false
     }
 ]);
-
-const toggleDetails2 = (index) => {
-    reviews.value[index].showDetails = !reviews.value[index].showDetails;
-}
-
-
-
 
 const loadUserPreferences = async () => {
     const { value } = await Preferences.get({ key: 'user' });
@@ -459,7 +438,6 @@ const SetBasicInformationToForm = async () => {
 
 const handleRefresh = (event) => {
     setTimeout(() => {
-        // Any calls to load data go here
         loadUserPreferences();
         SetBasicInformationToForm()
         loadBasicInformationUser()

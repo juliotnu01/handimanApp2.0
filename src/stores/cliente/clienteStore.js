@@ -1,16 +1,10 @@
 import { defineStore } from 'pinia';
 import { menuController } from '@ionic/vue';
-import { useRouter, useRoute } from 'vue-router';
-import {
-    home, cash, mailOutline, locate, shieldCheckmark,ribbonSharp,cardOutline
-} from 'ionicons/icons';
+import { useRoute } from 'vue-router';
+import { home, cash, mailOutline, locate, shieldCheckmark, ribbonSharp, cardOutline } from 'ionicons/icons';
 import { Preferences } from "@capacitor/preferences";
 
-/**
- * Define el store de cliente, que maneja el estado y las acciones relacionadas con el cliente.
- * 
- * @returns {Object} El store de cliente.
- */
+
 export const useClienteStore = defineStore('cliente', {
     state: () => ({
         clientes: [], // Array de clientes

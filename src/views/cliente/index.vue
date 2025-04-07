@@ -29,8 +29,10 @@
                             <span class="text-lg font-semibold dark:text-black ">{{ user_name }}</span>
                         </div>
                         <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
-                            <img alt="Silhouette of a person's head" :src="avatar_user"
+                            <!-- <img alt="Silhouette of a person's head" :src="avatar_user"
                                 class="w-full h-full object-cover" />
+                                -->
+                            <generalAvatar />
                         </div>
                     </button>
                 </div>
@@ -53,9 +55,9 @@
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
             <ion-header class="ion-padding">
                 <ion-item class=" -mb-4 ">
-                    <ion-avatar class="mr-5 ">
-                        <img alt="avatar" :src="avatar_user" />
-                    </ion-avatar>
+                    <!-- <ion-avatar class="mr-5 ">
+                        <img alt="avatar" :src="avatar_user" class="w-full h-full object-cover" />
+                    </ion-avatar> -->
                     <ion-label>
                         <ion-label>{{ user_name }}</ion-label>
                         <ion-label>
@@ -593,10 +595,11 @@ import { Preferences } from "@capacitor/preferences";
 import { useRouter, useRoute } from 'vue-router';
 import { useAppStore } from '@/stores/appStore';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-const route = useRoute();
-const router = useRouter();
+import generalAvatar from '@/components/generalAvatar.vue'
 
 // Stores
+const route = useRoute();
+const router = useRouter();
 const clienteStore = useClienteStore();
 const homeStore = useHomeStore();
 const userViewStore = useUserViewStore();
@@ -604,6 +607,7 @@ const appStore = useAppStore();
 
 const isUserViewPage = computed(() => route.path !== '/cliente/user');
 const isHomePage = computed(() => route.path === '/cliente/home');
+
 
 // Cliente
 const { openMenuIzquierda,
@@ -641,68 +645,36 @@ const {
 const { closeModalFilter, closeModal } = homeStore;
 const { isOpenFilter, isOpen, services, items, } = storeToRefs(homeStore);
 const isOpenFilterComputed = computed({
-    get() { return isOpenFilter.value; },
-    set(value) { isOpenFilter.value = value; }
+    get: () => isOpenFilter.value,
+    set: (value) => { isOpenFilter.value = value; }
 });
 const isOpenComputed = computed({
-    get() { return isOpen.value; },
-    set(value) { isOpen.value = value; }
+    get: () => isOpen.value,
+    set: (value) => { isOpen.value = value; }
 });
 const isOpenCarritoDeComprasComputed = computed({
-    get() { return isOpenCarritoDeCompras.value; },
-    set(value) { isOpenCarritoDeCompras.value = value; }
+    get: () => isOpenCarritoDeCompras.value,
+    set: (value) => { isOpenCarritoDeCompras.value = value; }
 });
+const subtotal = computed(() => cartItems.value.reduce((sum, item) => sum + item.price, 0));
+const impuestos = computed(() => subtotal.value * 0.16);
+const comision = computed(() => subtotal.value * 0.05);
+const total = computed(() => subtotal.value + impuestos.value + comision.value);
 
-const subtotal = computed(() => {
-    return cartItems.value.reduce((sum, item) => sum + item.price, 0);
-});
-
-const impuestos = computed(() => {
-    return subtotal.value * 0.16;
-});
-
-const comision = computed(() => {
-    return subtotal.value * 0.05;
-});
-
-const total = computed(() => {
-    return subtotal.value + impuestos.value + comision.value;
-});
-
-const goToHome = () => {
-    router.push({ name: 'cliente-home' });
-}
-const goToChatsView = () => {
-    router.push({ name: 'chat-view' });
-}
-const gotToCategoriasView = () => {
-    router.push({ name: 'categorias-view' });
-}
-
-const goToOrdenesView = () => {
-    router.push({ name: 'ordenes-view' });
-}
-
-const goToNotificacionesView = () => {
-    router.push({ name: 'notificaciones-view' });
-}
-const goToUserViewPage = () => {
-    router.push({ name: 'user-view' });
-}
-const closeMenu = async () => {
-    await menuController.close('menu-izquierda');
-};
-
+const goToHome = () => router.push({ name: 'cliente-home' });
+const goToChatsView = () => router.push({ name: 'chat-view' });
+const gotToCategoriasView = () => router.push({ name: 'categorias-view' });
+const goToOrdenesView = () => router.push({ name: 'ordenes-view' });
+const goToNotificacionesView = () => router.push({ name: 'notificaciones-view' });
+const goToUserViewPage = () => router.push({ name: 'user-view' });
+const closeMenu = async () => await menuController.close('menu-izquierda');
 const logout = () => {
     appStore.openModal('¿Estás seguro que quieres cerrar sesión?', () => {
         appStore.setIsLoading(true);
-        Preferences.clear().then(() => {
-            router.push({ name: "login" });
-        }).catch(error => {
-            console.error("Error al limpiar el almacenamiento local:", error);
-        }).finally(() => {
-            appStore.setIsLoading(false);
-        });
+        Preferences.clear()
+            .then(() => router.push({ name: "login" }))
+            .catch((error) => console.error("Error al limpiar el almacenamiento local:", error))
+            .finally(() => appStore.setIsLoading(false));
     });
 };
 

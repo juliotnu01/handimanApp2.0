@@ -154,7 +154,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
       ) {
         return next({ name: "validate.email.code" });
       }
-
+      appStore.getUserbyId(parsedUser.id);
       next();
     } else {
       if (to.name !== "login") {

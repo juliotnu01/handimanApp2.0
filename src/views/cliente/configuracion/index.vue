@@ -159,8 +159,9 @@
                             </svg>
                         </button>
                     </div>
-                    <img v-if="form.avatar_url" :src="form.avatar_url" alt="Avatar Preview"
-                        class="mt-4 w-24 h-24 object-cover rounded-full shadow-md" />
+                    <!-- <img v-if="form.avatar_url" :src="form.avatar_url" alt="Avatar Preview"
+                        class="mt-4 w-24 h-24 object-cover rounded-full shadow-md" /> -->
+                    <generalAvatar />
                 </div>
 
 
@@ -192,7 +193,12 @@ import { api } from '@/common/apiJs';
 import { useClienteStore } from '@/stores/cliente/clienteStore'
 import { storeToRefs } from 'pinia';
 import { useAppStore } from '@/stores/appStore.js'
+import generalAvatar from '@/components/generalAvatar.vue';
+import { useAvatarStore } from '@/stores/avatar/avatarStore';
 
+
+const avatarStore = useAvatarStore();
+const { url_avatar_user } = storeToRefs(avatarStore);
 const clienteStore = useClienteStore();
 const { basic_information } = storeToRefs(clienteStore);
 const { loadBasicInformationUser } = clienteStore
@@ -261,6 +267,7 @@ const handleAvatarChange = (event) => {
     if (file) {
         form.value.avatar = file;
         form.value.avatar_url = URL.createObjectURL(file);
+        url_avatar_user.value = URL.createObjectURL(file);
         avatarNameImg.value = file.name;
     }
 };
@@ -312,7 +319,6 @@ const submitAvatarForm = async () => {
 };
 const clearBannerPhoto = () => {
     bannerNameImg.value = null;
-    // Limpiar el input file
     const input = document.getElementById('banner_photo');
     if (input) {
         input.value = '';
@@ -330,15 +336,11 @@ const clearAvatarPhoto = () => {
 };
 
 const reBuildAvatarUser = async () => {
-    console.log({ f: form.value });
-    console.log({ f: form.value.avatar_url });
 
-    // const { value: user } = await Preferences.get({ key: 'user' });
-    // const userData = JSON.parse(user);
-    // console.log({ u:userData.profile_photo_url, form: form.value.avatar_url });
-    // userData.profile_photo_url = form.value.avatar_url;
-    // await Preferences.set({ key: 'user', value: JSON.stringify(userData) });
-    // console.log({ u:userData.profile_photo_url, form: form.value.avatar_url });
+
+    const { value: user } = await Preferences.get({ key: 'user' });
+    const userData = JSON.parse(user);
+    url_avatar_user.value = userData.profile_photo_url;
 };
 onMounted(async () => {
     loadBasicInformationUser();

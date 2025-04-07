@@ -61,50 +61,29 @@ const { is_open_toast, message_toast, is_loading, is_modal_open, modal_message, 
 const { setIsOpenToast, setIsLoading, openModal, closeModal, onModalConfirm } = appStore;
 
 const isOpenToast = computed({
-  get() { return is_open_toast.value; },
-  set(val) { setIsOpenToast(val); },
+  get: () => is_open_toast.value,
+  set: (val) => setIsOpenToast(val),
 });
 
-const messageToast = computed({
-  get() { return message_toast.value; },
-});
+const messageToast = computed(() => message_toast.value);
 
 const isLoading = computed({
-  get() { return is_loading.value; },
-  set(val) { setIsLoading(val); },
+  get: () => is_loading.value,
+  set: (val) => setIsLoading(val),
 });
 
-const isModalOpen = computed({
-  get() { return is_modal_open.value; },
-});
-const isModalOpenRedirectConfiguration = computed({
-  get() { return is_modal_open_redirect_configuration.value; },
-});
+const isModalOpen = computed(() => is_modal_open.value);
+const isModalOpenRedirectConfiguration = computed(() => is_modal_open_redirect_configuration.value);
 
-const modalMessage = computed({
-  get() { return modal_message.value; },
-});
+const modalMessage = computed(() => modal_message.value);
+const ReirectConfigurationModalMessage = computed(() => modal_message.value);
 
-const ReirectConfigurationModalMessage = computed({
-  get() { return modal_message.value; },
-});
+const closeToast = () => setIsOpenToast(false);
+const onModalCancel = () => closeModal();
 
-const closeToast = () => {
-  setIsOpenToast(false);
-};
-const onModalCancel = () => {
-  closeModal();
-};
-
-const clearStorage = async () => {
-  await Preferences.clear();
-};
-const handleBeforeUnload = async () => {
-  await clearStorage();
-};
-const handleAppExit = async () => {
-  await clearStorage();
-};
+const clearStorage = async () => await Preferences.clear();
+const handleBeforeUnload = async () => await clearStorage();
+const handleAppExit = async () => await clearStorage();
 
 onMounted(() => {
   window.addEventListener('beforeunload', handleBeforeUnload);
