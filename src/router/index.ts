@@ -1,5 +1,4 @@
-import { createRouter, createWebHistory } from "@ionic/vue-router";
-import { RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { Preferences } from "@capacitor/preferences";
 import { useAppStore } from "@/stores/appStore.js";
 
@@ -13,81 +12,89 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: () => import("../views/login/index.vue"),
+    meta: { requiresAuth: false },
   },
   {
     path: "/validate-email-code",
     name: "validate.email.code",
     component: () => import("../views/ValidateEmail/index.vue"),
+    meta: { requiresAuth: true, requiresEmailVerification: false },
   },
   {
     path: "/cliente",
     name: "cliente",
     component: () => import("../views/cliente/index.vue"),
+    meta: {
+      requiresAuth: true,
+      requiresEmailVerification: true,
+      requiresBasicInfo: true,
+    },
     children: [
       {
         path: "home",
-        name: "cliente-home",
+        name: "cliente.home",
         component: () => import("../views/cliente/home/index.vue"),
       },
       {
         path: "categorias",
-        name: "categorias-view",
+        name: "cliente.categorias",
         component: () => import("../views/cliente/categorias/index.vue"),
       },
       {
         path: "productos",
-        name: "productos-view",
+        name: "cliente.productos",
         component: () => import("../views/cliente/productos/index.vue"),
       },
       {
         path: "servicios",
-        name: "servicios-view",
+        name: "cliente.servicios",
         component: () => import("../views/cliente/servicios/index.vue"),
       },
       {
         path: "user",
-        name: "user-view",
+        name: "cliente.user",
         component: () => import("../views/cliente/user-view/index.vue"),
       },
       {
         path: "chat",
-        name: "chat-view",
+        name: "cliente.chat",
         component: () => import("../views/cliente/chats-view/index.vue"),
       },
       {
         path: "ordenes",
-        name: "ordenes-view",
+        name: "cliente.ordenes",
         component: () => import("../views/cliente/ordenes/index.vue"),
       },
       {
         path: "notificaciones",
-        name: "notificaciones-view",
+        name: "cliente.notificaciones",
         component: () => import("../views/cliente/notificaciones/index.vue"),
       },
       {
         path: "billetera",
-        name: "billetera-view",
+        name: "cliente.billetera",
         component: () => import("../views/cliente/billetera/index.vue"),
       },
       {
         path: "verificacion",
-        name: "verificacion-view",
+        name: "cliente.verificacion",
         component: () => import("../views/cliente/verificacion/index.vue"),
       },
       {
         path: "certificados",
-        name: "certificados-view",
+        name: "cliente.certificados",
         component: () => import("../views/cliente/certificados/index.vue"),
       },
       {
         path: "payment-method",
-        name: "paymentMethod-view",
+        name: "cliente.paymentMethod",
         component: () => import("../views/cliente/paymentMethod/index.vue"),
       },
       {
         path: "configuracion",
-        name: "configuracion-view",
+        name: "cliente.configuracion",
         component: () => import("../views/cliente/configuracion/index.vue"),
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -102,77 +109,76 @@ router.beforeEach(async (to: any, from: any, next: any) => {
   const appStore = useAppStore();
   appStore.setIsLoading(true);
 
-  try {
-    const { value: user }: any = await Preferences.get({ key: "user" });
-    const { value: mode }: any = await Preferences.get({ key: "mode" });
-    const parsedUser = JSON.parse(user);
+  const isAuthenticated = async () => {
+    const { value: user } = await Preferences.get({ key: "user" });
+    return !!user;
+  };
 
+  const isEmailVerified = async () => {
     const { value: emailValidated } = await Preferences.get({
       key: "emailValidated",
     });
-    const isEmailValidated = emailValidated === "true";
+    return emailValidated === "true";
+  };
 
-    const protectedRoutes = [
-      "cliente-home",
-      "categorias-view",
-      "productos-view",
-      "servicios-view",
-      "user-view",
-      "chat-view",
-      "ordenes-view",
-      "notificaciones-view",
-      "billetera-view",
-      "verificacion-view",
-      "certificados-view",
-      "paymentMethod-view",
-      "configuracion-view",
-    ];
-
+  const isBasicInfoComplete = async () => {
+    const { value: user } = await Preferences.get({ key: "user" });
     if (user) {
-      if (protectedRoutes.includes(to.name) && !isEmailValidated) {
-        return next({ name: "validate.email.code" });
-      }
-
-      if (to.name === "login") {
-        if (mode === "1") {
-          if (!parsedUser.basic_information) {
-            return next({ name: "configuracion-view" });
-          }
-          return next({ name: "cliente-home" });
-        } else {
-          if (!parsedUser.basic_information) {
-            return next({ name: "configuracion-view" });
-          }
-          return next();
-        }
-      }
-
-      if (
-        to.name !== "login" &&
-        !isEmailValidated &&
-        to.name !== "validate.email.code"
-      ) {
-        return next({ name: "validate.email.code" });
-      }
-      appStore.getUserbyId(parsedUser.id);
-      next();
-    } else {
-      if (to.name !== "login") {
-        return next({ name: "login" });
-      }
-      next();
+      const parsedUser = JSON.parse(user);
+      return !!parsedUser?.basic_information;
     }
-  } catch (error) {
-    console.error("Error en router.beforeEach:", error);
-    next({ name: "login" });
-  } finally {
-    appStore.setIsLoading(false);
-  }
-});
+    return false;
+  };
 
-router.afterEach(() => {
-  const appStore = useAppStore();
+  if (to.meta.requiresAuth && !(await isAuthenticated())) {
+    appStore.setIsLoading(false);
+    return next({ name: "login" });
+  }
+
+  if (
+    to.meta.requiresAuth &&
+    to.meta.requiresEmailVerification &&
+    !(await isEmailVerified()) &&
+    to.name !== "validate.email.code"
+  ) {
+    appStore.setIsLoading(false);
+    return next({ name: "validate.email.code" });
+  }
+  if (
+    to.meta.requiresAuth &&
+    to.meta.requiresBasicInfo &&
+    !(await isBasicInfoComplete()) &&
+    to.name !== "cliente.configuracion"
+  ) {
+    const { value: user } = await Preferences.get({ key: "user" });
+    const parsedUser = user ? JSON.parse(user) : null;
+    if (parsedUser) {
+      appStore.getUserbyId(parsedUser.id);
+    }
+    appStore.setIsLoading(false);
+    return next({ name: "cliente.configuracion" });
+  }
+
+  if (to.name === "login" && (await isAuthenticated())) {
+    const { value: mode } = await Preferences.get({ key: "mode" });
+    const isInfoComplete = await isBasicInfoComplete();
+    if (isInfoComplete) {
+      appStore.setIsLoading(false);
+      return next({ name: "cliente.home" });
+    } else {
+      appStore.setIsLoading(false);
+      return next({ name: "cliente.configuracion" });
+    }
+  } else if (to.name !== "login" && (await isAuthenticated())) {
+    const user = (await Preferences.get({ key: "user" })).value;
+    const parsedUser = user ? JSON.parse(user) : null;
+    if (parsedUser) {
+      appStore.getUserbyId(parsedUser.id);
+    }
+  }
+
   appStore.setIsLoading(false);
+  next();
 });
 
 export default router;

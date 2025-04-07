@@ -55,9 +55,9 @@
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
             <ion-header class="ion-padding">
                 <ion-item class=" -mb-4 ">
-                    <!-- <ion-avatar class="mr-5 ">
-                        <img alt="avatar" :src="avatar_user" class="w-full h-full object-cover" />
-                    </ion-avatar> -->
+                    <ion-avatar class="mr-5 ">
+                        <generalAvatar />
+                    </ion-avatar>
                     <ion-label>
                         <ion-label>{{ user_name }}</ion-label>
                         <ion-label>
