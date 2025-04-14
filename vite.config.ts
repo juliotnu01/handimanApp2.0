@@ -9,10 +9,10 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [vue(), legacy()],
   server: {
-    https: false, 
+    https: false,
     proxy: {
       "/api": {
-        target: "http://18.222.144.231",
+        target: process.env.VITE_API_URL ,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

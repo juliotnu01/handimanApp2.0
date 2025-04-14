@@ -46,17 +46,12 @@
                                     </div>
 
                                     <div class="flex items-center justify-between">
-                                        <!-- <label for="remember-me" class="flex items-center">
-                                            <input id="remember-me" type="checkbox"
-                                                class="form-checkbox h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 dark:bg-white ">
-                                            <span class="ml-2 text-sm text-gray-900">Recordarme</span>
-                                        </label> -->
                                         <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500 ">¿Olvidaste tu
                                             contraseña?</a>
                                     </div>
 
                                     <div>
-                                        <ion-button expand="block" @click="login" class="font-bold">
+                                        <ion-button expand="block" @click="loginAttemp" class="font-bold">
                                             <svg class="mr-3 -ml-1 h-5 w-5 animate-spin text-white" fill="none"
                                                 viewBox="0 0 24 24" v-if="loading">
                                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -166,7 +161,7 @@
                                         </div>
                                     </div>
 
-                                    <ion-button expand="block" @click="registerUser" class="font-bold">
+                                    <ion-button expand="block" @click="registerUserAttemp" class="font-bold">
                                         <svg class="mr-3 -ml-1 h-5 w-5 animate-spin text-white" fill="none"
                                             viewBox="0 0 24 24" v-if="loading">
                                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -241,7 +236,8 @@
                         <p class="mt-8 text-center text-sm text-gray-500">
                             ¿No tienes una cuenta?
                         </p>
-                        <div class="font-medium text-indigo-600 hover:text-indigo-500 text-center" @click="changeSegment(1)">
+                        <div class="font-medium text-indigo-600 hover:text-indigo-500 text-center"
+                            @click="changeSegment(1)">
                             Crear una cuenta
                         </div>
                     </div>
@@ -265,14 +261,33 @@ import {
 import { mailOutline, lockClosed, person } from 'ionicons/icons';
 import { useLoginStore } from '@/stores/login/loginStore.js';
 import segment from '@/components/segment.vue';
+import { useRouter } from 'vue-router';
 
 const loginStore = useLoginStore();
 const { login, registerUser } = loginStore;
 const { model_register, model, loading } = storeToRefs(loginStore);
 const currentSegment = ref(0);
+const router = useRouter();
 const changeSegment = (index) => {
     currentSegment.value = index;
 };
+
+const loginAttemp = async () => {
+    try {
+        login(router)
+    } catch (error) {
+        console.log({ error });
+
+    }
+}
+
+const registerUserAttemp = async () => {
+    try {
+        await registerUser(router);
+    } catch (error) {
+        console.log({ error });
+    }
+}
 </script>
 
 <style scoped>

@@ -1,6 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory } from "@ionic/vue-router";
+import { RouteRecordRaw } from "vue-router";
 import { Preferences } from "@capacitor/preferences";
 import { useAppStore } from "@/stores/appStore.js";
+import { showToast } from "@/utils/toast"; // Importa la utilidad de toast
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -32,67 +34,67 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "home",
-        name: "cliente.home",
+        name: "cliente-home",
         component: () => import("../views/cliente/home/index.vue"),
       },
       {
         path: "categorias",
-        name: "cliente.categorias",
+        name: "categorias-view",
         component: () => import("../views/cliente/categorias/index.vue"),
       },
       {
         path: "productos",
-        name: "cliente.productos",
+        name: "productos-view",
         component: () => import("../views/cliente/productos/index.vue"),
       },
       {
         path: "servicios",
-        name: "cliente.servicios",
+        name: "servicios-view",
         component: () => import("../views/cliente/servicios/index.vue"),
       },
       {
         path: "user",
-        name: "cliente.user",
+        name: "user-view",
         component: () => import("../views/cliente/user-view/index.vue"),
       },
       {
         path: "chat",
-        name: "cliente.chat",
+        name: "chat-view",
         component: () => import("../views/cliente/chats-view/index.vue"),
       },
       {
         path: "ordenes",
-        name: "cliente.ordenes",
+        name: "ordenes-view",
         component: () => import("../views/cliente/ordenes/index.vue"),
       },
       {
         path: "notificaciones",
-        name: "cliente.notificaciones",
+        name: "notificaciones-view",
         component: () => import("../views/cliente/notificaciones/index.vue"),
       },
       {
         path: "billetera",
-        name: "cliente.billetera",
+        name: "billetera-view",
         component: () => import("../views/cliente/billetera/index.vue"),
       },
       {
         path: "verificacion",
-        name: "cliente.verificacion",
+        name: "verificacion-view",
         component: () => import("../views/cliente/verificacion/index.vue"),
       },
       {
         path: "certificados",
-        name: "cliente.certificados",
+        name: "certificados-view",
         component: () => import("../views/cliente/certificados/index.vue"),
       },
       {
         path: "payment-method",
-        name: "cliente.paymentMethod",
+        name: "paymentMethod-view",
         component: () => import("../views/cliente/paymentMethod/index.vue"),
       },
       {
         path: "configuracion",
-        name: "cliente.configuracion",
+        name: "configuracion-view",
         component: () => import("../views/cliente/configuracion/index.vue"),
         meta: { requiresAuth: true },
       },
@@ -106,6 +108,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to: any, from: any, next: any) => {
+  console.log({ v: import.meta.env });
+
   const appStore = useAppStore();
   appStore.setIsLoading(true);
 
@@ -148,15 +152,16 @@ router.beforeEach(async (to: any, from: any, next: any) => {
     to.meta.requiresAuth &&
     to.meta.requiresBasicInfo &&
     !(await isBasicInfoComplete()) &&
-    to.name !== "cliente.configuracion"
+    to.name !== "configuracion-view"
   ) {
     const { value: user } = await Preferences.get({ key: "user" });
     const parsedUser = user ? JSON.parse(user) : null;
     if (parsedUser) {
       appStore.getUserbyId(parsedUser.id);
     }
+    showToast("Completa tu información básica para continuar.", 3000);
     appStore.setIsLoading(false);
-    return next({ name: "cliente.configuracion" });
+    return next({ name: "configuracion-view" });
   }
 
   if (to.name === "login" && (await isAuthenticated())) {
@@ -167,7 +172,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
       return next({ name: "cliente.home" });
     } else {
       appStore.setIsLoading(false);
-      return next({ name: "cliente.configuracion" });
+      return next({ name: "configuracion-view" });
     }
   } else if (to.name !== "login" && (await isAuthenticated())) {
     const user = (await Preferences.get({ key: "user" })).value;
