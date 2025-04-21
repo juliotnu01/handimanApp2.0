@@ -98,6 +98,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/cliente/configuracion/index.vue"),
         meta: { requiresAuth: true },
       },
+      {
+        path: "direccion-envio",
+        name: "direccion-envio-view",
+        component: () => import("../views/cliente/DireccionesDeEnvio/index.vue"),
+        meta: { requiresAuth: true },
+      },
     ],
   },
 ];
@@ -108,8 +114,6 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to: any, from: any, next: any) => {
-  console.log({ v: import.meta.env });
-
   const appStore = useAppStore();
   appStore.setIsLoading(true);
 
@@ -169,7 +173,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
     const isInfoComplete = await isBasicInfoComplete();
     if (isInfoComplete) {
       appStore.setIsLoading(false);
-      return next({ name: "cliente.home" });
+      return next({ name: "cliente-home" });
     } else {
       appStore.setIsLoading(false);
       return next({ name: "configuracion-view" });
