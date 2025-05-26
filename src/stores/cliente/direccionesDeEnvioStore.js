@@ -1,6 +1,9 @@
 // stores/cliente/direccionesDeEnvioStore.js
 import { defineStore } from 'pinia';
 import { Loader } from "@googlemaps/js-api-loader";
+import { showToast } from '@/utils/toast'
+import { api } from '../../common/apiJs';
+import { Preferences } from '@capacitor/preferences';
 
 export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
     state: () => ({
@@ -41,6 +44,8 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
                         this.actualizarMapa(place.geometry.location);
                     }
                 });
+                console.log({ add: this.autocomplete });
+
             } catch (error) {
                 console.error("Error al inicializar el autocompletado:", error);
             }
@@ -111,5 +116,27 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
                 console.error("Error al obtener la dirección desde el marcador:", error);
             }
         },
+        async guardarDireccion() {
+            const { formatted_address } = this.getDireccionSeleccionada;
+            try {
+                if (formatted_address) {
+                    const { value } = await Preferences.get({ key: 'user' });
+                    const { id } = JSON.parse(value); // user id
+                    if (id) {
+                        await api.post('/store-user-address', {
+                            direccion: formatted_address,
+                            user_id: id,
+                        });
+                        showToast('Dirección guardada exitosamente.', 1000);
+                    } else {
+                        showToast('No se pudo obtener el ID del usuario.', 1000);
+                    }
+                } else {
+                    showToast('Por favor, arrastra el marcador en el mapa hasta la dirección deseada.', 1000);
+                }
+            } catch (error) {
+                showToast(`error al guardar la dirrección ${JSON.stringify(error)}`, 1000);
+            }
+        }
     },
 });
