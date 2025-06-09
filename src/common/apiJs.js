@@ -1,11 +1,15 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    // baseURL: 'http://18.222.144.231/api', // URL de tu API Laravel
     baseURL:  `${import.meta.env.VITE_API_URL}/api` , // URL de tu API Laravel
-    headers: {
-        'Content-Type': 'application/json',
-        'Content-Type': 'multipart/form-data',
-    },
+});
+
+api.interceptors.request.use((config) => {
+    if (config.data instanceof FormData) {
+        config.headers['Content-Type'] = 'multipart/form-data';
+    } else {
+        config.headers['Content-Type'] = 'application/json';
+    }
+    return config;
 });
 

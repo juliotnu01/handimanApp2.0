@@ -45,7 +45,34 @@
                     </div>
                 </template>
                 <template #segment-1>
-
+                    <div class="flex flex-col gap-4">
+                        <div v-for="direccion in direccionesDelUsuarioComputed" :key="direccion.id"
+                            class="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <p class="font-semibold text-gray-800">{{ direccion.direccion }}</p>
+                                <p class="text-xs text-gray-500 mt-1">Agregada: {{ new
+                                    Date(direccion.created_at).toLocaleDateString() }}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-gray-600">{{ direccion.status ? 'Activo' : 'Inactivo'
+                                    }}</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" :checked="direccion.status === 1"
+                                        @click.prevent="actualizarStatusDireccion(direccion.id, direccion.status)" />
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:bg-indigo-600 transition-colors">
+                                    </div>
+                                    <div
+                                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div v-if="direccionesDelUsuario.length === 0" class="text-center text-gray-500 py-8">
+                            No hay direcciones registradas.
+                            {{ direccionesDelUsuario }}
+                        </div>
+                    </div>
                 </template>
             </segment>
 
@@ -57,35 +84,46 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import { useDireccionesDeEnvioStore } from '@/stores/cliente/direccionesDeEnvioStore';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref, nextTick, watchEffect } from 'vue';
+import { onMounted, ref, nextTick, watchEffect, computed, watch } from 'vue';
 import segment from '@/components/segment.vue';
 
 
 const DireccionesDeEnvioStore = useDireccionesDeEnvioStore();
-const { isLoadingGuardar, direccionInput } = storeToRefs(DireccionesDeEnvioStore);
-const { inicializarMapa, inicializarAutocompletado, guardarDireccion } = DireccionesDeEnvioStore;
+const { isLoadingGuardar, direccionInput, direccionesDelUsuario } = storeToRefs(DireccionesDeEnvioStore);
+const { inicializarMapa, inicializarAutocompletado, guardarDireccion, obtenerDireccionesDeUsuario, actualizarStatusDireccion } = DireccionesDeEnvioStore;
 
 // Referencias para el mapa y el input de autocompletado
 const mapElement = ref(null);
 const autocompleteInput = ref(null);
 
-const handleSegmentChange = async (newIndex) => {
-    console.log('El segmento cambió a:', newIndex);
+const direccionesDelUsuarioComputed = computed({
+    get() {
+        return direccionesDelUsuario.value;
+    },
+    set(value) {
+        direccionesDelUsuario.value = value;
+    }
+});
 
+const handleSegmentChange = async (newIndex) => {
     if (newIndex === 0) {
-        await nextTick(); // Esperamos a que el DOM se actualice
-        // Usamos watchEffect para esperar a que mapElement y autocompleteInput estén disponibles
+        await nextTick();
+        obtenerDireccionesDeUsuario();
         const stopWatch = watchEffect(() => {
             if (mapElement.value && autocompleteInput.value && DireccionesDeEnvioStore.google) {
                 inicializarMapa(mapElement.value);
                 inicializarAutocompletado(autocompleteInput.value);
-                stopWatch(); // Dejamos de observar una vez que se cumple
+                stopWatch();
             }
         });
     }
 };
 
 onMounted(async () => {
+    console.log({
+        direccionesDelUsuarioComputed
+    });
+
     // Cargar la API de Google Maps si aún no está cargada
     if (!DireccionesDeEnvioStore.google) {
         await DireccionesDeEnvioStore.loader.load();
@@ -101,7 +139,15 @@ onMounted(async () => {
     if (autocompleteInput.value && DireccionesDeEnvioStore.google) {
         inicializarAutocompletado(autocompleteInput.value);
     }
+    obtenerDireccionesDeUsuario();
+
 });
 
 
 </script>
+
+<style scoped>
+ion-content {
+    --padding-bottom: 70px;
+}
+</style>

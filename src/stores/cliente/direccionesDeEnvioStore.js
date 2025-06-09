@@ -4,6 +4,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 import { showToast } from '@/utils/toast'
 import { api } from '../../common/apiJs';
 import { Preferences } from '@capacitor/preferences';
+import { useAppStore } from '../appStore'
 
 export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
     state: () => ({
@@ -19,9 +20,11 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
         map: null, // Almacenará la instancia del mapa
         marker: null, // Almacenará el marcador avanzado
         direccionSeleccionada: null, // Almacenará la dirección seleccionada
+        direccionesDelUsuario: [], // Almacenará las direcciones del usuario
     }),
     getters: {
         getDireccionSeleccionada: (state) => state.direccionSeleccionada,
+
     },
     actions: {
         async inicializarAutocompletado(inputElement) {
@@ -137,6 +140,54 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
             } catch (error) {
                 showToast(`error al guardar la dirrección ${JSON.stringify(error)}`, 1000);
             }
-        }
+        },
+        async obtenerDireccionesDeUsuario() {
+            try {
+                const { value } = await Preferences.get({ key: 'user' });
+                this.direccionesDelUsuario = (JSON.parse(value)?.addresses) || [];
+            } catch (error) {
+                console.error("Error al obtener las direcciones del usuario:", error);
+                this.direccionesDelUsuario = [];
+            }
+        },
+        async actualizarStatusDireccion(direccionId, status) {
+            try {
+                const appStore = useAppStore();
+                const { value } = await Preferences.get({ key: 'user' });
+                const { id } = JSON.parse(value); // user id
+                if (id) {
+                    await api.put(`/update-user-address-status/${direccionId}`, {
+                        status: !status, // Invierte el valor booleano de status
+                    });
+                    await appStore.getUserbyId(id); // Actualizar la información del usuario después de cambiar el estado
+                    await showToast('Estado de la dirección actualizado exitosamente.', 1000);
+                    await this.obtenerDireccionesDeUsuario(); // Actualizar la lista de direcciones después de cambiar el estado
+                } else {
+                    showToast('No se pudo obtener el ID del usuario.', 1000);
+                }
+            } catch (error) {
+                console.log({ error });
+
+                showToast(`Error al actualizar el estado de la dirección: ${JSON.stringify(error)}`, 1000);
+            }
+        },
+        async eliminarDireccion(direccionId) {
+            try {
+                const { value } = await Preferences.get({ key: 'user' });
+                const { id } = JSON.parse(value); // user id
+                if (id) {
+                    await api.post('/delete-user-address', {
+                        direccion_id: direccionId,
+                        user_id: id,
+                    });
+                    showToast('Dirección eliminada exitosamente.', 1000);
+                    await this.obtenerDireccionesDeUsuario(); // Actualizar la lista de direcciones después de eliminar
+                } else {
+                    showToast('No se pudo obtener el ID del usuario.', 1000);
+                }
+            } catch (error) {
+                showToast(`Error al eliminar la dirección: ${JSON.stringify(error)}`, 1000);
+            }
+        },
     },
 });
