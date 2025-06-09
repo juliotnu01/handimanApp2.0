@@ -47,7 +47,6 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
                         this.actualizarMapa(place.geometry.location);
                     }
                 });
-                console.log({ add: this.autocomplete });
 
             } catch (error) {
                 console.error("Error al inicializar el autocompletado:", error);
@@ -121,6 +120,7 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
         },
         async guardarDireccion() {
             const { formatted_address } = this.getDireccionSeleccionada;
+            const appStore = useAppStore();
             try {
                 if (formatted_address) {
                     const { value } = await Preferences.get({ key: 'user' });
@@ -130,6 +130,7 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
                             direccion: formatted_address,
                             user_id: id,
                         });
+                        await appStore.getUserbyId(id); // Actualizar la información del usuario después de cambiar el estado
                         showToast('Dirección guardada exitosamente.', 1000);
                     } else {
                         showToast('No se pudo obtener el ID del usuario.', 1000);
@@ -144,49 +145,61 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
         async obtenerDireccionesDeUsuario() {
             try {
                 const { value } = await Preferences.get({ key: 'user' });
-                this.direccionesDelUsuario = (JSON.parse(value)?.addresses) || [];
+                const addresses = (JSON.parse(value)?.addresses) || [];
+                this.direccionesDelUsuario = [];
+                for (const address of addresses) {
+                    this.direccionesDelUsuario.push({
+                        ...address,
+                        loading: false
+                    });
+                }
             } catch (error) {
                 console.error("Error al obtener las direcciones del usuario:", error);
                 this.direccionesDelUsuario = [];
             }
         },
-        async actualizarStatusDireccion(direccionId, status) {
+        async actualizarStatusDireccion(direccion, status) {
             try {
+                direccion.loading = true; // Establecer el estado de carga en true
                 const appStore = useAppStore();
                 const { value } = await Preferences.get({ key: 'user' });
                 const { id } = JSON.parse(value); // user id
                 if (id) {
-                    await api.put(`/update-user-address-status/${direccionId}`, {
+                    await api.put(`/update-user-address-status/${direccion.id}`, {
                         status: !status, // Invierte el valor booleano de status
                     });
                     await appStore.getUserbyId(id); // Actualizar la información del usuario después de cambiar el estado
                     await showToast('Estado de la dirección actualizado exitosamente.', 1000);
                     await this.obtenerDireccionesDeUsuario(); // Actualizar la lista de direcciones después de cambiar el estado
+                    direccion.loading = false; // Restablecer el estado de carga
                 } else {
+                    direccion.loading = false; // Restablecer el estado de carga
                     showToast('No se pudo obtener el ID del usuario.', 1000);
                 }
             } catch (error) {
-                console.log({ error });
-
+                direccion.loading = false; // Restablecer el estado de carga
                 showToast(`Error al actualizar el estado de la dirección: ${JSON.stringify(error)}`, 1000);
             }
         },
-        async eliminarDireccion(direccionId) {
+        async elimininarDireccion(direccion) {
             try {
+                direccion.loading = true; // Establecer el estado de carga en true
+                const appStore = useAppStore();
                 const { value } = await Preferences.get({ key: 'user' });
                 const { id } = JSON.parse(value); // user id
                 if (id) {
-                    await api.post('/delete-user-address', {
-                        direccion_id: direccionId,
-                        user_id: id,
-                    });
-                    showToast('Dirección eliminada exitosamente.', 1000);
-                    await this.obtenerDireccionesDeUsuario(); // Actualizar la lista de direcciones después de eliminar
+                    await api.delete(`/delete-user-address/${direccion.id}`);
+                    await appStore.getUserbyId(id);
+                    await showToast('Dirección eliminada exitosamente.', 1000);
+                    await this.obtenerDireccionesDeUsuario();
+                    direccion.loading = false;
                 } else {
+                    direccion.loading = false;
                     showToast('No se pudo obtener el ID del usuario.', 1000);
                 }
             } catch (error) {
-                showToast(`Error al eliminar la dirección: ${JSON.stringify(error)}`, 1000);
+                direccion.loading = false;
+                showToast(`Error al actualizar el estado de la dirección: ${JSON.stringify(error)}`, 1000);
             }
         },
     },

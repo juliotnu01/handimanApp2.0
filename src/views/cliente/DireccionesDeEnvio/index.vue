@@ -53,19 +53,49 @@
                                 <p class="text-xs text-gray-500 mt-1">Agregada: {{ new
                                     Date(direccion.created_at).toLocaleDateString() }}</p>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm text-gray-600">{{ direccion.status ? 'Activo' : 'Inactivo'
+                            <div class="flex items-center gap-2 justify-between">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-sm text-gray-600">{{ direccion.status ? 'Activo' : 'Inactivo'
                                     }}</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" :checked="direccion.status === 1"
-                                        @click.prevent="actualizarStatusDireccion(direccion.id, direccion.status)" />
-                                    <div
-                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:bg-indigo-600 transition-colors">
-                                    </div>
-                                    <div
-                                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
-                                    </div>
-                                </label>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" :checked="direccion.status === 1"
+                                            @click.prevent="actualizarStatusDireccion(direccion, direccion.status)" />
+                                        <div
+                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:bg-indigo-600 transition-colors">
+                                        </div>
+                                        <div
+                                            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+                                        </div>
+                                        <div
+                                            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5 flex items-center justify-center">
+                                            <svg v-if="direccion.loading" class="animate-spin h-4 w-4 text-indigo-600"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                    stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </div>
+                                <button class="p-2 rounded-full hover:bg-red-100 transition-colors"
+                                    @click="elimininarDireccion(direccion)" :disabled="direccion.loading"
+                                    title="Eliminar dirección">
+                                    <svg v-if="direccion.loading" class="animate-spin h-4 w-4 text-red-600"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+                                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h10" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                         <div v-if="direccionesDelUsuario.length === 0" class="text-center text-gray-500 py-8">
@@ -84,15 +114,14 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import { useDireccionesDeEnvioStore } from '@/stores/cliente/direccionesDeEnvioStore';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref, nextTick, watchEffect, computed, watch } from 'vue';
+import { onMounted, ref, nextTick, watchEffect, computed } from 'vue';
 import segment from '@/components/segment.vue';
 
 
 const DireccionesDeEnvioStore = useDireccionesDeEnvioStore();
 const { isLoadingGuardar, direccionInput, direccionesDelUsuario } = storeToRefs(DireccionesDeEnvioStore);
-const { inicializarMapa, inicializarAutocompletado, guardarDireccion, obtenerDireccionesDeUsuario, actualizarStatusDireccion } = DireccionesDeEnvioStore;
+const { inicializarMapa, inicializarAutocompletado, guardarDireccion, obtenerDireccionesDeUsuario, actualizarStatusDireccion, elimininarDireccion } = DireccionesDeEnvioStore;
 
-// Referencias para el mapa y el input de autocompletado
 const mapElement = ref(null);
 const autocompleteInput = ref(null);
 
@@ -120,22 +149,13 @@ const handleSegmentChange = async (newIndex) => {
 };
 
 onMounted(async () => {
-    console.log({
-        direccionesDelUsuarioComputed
-    });
-
-    // Cargar la API de Google Maps si aún no está cargada
     if (!DireccionesDeEnvioStore.google) {
         await DireccionesDeEnvioStore.loader.load();
         DireccionesDeEnvioStore.google = window.google; // Asignar la API global
     }
-
-    // Inicializar el mapa
     if (mapElement.value && DireccionesDeEnvioStore.google) {
         inicializarMapa(mapElement.value);
     }
-
-    // Inicializar el autocompletado
     if (autocompleteInput.value && DireccionesDeEnvioStore.google) {
         inicializarAutocompletado(autocompleteInput.value);
     }
