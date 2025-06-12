@@ -13,7 +13,7 @@ export const useClienteStore = defineStore('cliente', {
             '456 Elm St, Shelbyville, IL',
             '789 Oak St, Capital City, IL'
         ], // Array de direcciones disponibles
-        selectedDireccion: '789 Oak St, Capital City, IL', // Dirección seleccionada actualmente
+        selectedDireccion: '', // Dirección seleccionada actualmente
         range: { lower: 20, upper: 9999999 }, // Rango de valores para filtrado
         hasOffer: false, // Indica si hay ofertas disponibles
         isOpenFilter: false, // Indica si el filtro está abierto

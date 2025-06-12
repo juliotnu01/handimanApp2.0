@@ -37,37 +37,46 @@
                     </button>
                 </div>
                 <!-- fin menu superior -->
-                <!-- direccion de envio -->
-                <ion-item class="w-fit h-8 self-center rounded-lg  ml-auto flex px-2  border-none  ">
-                    <ion-select justify="end" label="Dirección de Envio"
-                        class="text-xs text-purple-800 font-medium self-center border-none " interface="popover"
-                        v-model="selectedDireccion">
-                        <ion-select-option v-for="(direccion, d) in direcciones" :key="d" :value="direccion"
-                            class="text-xs text-blue-600 hover:bg-purple-100">
-                            {{ direccion }}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <!-- fin direccion de envio -->
+
             </ion-toolbar>
         </ion-header>
 
         <ion-menu menu-id="menu-izquierda" content-id="main-content-cliente">
-            <ion-header class="ion-padding">
-                <ion-item class=" -mb-4 ">
-                    <ion-avatar class="mr-5 ">
+            <ion-header class=" pt-4 px-4 ">
+                <div class="flex items-center gap-2 pt-4 bg-white rounded-lg ml-3 ">
+                    <div
+                        class="w-14 h-14 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center bg-gray-200 shrink-0">
                         <generalAvatar />
-                    </ion-avatar>
-                    <ion-label>
-                        <ion-label>{{ user_name }}</ion-label>
-                        <ion-label>
-                            {{ email_user }}
-                        </ion-label>
-                    </ion-label>
-                </ion-item>
+                    </div>
+                    <div class="flex flex-col items-start">
+                        <div class="flex flex-col -space-y-[5px]">
+                            <span class="font-semibold text-gray-900 dark:text-black">{{ user_name }}</span>
+                            <span class="text-gray-500 dark:text-gray-700">{{ email_user }}</span>
+                        </div>
+                        <!-- direccion de envio -->
+                        <div class="w-full max-w-xs">
+                            <select
+                                class="text-xs -ml-1 font-medium border-none bg-white rounded-sm dark:text-black w-full truncate overflow-ellipsis"
+                                v-model="selectedDireccion"
+                            >
+                                <option  value="">Selecciona una dirección</option>
+                                <option
+                                    v-for="(direccion, d) in direccionesDelUsuario.filter(dir => dir.status === 1)"
+                                    :key="d"
+                                    :value="direccion"
+                                    class="text-xs hover:bg-[#cecece] truncate"
+                                >
+                                    {{ direccion.direccion }}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- fin direccion de envio -->
+                    </div>
+                </div>
+                <hr class="mx-auto mt-2" />
             </ion-header>
-            <ion-content class="ion-padding">
-                <ion-list>
+            <ion-content class="ion-padding ">
+                <ion-list class="-mt-6 ">
                     <ion-item router-direction="root" :router-link="p.url" lines="none" v-for="(p, i) in appPages"
                         :key="i" class="" @click="closeMenu">
                         <ion-icon #="start" :ios="p.iosIcon" :md="p.mdIcon" class="mr-2"></ion-icon>
@@ -559,7 +568,6 @@
 
 <script setup>
 import {
-    IonApp,
     IonContent,
     IonPage,
     IonMenu,
@@ -568,41 +576,36 @@ import {
     IonItem,
     IonLabel,
     IonModal,
-    IonSelect,
-    IonSelectOption,
-    IonSearchbar,
     IonSegment,
     IonSegmentButton,
     IonInput,
     IonCheckbox,
     IonRange,
     IonRouterOutlet,
-    IonRefresher,
     IonIcon,
-    IonAvatar,
     IonButton,
     IonToolbar,
     IonFooter,
     menuController,
-    IonButtons
 } from '@ionic/vue';
 import { computed, onMounted } from 'vue';
 import { useClienteStore } from '@/stores/cliente/clienteStore';
 import { useHomeStore } from '@/stores/cliente/homeStore';
-import { useUserViewStore } from '@/stores/cliente/userViewStore';
 import { storeToRefs } from 'pinia';
 import { Preferences } from "@capacitor/preferences";
 import { useRouter, useRoute } from 'vue-router';
 import { useAppStore } from '@/stores/appStore';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import generalAvatar from '@/components/generalAvatar.vue'
+import { useDireccionesDeEnvioStore } from '@/stores/cliente/direccionesDeEnvioStore'
 
 // Stores
 const route = useRoute();
 const router = useRouter();
 const clienteStore = useClienteStore();
 const homeStore = useHomeStore();
-const userViewStore = useUserViewStore();
+const direccionesDeEnvioStore = useDireccionesDeEnvioStore()
+
 const appStore = useAppStore();
 
 const isUserViewPage = computed(() => route.path !== '/cliente/user');
@@ -611,8 +614,8 @@ const isHomePage = computed(() => route.path === '/cliente/home');
 
 // Cliente
 const { openMenuIzquierda,
-    openMenuDerecha,
-    setOpenFilter,
+
+
     pinFormatter,
     handleUpperChange,
     handleReviewChange,
@@ -625,25 +628,28 @@ const { openMenuIzquierda,
     loadAvatarUser,
     loadBasicInformationUser } = clienteStore;
 const {
-    direcciones,
     selectedDireccion,
     range,
     hasOffer,
-    hasOfferReseña,
+
     hasReview,
     isOpenCarritoDeCompras,
     isCartOpen,
     cartItems,
-    modo,
+
     appPages,
     user_name,
     email_user,
-    avatar_user
+
 } = storeToRefs(clienteStore);
+
+// direcciones de envio
+const { obtenerDireccionesDeUsuario } = direccionesDeEnvioStore;
+const { direccionesDelUsuario } = storeToRefs(direccionesDeEnvioStore)
 
 // Home
 const { closeModalFilter, closeModal } = homeStore;
-const { isOpenFilter, isOpen, services, items, } = storeToRefs(homeStore);
+const { isOpenFilter, isOpen, items, } = storeToRefs(homeStore);
 const isOpenFilterComputed = computed({
     get: () => isOpenFilter.value,
     set: (value) => { isOpenFilter.value = value; }
@@ -679,6 +685,8 @@ const logout = () => {
 };
 
 onMounted(() => {
+    console.log({ direccionesDelUsuario });
+    obtenerDireccionesDeUsuario();
     loadUserName();
     loadEmailUser();
     loadAvatarUser();

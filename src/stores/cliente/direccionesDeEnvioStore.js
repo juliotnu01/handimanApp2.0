@@ -19,7 +19,7 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
         autocomplete: null, // Almacenará la instancia del autocompletado
         map: null, // Almacenará la instancia del mapa
         marker: null, // Almacenará el marcador avanzado
-        direccionSeleccionada: null, // Almacenará la dirección seleccionada
+        direccionSeleccionada: "", // Almacenará la dirección seleccionada
         direccionesDelUsuario: [], // Almacenará las direcciones del usuario
     }),
     getters: {
