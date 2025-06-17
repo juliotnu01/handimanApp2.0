@@ -5,6 +5,7 @@ import { showToast } from '@/utils/toast'
 import { api } from '../../common/apiJs';
 import { Preferences } from '@capacitor/preferences';
 import { useAppStore } from '../appStore'
+import { Geolocation } from '@capacitor/geolocation';
 
 export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
     state: () => ({
@@ -29,6 +30,8 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
     actions: {
         async inicializarAutocompletado(inputElement) {
             try {
+
+
                 // Cargar la API de Google Maps
                 this.google = await this.loader.load();
 
@@ -59,10 +62,14 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
                 if (!this.google) {
                     this.google = await this.loader.load();
                 }
+                const posicion = await Geolocation.getCurrentPosition();
+                const latitud = posicion.coords.latitude;
+                const longitud = posicion.coords.longitude;
+
 
                 const mapOptions = {
-                    center: { lat: 10.6545, lng: -71.6344 }, // Coordenadas iniciales (Maracaibo, Zulia, Venezuela)
-                    zoom: 15,
+                    center: { lat: latitud, lng: longitud }, // Coordenadas iniciales (Maracaibo, Zulia, Venezuela)
+                    zoom: 16,
                     disableDefaultUI: true, // Desactivar todos los controles predeterminados
                     zoomControl: false, // Desactivar el control de zoom
                     mapTypeControl: false, // Desactivar el control de tipo de mapa
@@ -78,20 +85,22 @@ export const useDireccionesDeEnvioStore = defineStore('Direcciones de envio', {
                 // Crear el marcador avanzado
                 this.marker = new this.google.maps.Marker({
                     map: this.map,
-                    position: { lat: 10.6545, lng: -71.6344 }, // Posición inicial
+                    position: { lat: latitud, lng: longitud }, // Posición inicial
                     draggable: true,
 
                 });
 
-                // Escuchar cuando el usuario arrastra el marcador
+                this.actualizarDireccionDesdeMarcador({ lat: latitud, lng: longitud });
+
+                // Escuchar cuando el usuario arrastra el marcador  
                 this.google.maps.event.addListener(this.marker, "dragend", (event) => {
                     this.actualizarDireccionDesdeMarcador(event.latLng);
                 });
 
-                // Escuchar clics en el mapa
-                this.google.maps.event.addListener(this.map, "click", (event) => {
-                    this.actualizarDireccionDesdeMarcador(event.latLng);
-                });
+                // // Escuchar clics en el mapa
+                // this.google.maps.event.addListener(this.map, "click", (event) => {
+                //     this.actualizarDireccionDesdeMarcador(event.latLng);
+                // });
             } catch (error) {
                 console.error("Error al inicializar el mapa:", error);
             }
