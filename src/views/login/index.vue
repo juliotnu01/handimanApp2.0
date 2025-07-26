@@ -2,27 +2,27 @@
     <ion-page>
         <ion-content :fullscreen="true">
             <div
-                class="bg-gradient-to-br from-indigo-100 via-purple-200 to-pink-100 min-h-screen flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+                class="bg-gradient-to-br from-indigo-100 via-purple-200 to-pink-100 min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
                 <!-- Contenedor Principal -->
                 <div
                     class="relative w-full max-w-md sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl overflow-hidden max-h-screen overflow-y-auto">
 
                     <!-- Encabezado -->
-                    <div class="px-6 pt-16 pb-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center">
-                        <div class="inline-block bg-white rounded-full shadow-md p-2 -mt-12 mb-4">
-                            <img src="/logo.png" alt="Logo" class="h-16 w-16 " />
+                    <div class="px-4 pt-10 pb-6 sm:px-6 sm:pt-12 sm:pb-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center">
+                        <div class="inline-block bg-white rounded-full shadow-md p-2 -mt-8 mb-4">
+                            <img src="/logo.png" alt="Logo" class="h-[4rem] w-[4rem] sm:h-[5rem] sm:w-[5rem]" />
                         </div>
-                        <h1 class="text-3xl font-semibold tracking-tight">Bienvenido a Citius</h1>
-                        <p class="mt-2 text-lg font-light">Explora tus posibilidades</p>
+                        <h1 class="text-[2rem] sm:text-[2.5rem] font-semibold tracking-tight">Bienvenido a Citius</h1>
+                        <p class="mt-2 text-[1rem] sm:text-[1.125rem] font-light">Explora tus posibilidades</p>
                     </div>
 
                     <!-- Contenido del Formulario -->
-                    <div class="px-8 py-12">
+                    <div class="px-6 py-8 sm:px-8 sm:py-10">
                         <segment :segments="['Iniciar Sesión', 'Registrarse']" v-model="currentSegment">
                             <template #segment-0>
                                 <form class="space-y-6">
                                     <div>
-                                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo
+                                        <label for="email" class="block text-gray-700 text-[0.875rem] font-bold mb-2">Correo
                                             Electrónico</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
@@ -35,7 +35,7 @@
 
                                     <div>
                                         <label for="password"
-                                            class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                                            class="block text-gray-700 text-[0.875rem] font-bold mb-2">Contraseña</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
                                             <ion-input id="password" v-model="model.password" type="password"
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="flex items-center justify-between">
-                                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500 ">¿Olvidaste tu
+                                        <a href="#" class="text-[0.875rem] text-indigo-600 hover:text-indigo-500 ">¿Olvidaste tu
                                             contraseña?</a>
                                     </div>
 
@@ -69,7 +69,7 @@
                             <template #segment-1>
                                 <form class="space-y-2">
                                     <div>
-                                        <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Nombre
+                                        <label for="username" class="block text-gray-700 text-[0.875rem] font-bold mb-2">Nombre
                                             de Usuario</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
@@ -82,7 +82,7 @@
 
                                     <div>
                                         <label for="register-email"
-                                            class="block text-gray-700 text-sm font-bold mb-2">Correo
+                                            class="block text-gray-700 text-[0.875rem] font-bold mb-2">Correo
                                             Electrónico</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
@@ -95,7 +95,7 @@
 
                                     <div>
                                         <label for="register-password"
-                                            class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                                            class="block text-gray-700 text-[0.875rem] font-bold mb-2">Contraseña</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
                                             <ion-input id="register-password" type="password" placeholder="******"
@@ -107,7 +107,7 @@
 
                                     <div>
                                         <label for="confirm-password"
-                                            class="block text-gray-700 text-sm font-bold mb-2">Confirmar
+                                            class="block text-gray-700 text-[0.875rem] font-bold mb-2">Confirmar
                                             Contraseña</label>
                                         <ion-item lines="none"
                                             class="custom-input-container rounded-md shadow-sm focus-within:ring focus-within:ring-indigo-200">
@@ -119,7 +119,7 @@
                                     </div>
                                     <div>
                                         <label for="mode"
-                                            class="block text-gray-700 text-sm font-bold mb-2">Modo</label>
+                                            class="block text-gray-700 text-[0.875rem] font-bold mb-2">Modo</label>
                                         <div class="flex  custom-input-container rounded-md shadow-sm items-center  ">
                                             <div v-if="model_register.mode === 'cliente'"
                                                 class="flex justify-center items-center flex-shrink-0 ml-3 bg-white">
@@ -181,7 +181,7 @@
                                 <div class="absolute inset-0 flex items-center">
                                     <div class="w-full border-t border-gray-300"></div>
                                 </div>
-                                <div class="relative flex justify-center text-sm">
+                                <div class="relative flex justify-center text-[0.875rem]">
                                     <span class="px-2 bg-white text-gray-500">
                                         O inicia sesión con
                                     </span>
@@ -190,7 +190,7 @@
 
                             <div class="mt-6 flex justify-center gap-4">
                                 <button type="button"
-                                    class="w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
+                                    class="w-[3rem] h-[3rem] sm:w-[3.5rem] sm:h-[3.5rem] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
                                     <svg width="48px" height="48px" viewBox="-0.5 0 48 48" fill="none">
 
                                         <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -222,7 +222,7 @@
                                     </svg>
                                 </button>
                                 <button type="button"
-                                    class="w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
+                                    class="w-[3rem] h-[3rem] sm:w-[3.5rem] sm:h-[3.5rem] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
                                     <svg width="48px" height="48px" viewBox="0 0 16 16" fill="none">
                                         <path fill="#1877F2"
                                             d="M15 8a7 7 0 00-7-7 7 7 0 00-1.094 13.915v-4.892H5.13V8h1.777V6.458c0-1.754 1.045-2.724 2.644-2.724.766 0 1.567.137 1.567.137v1.723h-.883c-.87 0-1.14.54-1.14 1.093V8h1.941l-.31 2.023H9.094v4.892A7.001 7.001 0 0015 8z" />
@@ -233,7 +233,7 @@
                             </div>
                         </div>
 
-                        <p class="mt-8 text-center text-sm text-gray-500">
+                        <p class="mt-8 text-center text-[0.875rem] text-gray-500">
                             ¿No tienes una cuenta?
                         </p>
                         <div class="font-medium text-indigo-600 hover:text-indigo-500 text-center"

@@ -57,15 +57,10 @@
                         <div class="w-full max-w-xs">
                             <select
                                 class="text-xs -ml-1 font-medium border-none bg-white rounded-sm dark:text-black w-full truncate overflow-ellipsis"
-                                v-model="selectedDireccion"
-                            >
-                                <option  value="">Selecciona una dirección</option>
-                                <option
-                                    v-for="(direccion, d) in direccionesDelUsuario.filter(dir => dir.status === 1)"
-                                    :key="d"
-                                    :value="direccion"
-                                    class="text-xs hover:bg-[#cecece] truncate"
-                                >
+                                v-model="internalSelectedDireccion">
+                                <option value="">Selecciona una dirección</option>
+                                <option v-for="(direccion, d) in direccionesDelUsuario.filter(dir => dir.status === 1)"
+                                    :key="d" :value="direccion" class="text-xs hover:bg-[#cecece] truncate">
                                     {{ direccion.direccion }}
                                 </option>
                             </select>
@@ -598,7 +593,6 @@ import { useAppStore } from '@/stores/appStore';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import generalAvatar from '@/components/generalAvatar.vue'
 import { useDireccionesDeEnvioStore } from '@/stores/cliente/direccionesDeEnvioStore'
-
 // Stores
 const route = useRoute();
 const router = useRouter();
@@ -674,6 +668,30 @@ const goToOrdenesView = () => router.push({ name: 'ordenes-view' });
 const goToNotificacionesView = () => router.push({ name: 'notificaciones-view' });
 const goToUserViewPage = () => router.push({ name: 'user-view' });
 const closeMenu = async () => await menuController.close('menu-izquierda');
+
+
+
+// Variable computada de doble vía para el select
+const internalSelectedDireccion = computed({
+    get() {
+        return selectedDireccion.value;
+    },
+    set(newValue) {
+        selectedDireccion.value = newValue;
+        saveDireccion(newValue);
+    }
+});
+
+const loadDireccion = async () => {
+    const { value } = await Preferences.get({ key: 'selectedDireccion' });
+    internalSelectedDireccion.value = value || ''; // Valor por defecto si no existe
+};
+
+const saveDireccion = async (direccion) => {
+    await Preferences.set({ key: 'selectedDireccion', value: direccion.direccion });
+};
+
+
 const logout = () => {
     appStore.openModal('¿Estás seguro que quieres cerrar sesión?', () => {
         appStore.setIsLoading(true);
@@ -685,12 +703,12 @@ const logout = () => {
 };
 
 onMounted(() => {
-    console.log({ direccionesDelUsuario });
     obtenerDireccionesDeUsuario();
     loadUserName();
     loadEmailUser();
     loadAvatarUser();
     loadBasicInformationUser();
+    loadDireccion();
 });
 </script>
 
